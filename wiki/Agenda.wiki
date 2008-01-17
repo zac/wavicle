@@ -1,8 +1,4 @@
-#summary One-sentence summary of this page.
-
-= Introduction =
-
-Agendas for the Spring 2008 semester.
+#summary Agendas for the Spring 2008 semester
 
 = Details =
 
