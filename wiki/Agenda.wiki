@@ -7,8 +7,8 @@ Agendas for the Spring 2008 semester.
 = Details =
 
 ==Agenda: Jan. 17th==
-- [+] Introduce each other
-- [+] Brainstorm name
-- [+] Set up Subversion hosting on Google Code
-- [ ] Research WAV format
-- [ ] Write agenda for next week
+ * Introduce each other
+ * Brainstorm name
+ * Set up Subversion hosting on Google Code
+ * Research WAV format
+ * Write agenda for next week
