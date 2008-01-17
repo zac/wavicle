@@ -8,3 +8,12 @@
  * Set up Subversion hosting on Google Code
  * Research WAV format
  * Write agenda for next week
+
+==Agenda: Jan. 22nd==
+ * Lean more about WAV format
+ * Design/code style sheets
+ * Source-code control procedures
+ * Defect tracking procedures
+ * test procedures
+ * PROBE estimate
+ * Make agenda for next week
