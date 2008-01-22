@@ -15,10 +15,10 @@
  * Source-code control procedures (SourceCodeControlProcedures)
  * Defect tracking procedures (DefectProcedures)
  * test procedures (TestProcedures)
- * PROBE estimate (PROBEEstimate)
+ * PROBE estimate (ProbeEstimate)
  * Make agenda for next meeting
 
 ==Agenda: Jan 24th==
- * Create WAV format page (WAVFormat)
- * Do PROBE estimate (PROBEEstimate)
+ * Create WAV format page (WavFormat)
+ * Do PROBE estimate (ProbeEstimate)
  * Make agenda for next meeting
