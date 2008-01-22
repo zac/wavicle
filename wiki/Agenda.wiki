@@ -13,7 +13,10 @@
  * Learn more about WAV format
  * Design/code style sheets (CodeStyleSheets)
  * Source-code control procedures (SourceCodeControlProcedures)
- * Defect tracking procedures
- * test procedures
- * PROBE estimate
- * Make agenda for next week
+ * Defect tracking procedures (DefectProcedures)
+ * test procedures (TestProcedures)
+ * PROBE estimate (PROBEEstimate)
+ * Make agenda for next meeting
+
+==Agenda: Jan 24th==
+ * 
