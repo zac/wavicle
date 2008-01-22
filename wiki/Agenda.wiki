@@ -11,8 +11,8 @@
 
 ==Agenda: Jan. 22nd==
  * Learn more about WAV format
- * Design/code style sheets
- * Source-code control procedures
+ * Design/code style sheets (CodeStyleSheets)
+ * Source-code control procedures (SourceCodeControlProcedures)
  * Defect tracking procedures
  * test procedures
  * PROBE estimate
