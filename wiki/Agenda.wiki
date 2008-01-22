@@ -19,4 +19,6 @@
  * Make agenda for next meeting
 
 ==Agenda: Jan 24th==
- * 
+ * Create WAV format page (WAVFormat)
+ * Do PROBE estimate (PROBEEstimate)
+ * Make agenda for next meeting
