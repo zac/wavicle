@@ -1,0 +1,16 @@
+#summary Coding styles.
+
+= Introduction =
+
+Add your content here.
+
+
+= Details =
+
+Design/code style sheets:
+ * 80 character lines
+ * LISP naming conventions
+   * function-name
+   * variable-name
+   * etc.
+ * Copious comments
