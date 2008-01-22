@@ -1,9 +1,0 @@
-#summary Description of WAV format used by wAviCLe.
-
-= Introduction =
-
-wAviCLe uses a certain subset of the WAV format which is uncompressed. It is documented below.
-
-
-= Details =
-
