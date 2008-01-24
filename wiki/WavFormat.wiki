@@ -4,5 +4,7 @@
 
 wAviCLe uses a certain subset of the WAV format which is uncompressed. It is documented below.
 
+More information:
+http://ccrma.stanford.edu/courses/422/projects/WaveFormat/
 
 = Details =
