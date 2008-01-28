@@ -1,0 +1,422 @@
+Welcome to OpenMCL Version (Beta: Darwin) 0.14.3!
+
+ ACL2 Version 3.2 built August 21, 2007  18:38:06.
+ Copyright (C) 2007  University of Texas at Austin
+ ACL2 comes with ABSOLUTELY NO WARRANTY.  This is free software and you
+ are welcome to redistribute it under certain conditions.  For details,
+ see the GNU General Public License.
+
+ Initialized with (INITIALIZE-ACL2 'INCLUDE-BOOK *ACL2-PASS-2-FILES*).
+ See the documentation topic note-3-2 for recent changes.
+ Note: We have modified the prompt in some underlying Lisps to further
+ distinguish it from the ACL2 prompt.
+
+ NOTE!!  Proof trees are disabled in ACL2.  To enable them in emacs,
+ look under the ACL2 source directory in interface/emacs/README.doc; 
+ and, to turn on proof trees, execute :START-PROOF-TREE in the ACL2 
+ command loop.   Look in the ACL2 documentation under PROOF-TREE.
+
+ACL2 Version 3.2.  Level 1.  Cbd 
+"/Users/zac/Desktop/acl2-sources/books/cowles/".
+Type :help for help.
+Type (good-bye) to quit completely out of ACL2.
+
+ACL2 !>
+Exiting the ACL2 read-eval-print loop.  To re-enter, execute (LP).
+? [RAW LISP] #<Package "ACL2">
+? [RAW LISP] 
+ACL2 Version 3.2.  Level 1.  Cbd 
+"/Users/zac/Desktop/acl2-sources/books/cowles/".
+Type :help for help.
+Type (good-bye) to quit completely out of ACL2.
+
+ACL2 !> (PROVE PROOF-TREE
+        WARNING OBSERVATION EVENT EXPANSION)
+ACL2 !>
+Summary
+Form:  ( DEFPKG "ACL2-ASG" ...)
+Rules: NIL
+Warnings:  None
+Time:  0.07 seconds (prove: 0.00, print: 0.00, other: 0.07)
+ "ACL2-ASG"
+ACL2 !>
+Summary
+Form:  ( DEFPKG "ACL2-AGP" ...)
+Rules: NIL
+Warnings:  None
+Time:  0.08 seconds (prove: 0.00, print: 0.00, other: 0.08)
+ "ACL2-AGP"
+ACL2 !>
+Summary
+Form:  ( INCLUDE-BOOK "acl2-asg" ...)
+Rules: NIL
+Warnings:  None
+Time:  0.11 seconds (prove: 0.00, print: 0.00, other: 0.11)
+"/Users/zac/Desktop/acl2-sources/books/cowles/acl2-asg.lisp"
+
+Summary
+Form:  ( DEFUN EQUIV ...)
+Rules: ((:FAKE-RUNE-FOR-TYPE-SET NIL))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+EQUIV
+
+Summary
+Form:  ( DEFUN PRED ...)
+Rules: ((:FAKE-RUNE-FOR-TYPE-SET NIL))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+PRED
+
+Summary
+Form:  ( DEFUN OP ...)
+Rules: NIL
+Warnings:  None
+Time:  0.01 seconds (prove: 0.00, print: 0.00, other: 0.01)
+OP
+
+Summary
+Form:  ( DEFUN ID ...)
+Rules: NIL
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+ID
+
+Summary
+Form:  ( DEFUN INV ...)
+Rules: NIL
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+INV
+
+Summary
+Form:  ( DEFTHM EQUIV-IS-AN-EQUIVALENCE ...)
+Rules: ((:COMPOUND-RECOGNIZER BOOLEANP-COMPOUND-RECOGNIZER)
+        (:DEFINITION EQUIV)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:TYPE-PRESCRIPTION EQUIV))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+EQUIV-IS-AN-EQUIVALENCE
+
+Summary
+Form:  ( DEFTHM EQUIV-1-IMPLIES-EQUIV-OP ...)
+Rules: ((:DEFINITION EQUIV))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+EQUIV-1-IMPLIES-EQUIV-OP
+
+Summary
+Form:  ( DEFTHM EQUIV-2-IMPLIES-EQUIV-OP ...)
+Rules: ((:DEFINITION EQUIV))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+EQUIV-2-IMPLIES-EQUIV-OP
+
+Summary
+Form:  ( DEFTHM CLOSURE-OF-OP-FOR-PRED ...)
+Rules: ((:DEFINITION PRED)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:TYPE-PRESCRIPTION OP)
+        (:TYPE-PRESCRIPTION PRED))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+CLOSURE-OF-OP-FOR-PRED
+
+Summary
+Form:  ( DEFTHM CLOSURE-OF-ID-FOR-PRED ...)
+Rules: ((:EXECUTABLE-COUNTERPART ID)
+        (:EXECUTABLE-COUNTERPART PRED)
+        (:TYPE-PRESCRIPTION PRED))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+CLOSURE-OF-ID-FOR-PRED
+
+Summary
+Form:  ( DEFTHM CLOSURE-OF-INV-FOR-PRED ...)
+Rules: ((:DEFINITION INV)
+        (:DEFINITION PRED)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:TYPE-PRESCRIPTION PRED))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+CLOSURE-OF-INV-FOR-PRED
+
+Summary
+Form:  ( DEFTHM COMMUTATIVITY-OF-OP ...)
+Rules: ((:DEFINITION EQUIV)
+        (:DEFINITION PRED)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:EXECUTABLE-COUNTERPART OP)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+COMMUTATIVITY-OF-OP
+
+Summary
+Form:  ( DEFTHM ASSOCIATIVITY-OF-OP ...)
+Rules: ((:DEFINITION EQUIV)
+        (:DEFINITION PRED)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:EXECUTABLE-COUNTERPART OP)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+ASSOCIATIVITY-OF-OP
+
+Summary
+Form:  ( DEFTHM LEFT-UNICITY-OF-ID-FOR-OP ...)
+Rules: ((:DEFINITION EQUIV)
+        (:DEFINITION PRED)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:EXECUTABLE-COUNTERPART ID)
+        (:EXECUTABLE-COUNTERPART OP)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+LEFT-UNICITY-OF-ID-FOR-OP
+
+Summary
+Form:  ( DEFTHM RIGHT-INVERSE-OF-INV-FOR-OP ...)
+Rules: ((:DEFINITION EQUIV)
+        (:DEFINITION INV)
+        (:DEFINITION PRED)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:EXECUTABLE-COUNTERPART ID)
+        (:EXECUTABLE-COUNTERPART OP)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+RIGHT-INVERSE-OF-INV-FOR-OP
+
+Summary
+Form:  ( ENCAPSULATE ((EQUIV ...) ...) ...)
+Rules: NIL
+Warnings:  None
+Time:  0.05 seconds (prove: 0.01, print: 0.00, other: 0.04)
+T
+
+Summary
+Form:  ( DEFTHM ACL2-ASG::ASSOCIATIVITY-OF-OP-NAME ...)
+Rules: ((:EQUIVALENCE EQUIV-IS-AN-EQUIVALENCE)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE ASSOCIATIVITY-OF-OP))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+ACL2-ASG::ASSOCIATIVITY-OF-OP-NAME
+
+Summary
+Form:  ( DEFTHM COMMUTATIVITY-2-OF-OP ...)
+Rules: ((:COMPOUND-RECOGNIZER BOOLEANP-COMPOUND-RECOGNIZER)
+        (:CONGRUENCE EQUIV-2-IMPLIES-EQUIV-OP)
+        (:EQUIVALENCE EQUIV-IS-AN-EQUIVALENCE)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE ACL2-ASG::ASSOCIATIVITY-OF-OP-NAME)
+        (:REWRITE CLOSURE-OF-OP-FOR-PRED)
+        (:REWRITE COMMUTATIVITY-OF-OP)
+        (:TYPE-PRESCRIPTION EQUIV-IS-AN-EQUIVALENCE))
+Warnings:  None
+Time:  0.01 seconds (prove: 0.00, print: 0.00, other: 0.00)
+COMMUTATIVITY-2-OF-OP
+
+Summary
+Form:  ( ENCAPSULATE NIL (LOCAL ...) ...)
+Rules: NIL
+Warnings:  None
+Time:  0.01 seconds (prove: 0.01, print: 0.00, other: 0.01)
+T
+
+Summary
+Form:  ( DEFTHM RIGHT-UNICITY-OF-ID-FOR-OP ...)
+Rules: ((:EQUIVALENCE EQUIV-IS-AN-EQUIVALENCE)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE CLOSURE-OF-ID-FOR-PRED)
+        (:REWRITE COMMUTATIVITY-OF-OP)
+        (:REWRITE LEFT-UNICITY-OF-ID-FOR-OP))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+RIGHT-UNICITY-OF-ID-FOR-OP
+
+Summary
+Form:  ( DEFTHM LEFT-INVERSE-OF-INV-FOR-OP ...)
+Rules: ((:EQUIVALENCE EQUIV-IS-AN-EQUIVALENCE)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE CLOSURE-OF-INV-FOR-PRED)
+        (:REWRITE COMMUTATIVITY-OF-OP)
+        (:REWRITE RIGHT-INVERSE-OF-INV-FOR-OP))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+LEFT-INVERSE-OF-INV-FOR-OP
+
+Summary
+Form:  ( DEFTHM RIGHT-CANCELLATION-FOR-OP-IFF ...)
+Rules: ((:CONGRUENCE EQUIV-1-IMPLIES-EQUIV-OP)
+        (:CONGRUENCE EQUIV-2-IMPLIES-EQUIV-OP)
+        (:DEFINITION IFF)
+        (:EQUIVALENCE EQUIV-IS-AN-EQUIVALENCE)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE ASSOCIATIVITY-OF-OP)
+        (:REWRITE CLOSURE-OF-INV-FOR-PRED)
+        (:REWRITE RIGHT-INVERSE-OF-INV-FOR-OP)
+        (:REWRITE RIGHT-UNICITY-OF-ID-FOR-OP))
+Warnings:  None
+Time:  0.01 seconds (prove: 0.01, print: 0.00, other: 0.00)
+RIGHT-CANCELLATION-FOR-OP-IFF
+
+Summary
+Form:  ( DEFTHM RIGHT-CANCELLATION-FOR-OP ...)
+Rules: ((:DEFINITION IFF)
+        (:DEFINITION NOT)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:TYPE-PRESCRIPTION EQUIV-IS-AN-EQUIVALENCE))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+RIGHT-CANCELLATION-FOR-OP
+
+Summary
+Form:  ( DEFTHM LEFT-CANCELLATION-FOR-OP-IFF ...)
+Rules: ((:DEFINITION IFF)
+        (:DEFINITION NOT)
+        (:EQUIVALENCE EQUIV-IS-AN-EQUIVALENCE)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE COMMUTATIVITY-OF-OP))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+LEFT-CANCELLATION-FOR-OP-IFF
+
+Summary
+Form:  ( DEFTHM LEFT-CANCELLATION-FOR-OP ...)
+Rules: ((:DEFINITION IFF)
+        (:DEFINITION NOT)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:TYPE-PRESCRIPTION EQUIV-IS-AN-EQUIVALENCE))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+LEFT-CANCELLATION-FOR-OP
+
+Summary
+Form:  ( DEFTHM UNIQUENESS-OF-ID-AS-OP-IDEMPOTENT ...)
+Rules: ((:DEFINITION NOT)
+        (:EQUIVALENCE EQUIV-IS-AN-EQUIVALENCE)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE CLOSURE-OF-ID-FOR-PRED)
+        (:REWRITE LEFT-UNICITY-OF-ID-FOR-OP))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+UNIQUENESS-OF-ID-AS-OP-IDEMPOTENT
+
+Summary
+Form:  ( DEFTHM UNIQUENESS-OF-OP-INVERSES ...)
+Rules: ((:DEFINITION NOT)
+        (:EQUIVALENCE EQUIV-IS-AN-EQUIVALENCE)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE CLOSURE-OF-INV-FOR-PRED)
+        (:REWRITE COMMUTATIVITY-OF-OP)
+        (:REWRITE LEFT-INVERSE-OF-INV-FOR-OP))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+UNIQUENESS-OF-OP-INVERSES
+
+Summary
+Form:  ( DEFTHM INVOLUTION-OF-INV ...)
+Rules: ((:DEFINITION NOT)
+        (:EQUIVALENCE EQUIV-IS-AN-EQUIVALENCE)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE CLOSURE-OF-INV-FOR-PRED)
+        (:REWRITE LEFT-INVERSE-OF-INV-FOR-OP))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+INVOLUTION-OF-INV
+
+Summary
+Form:  ( DEFTHM UNIQUENESS-OF-OP-INVERSES-1 ...)
+Rules: ((:DEFINITION NOT)
+        (:EQUIVALENCE EQUIV-IS-AN-EQUIVALENCE)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE CLOSURE-OF-INV-FOR-PRED)
+        (:REWRITE COMMUTATIVITY-OF-OP)
+        (:REWRITE INVOLUTION-OF-INV))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+UNIQUENESS-OF-OP-INVERSES-1
+
+Summary
+Form:  ( DEFTHM DISTRIBUTIVITY-OF-INV-OVER-OP ...)
+Rules: ((:CONGRUENCE EQUIV-2-IMPLIES-EQUIV-OP)
+        (:DEFINITION NOT)
+        (:EQUIVALENCE EQUIV-IS-AN-EQUIVALENCE)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE ASSOCIATIVITY-OF-OP)
+        (:REWRITE CLOSURE-OF-INV-FOR-PRED)
+        (:REWRITE CLOSURE-OF-OP-FOR-PRED)
+        (:REWRITE COMMUTATIVITY-2-OF-OP)
+        (:REWRITE LEFT-INVERSE-OF-INV-FOR-OP)
+        (:REWRITE RIGHT-INVERSE-OF-INV-FOR-OP)
+        (:REWRITE RIGHT-UNICITY-OF-ID-FOR-OP))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+DISTRIBUTIVITY-OF-INV-OVER-OP
+
+Summary
+Form:  ( DEFTHM ID-IS-ITS-OWN-INVESE ...)
+Rules: ((:DEFINITION NOT)
+        (:EQUIVALENCE EQUIV-IS-AN-EQUIVALENCE)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE CLOSURE-OF-ID-FOR-PRED)
+        (:REWRITE RIGHT-UNICITY-OF-ID-FOR-OP))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+ID-IS-ITS-OWN-INVESE
+
+Summary
+Form:  ( DEFTHM OBVIOUS-INV-CANCELLATION ...)
+Rules: ((:CONGRUENCE EQUIV-1-IMPLIES-EQUIV-OP)
+        (:EQUIVALENCE EQUIV-IS-AN-EQUIVALENCE)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE LEFT-UNICITY-OF-ID-FOR-OP)
+        (:REWRITE RIGHT-INVERSE-OF-INV-FOR-OP))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+OBVIOUS-INV-CANCELLATION
+
+Summary
+Form:  ( DEFTHM INV-CANCELLATION-ON-RIGHT ...)
+Rules: ((:CONGRUENCE EQUIV-2-IMPLIES-EQUIV-OP)
+        (:DEFINITION NOT)
+        (:EQUIVALENCE EQUIV-IS-AN-EQUIVALENCE)
+        (:REWRITE ASSOCIATIVITY-OF-OP)
+        (:REWRITE CLOSURE-OF-INV-FOR-PRED)
+        (:REWRITE COMMUTATIVITY-OF-OP))
+Warnings:  None
+Time:  0.02 seconds (prove: 0.02, print: 0.00, other: 0.00)
+INV-CANCELLATION-ON-RIGHT
+
+Summary
+Form:  ( DEFTHM INV-CANCELLATION-ON-LEFT ...)
+Rules: ((:CONGRUENCE EQUIV-2-IMPLIES-EQUIV-OP)
+        (:EQUIVALENCE EQUIV-IS-AN-EQUIVALENCE)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE CLOSURE-OF-INV-FOR-PRED)
+        (:REWRITE COMMUTATIVITY-OF-OP)
+        (:REWRITE INV-CANCELLATION-ON-RIGHT))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+INV-CANCELLATION-ON-LEFT
+
+Summary
+Form:  ( INCLUDE-BOOK "acl2-agp" ...)
+Rules: NIL
+Warnings:  None
+Time:  0.09 seconds (prove: 0.00, print: 0.00, other: 0.09)
+
+Summary
+Form:  (CERTIFY-BOOK "acl2-agp" ...)
+Rules: NIL
+Warnings:  None
+Time:  0.41 seconds (prove: 0.07, print: 0.00, other: 0.35)
+ "/Users/zac/Desktop/acl2-sources/books/cowles/acl2-agp.lisp"
+ACL2 !>
+Exiting the ACL2 read-eval-print loop.  To re-enter, execute (LP).
+? 

@@ -1,0 +1,8 @@
+
+(IN-PACKAGE "ACL2")
+"ACL2 Version 3.2"
+:BEGIN-PORTCULLIS-CMDS
+:END-PORTCULLIS-CMDS
+NIL
+(("/Users/zac/Desktop/acl2-sources/books/arithmetic/sumlist.lisp" "sumlist" "sumlist" ((:SKIPPED-PROOFSP) (:AXIOMSP) (:TTAGS)) . 14708609))
+234122082

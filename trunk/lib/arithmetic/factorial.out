@@ -1,0 +1,90 @@
+Welcome to OpenMCL Version (Beta: Darwin) 0.14.3!
+
+ ACL2 Version 3.2 built August 21, 2007  18:38:06.
+ Copyright (C) 2007  University of Texas at Austin
+ ACL2 comes with ABSOLUTELY NO WARRANTY.  This is free software and you
+ are welcome to redistribute it under certain conditions.  For details,
+ see the GNU General Public License.
+
+ Initialized with (INITIALIZE-ACL2 'INCLUDE-BOOK *ACL2-PASS-2-FILES*).
+ See the documentation topic note-3-2 for recent changes.
+ Note: We have modified the prompt in some underlying Lisps to further
+ distinguish it from the ACL2 prompt.
+
+ NOTE!!  Proof trees are disabled in ACL2.  To enable them in emacs,
+ look under the ACL2 source directory in interface/emacs/README.doc; 
+ and, to turn on proof trees, execute :START-PROOF-TREE in the ACL2 
+ command loop.   Look in the ACL2 documentation under PROOF-TREE.
+
+ACL2 Version 3.2.  Level 1.  Cbd 
+"/Users/zac/Desktop/acl2-sources/books/arithmetic/".
+Type :help for help.
+Type (good-bye) to quit completely out of ACL2.
+
+ACL2 !>
+Exiting the ACL2 read-eval-print loop.  To re-enter, execute (LP).
+? [RAW LISP] #<Package "ACL2">
+? [RAW LISP] 
+ACL2 Version 3.2.  Level 1.  Cbd 
+"/Users/zac/Desktop/acl2-sources/books/arithmetic/".
+Type :help for help.
+Type (good-bye) to quit completely out of ACL2.
+
+ACL2 !> (PROVE PROOF-TREE
+        WARNING OBSERVATION EVENT EXPANSION)
+ACL2 !>
+Summary
+Form:  ( DEFUN FACTORIAL ...)
+Rules: ((:COMPOUND-RECOGNIZER ZP-COMPOUND-RECOGNIZER)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL))
+Warnings:  None
+Time:  0.01 seconds (prove: 0.00, print: 0.00, other: 0.01)
+FACTORIAL
+
+Summary
+Form:  ( DEFTHM FACTORIAL-POSITIVE-INTEGER ...)
+Rules: ((:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:TYPE-PRESCRIPTION FACTORIAL))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+FACTORIAL-POSITIVE-INTEGER
+
+Summary
+Form:  ( DEFTHM FACTORIAL-NON-NEGATIVE ...)
+Rules: ((:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:TYPE-PRESCRIPTION FACTORIAL-POSITIVE-INTEGER))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+FACTORIAL-NON-NEGATIVE
+
+Summary
+Form:  ( DEFTHM ABS-FACTORIAL ...)
+Rules: ((:DEFINITION ABS)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:TYPE-PRESCRIPTION FACTORIAL-POSITIVE-INTEGER))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+ABS-FACTORIAL
+
+Summary
+Form:  ( IN-THEORY (DISABLE ...))
+Rules: NIL
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+1906
+
+Summary
+Form:  ( INCLUDE-BOOK "factorial" ...)
+Rules: NIL
+Warnings:  None
+Time:  0.01 seconds (prove: 0.00, print: 0.00, other: 0.01)
+
+Summary
+Form:  (CERTIFY-BOOK "factorial" ...)
+Rules: NIL
+Warnings:  None
+Time:  0.04 seconds (prove: 0.00, print: 0.00, other: 0.03)
+ "/Users/zac/Desktop/acl2-sources/books/arithmetic/factorial.lisp"
+ACL2 !>
+Exiting the ACL2 read-eval-print loop.  To re-enter, execute (LP).
+? 
