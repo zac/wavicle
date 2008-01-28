@@ -1,9 +1,5 @@
 #summary Coding styles.
 
-= Introduction =
-
-Add your content here.
-
 
 = Dr. Page's Stylesheet =
 
@@ -24,7 +20,7 @@ Add your content here.
 
 = Details =
 
-Design/code style sheets:
+Design/code style sheet changes:
  * 80 character lines
  * LISP naming conventions
    * function-name
