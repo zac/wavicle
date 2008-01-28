@@ -1,13 +1,29 @@
 #summary One-sentence summary of this page.
 
-= Introduction =
+= Design =
 
-Add your content here.
+Here is the design of the project.
 
+ *  WAV Parser
+ **  parse-wav-file
+ **  bytes->integer
+ **  bytes->string
+ **  bytes->wav-packet
+ *  Operator Handler
+ **  read-operator
+ **  apply-operator
+ ***  apply-delay
+ ***  apply-cut
+ ***  apply-boost
+ ***  apply-overdub
+ ***  apply-fade-in
+ ***  apply-fade-out
+ ***  apply-fuzz
+ ***  apply-chipmunk
+ ***  apply-filter
+ *  WAV Output
+ **  put-signal
+ **  display-signal
+ **  display-signal-gui
 
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+= PROBE =
