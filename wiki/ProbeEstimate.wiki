@@ -5,25 +5,25 @@
 Here is the design of the project.
 
  *  WAV Parser
- **  parse-wav-file
- **  bytes->integer
- **  bytes->string
- **  bytes->wav-packet
+  *  parse-wav-file
+  *  bytes->integer
+  *  bytes->string
+  *  bytes->wav-packet
  *  Operator Handler
- **  read-operator
- **  apply-operator
- ***  apply-delay
- ***  apply-cut
- ***  apply-boost
- ***  apply-overdub
- ***  apply-fade-in
- ***  apply-fade-out
- ***  apply-fuzz
- ***  apply-chipmunk
- ***  apply-filter
+  *  read-operator
+  *  apply-operator
+   *  apply-delay
+   *  apply-cut
+   *  apply-boost
+   *  apply-overdub
+   *  apply-fade-in
+   *  apply-fade-out
+   *  apply-fuzz
+   *  apply-chipmunk
+   *  apply-filter
  *  WAV Output
- **  put-signal
- **  display-signal
- **  display-signal-gui
+  *  put-signal
+  *  display-signal
+  *  display-signal-gui
 
 = PROBE =
