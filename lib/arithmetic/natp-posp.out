@@ -1,0 +1,201 @@
+Welcome to OpenMCL Version (Beta: Darwin) 0.14.3!
+
+ ACL2 Version 3.2 built August 21, 2007  18:38:06.
+ Copyright (C) 2007  University of Texas at Austin
+ ACL2 comes with ABSOLUTELY NO WARRANTY.  This is free software and you
+ are welcome to redistribute it under certain conditions.  For details,
+ see the GNU General Public License.
+
+ Initialized with (INITIALIZE-ACL2 'INCLUDE-BOOK *ACL2-PASS-2-FILES*).
+ See the documentation topic note-3-2 for recent changes.
+ Note: We have modified the prompt in some underlying Lisps to further
+ distinguish it from the ACL2 prompt.
+
+ NOTE!!  Proof trees are disabled in ACL2.  To enable them in emacs,
+ look under the ACL2 source directory in interface/emacs/README.doc; 
+ and, to turn on proof trees, execute :START-PROOF-TREE in the ACL2 
+ command loop.   Look in the ACL2 documentation under PROOF-TREE.
+
+ACL2 Version 3.2.  Level 1.  Cbd 
+"/Users/zac/Desktop/acl2-sources/books/arithmetic/".
+Type :help for help.
+Type (good-bye) to quit completely out of ACL2.
+
+ACL2 !>
+Exiting the ACL2 read-eval-print loop.  To re-enter, execute (LP).
+? [RAW LISP] #<Package "ACL2">
+? [RAW LISP] 
+ACL2 Version 3.2.  Level 1.  Cbd 
+"/Users/zac/Desktop/acl2-sources/books/arithmetic/".
+Type :help for help.
+Type (good-bye) to quit completely out of ACL2.
+
+ACL2 !> (PROVE PROOF-TREE
+        WARNING OBSERVATION EVENT EXPANSION)
+ACL2 !>
+Summary
+Form:  ( INCLUDE-BOOK "inequalities" ...)
+Rules: NIL
+Warnings:  None
+Time:  0.83 seconds (prove: 0.00, print: 0.00, other: 0.83)
+"/Users/zac/Desktop/acl2-sources/books/arithmetic/inequalities.lisp"
+
+Summary
+Form:  ( DEFTHM NATP-FC-1 ...)
+Rules: ((:COMPOUND-RECOGNIZER NATP-COMPOUND-RECOGNIZER)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+NATP-FC-1
+
+Summary
+Form:  ( DEFTHM NATP-FC-2 ...)
+Rules: ((:COMPOUND-RECOGNIZER NATP-COMPOUND-RECOGNIZER))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+NATP-FC-2
+
+Summary
+Form:  ( DEFTHM POSP-FC-1 ...)
+Rules: ((:COMPOUND-RECOGNIZER POSP-COMPOUND-RECOGNIZER)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+POSP-FC-1
+
+Summary
+Form:  ( DEFTHM POSP-FC-2 ...)
+Rules: ((:COMPOUND-RECOGNIZER POSP-COMPOUND-RECOGNIZER))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+POSP-FC-2
+
+Summary
+Form:  ( DEFTHM NATP-RW ...)
+Rules: ((:COMPOUND-RECOGNIZER NATP-COMPOUND-RECOGNIZER)
+        (:TYPE-PRESCRIPTION NATP))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+NATP-RW
+
+Summary
+Form:  ( DEFTHM POSP-RW ...)
+Rules: ((:COMPOUND-RECOGNIZER POSP-COMPOUND-RECOGNIZER)
+        (:TYPE-PRESCRIPTION POSP))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+POSP-RW
+
+Summary
+Form:  ( DEFTHM |(natp a)  <=>  (posp a+1)| ...)
+Rules: ((:DEFINITION NATP)
+        (:DEFINITION POSP)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+|(natp a)  <=>  (posp a+1)|
+
+Summary
+Form:  ( DEFTHM POSP-NATP-L1 ...)
+Rules: ((:COMPOUND-RECOGNIZER NATP-COMPOUND-RECOGNIZER)
+        (:COMPOUND-RECOGNIZER POSP-COMPOUND-RECOGNIZER)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:TYPE-PRESCRIPTION NATP))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+POSP-NATP-L1
+
+Summary
+Form:  ( DEFTHM POSP-NATP ...)
+Rules: ((:COMPOUND-RECOGNIZER NATP-COMPOUND-RECOGNIZER)
+        (:DEFINITION NOT)
+        (:DEFINITION POSP)
+        (:DEFINITION SYNP)
+        (:EXECUTABLE-COUNTERPART BINARY-+)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE <-0-+-NEGATIVE-1)
+        (:REWRITE FOLD-CONSTS-IN-+)
+        (:REWRITE POSP-RW)
+        (:TYPE-PRESCRIPTION NATP))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+POSP-NATP
+
+Summary
+Form:  ( ENCAPSULATE NIL (LOCAL ...) ...)
+Rules: NIL
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+T
+
+Summary
+Form:  ( DEFTHM NATP-* ...)
+Rules: ((:COMPOUND-RECOGNIZER NATP-COMPOUND-RECOGNIZER)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:TYPE-PRESCRIPTION NATP))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+NATP-*
+
+Summary
+Form:  ( DEFTHM NATP-POSP ...)
+Rules: ((:COMPOUND-RECOGNIZER NATP-COMPOUND-RECOGNIZER)
+        (:COMPOUND-RECOGNIZER POSP-COMPOUND-RECOGNIZER)
+        (:TYPE-PRESCRIPTION POSP))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+NATP-POSP
+
+Summary
+Form:  ( DEFTHM NATP-POSP--1 ...)
+Rules: ((:DEFINITION NATP)
+        (:DEFINITION POSP)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE <-+-NEGATIVE-0-1))
+Warnings:  None
+Time:  0.01 seconds (prove: 0.01, print: 0.00, other: 0.00)
+NATP-POSP--1
+
+Summary
+Form:  ( DEFTHM |x < y  =>  0 < -x+y| ...)
+Rules: ((:COMPOUND-RECOGNIZER POSP-COMPOUND-RECOGNIZER)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE NATP-POSP)
+        (:REWRITE NATP-RW))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+|x < y  =>  0 < -x+y|
+
+Summary
+Form:  ( DEFTHM |x < y  =>  0 < y-x| ...)
+Rules: ((:COMPOUND-RECOGNIZER POSP-COMPOUND-RECOGNIZER)
+        (:REWRITE COMMUTATIVITY-OF-+)
+        (:TYPE-PRESCRIPTION |x < y  =>  0 < -x+y|))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+|x < y  =>  0 < y-x|
+
+Summary
+Form:  ( IN-THEORY (DISABLE ...))
+Rules: NIL
+Warnings:  None
+Time:  0.01 seconds (prove: 0.00, print: 0.00, other: 0.01)
+2053
+
+Summary
+Form:  ( INCLUDE-BOOK "natp-posp" ...)
+Rules: NIL
+Warnings:  None
+Time:  0.74 seconds (prove: 0.00, print: 0.00, other: 0.74)
+
+Summary
+Form:  (CERTIFY-BOOK "natp-posp" ...)
+Rules: NIL
+Warnings:  None
+Time:  1.62 seconds (prove: 0.02, print: 0.00, other: 1.60)
+ "/Users/zac/Desktop/acl2-sources/books/arithmetic/natp-posp.lisp"
+ACL2 !>
+Exiting the ACL2 read-eval-print loop.  To re-enter, execute (LP).
+? 

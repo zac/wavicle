@@ -1,6 +1,6 @@
 ;(in-package "ACL2")
 
-;(include-book "/usr/local/share/acl2/books/data-structures/utilities")
+(include-book "/usr/local/share/acl2/books/data-structures/utilities")
 
 (include-book "lib/ihs/ihs-definitions")
 (include-book "lib/ihs/ihs-lemmas")
