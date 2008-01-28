@@ -1,12 +1,20 @@
-(include-book "binary-io-utilities" :dir :teachpacks)
+;(in-package "ACL2")
 (include-book "list-utilities" :dir :teachpacks)
+
+;(include-book "ihs/ihs-definitions" :dir :system)
+;(include-book "ihs/ihs-lemmas" :dir :system)
+
+(include-book "binary-io-utilities" :dir :teachpacks)
+
+(include-book "world" :dir :teachpacks)
 
 (defstructure wav-file
   (chunk-id (:assert (stringp chunk-id)))
-  (chunk-size (:assert (integerp chunk-id)))
+  (chunk-size (:assert (integerp chunk-size)))
   (format (:assert (stringp format)))
   (subchunk-1-id (:assert (listp subchunk-1-id)))
   ;Make sure it is PCM.
+  (subchunk-1-size (:assert (integerp subchunk-1-size)))
   (audio-format (:assert (= audio-format 1)))
   ;Mono = 1, Stereo = 2, etc.
   (num-channels (:assert (integerp num-channels)))
@@ -28,22 +36,25 @@
       nil))
 
 (defun bytes->integer (bytes type)
-  0)
+  (if (equal type 'big)
+      bytes
+      bytes))
 
 (defun parse-wav-file (bytes)
-  (wav-file (chrs->str (ascii->chrs (subseq bytes 0 4)))
-            (bytes->integer (subseq bytes 4 8))
-            (chrs->str (ascii->chrs (subseq bytes 8 12)))
-            0
-            0
-            0
-            0
-            0
-            0
-            0
-            0
-            0
-            0))
+  (wav-file (chrs->str (ascii->chrs (subseq bytes 0 4))) ;chunk-id
+            (bytes->integer (subseq bytes 4 8) 'big) ;chunk-size
+            (chrs->str (ascii->chrs (subseq bytes 8 12))) ;format
+            (chrs->str (ascii->chrs (subseq bytes 12 16))) ;subchunk-1-id
+            (bytes->integer (subseq bytes 16 20) 'big) ;subchunk-1-size
+            (bytes->integer (subseq bytes 20 22) 'big) ;audio-format
+            (bytes->integer (subseq bytes 22 24) 'big) ;num-channels
+            (bytes->integer (subseq bytes 24 28) 'big) ;sample-rate
+            (bytes->integer (subseq bytes 28 32) 'big) ;byte-rate
+            (bytes->integer (subseq bytes 32 34) 'big) ;block-align
+            (bytes->integer (subseq bytes 34 36) 'big) ;bits-per-sample
+            (chrs->str (ascii->chrs (subseq bytes 36 40))) ;subchunk-2-id
+            (bytes->integer (subseq bytes 40 44) 'big) ;subchunk-2-size
+            (subseq bytes 44 (length bytes))))
 
 (defun test-read (file state)
   (mv-let (bytes error state)
