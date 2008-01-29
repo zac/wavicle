@@ -1,11 +1,11 @@
 ;(in-package "ACL2")
 
-(include-book "/usr/local/share/acl2/books/data-structures/utilities")
+(include-book "lib/data-structures/utilities")
 
 (include-book "lib/ihs/ihs-definitions")
 (include-book "lib/ihs/ihs-lemmas")
 
-(defun logapp-test ()
+(defun logapp-test1 ()
   (logapp 16 10 124))
 
 ;(defun bytes->integer-h (bytes size)
