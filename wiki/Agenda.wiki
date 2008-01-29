@@ -25,5 +25,10 @@
 
 ==Agenda: Jan 29th==
  * Learn about WAV data format.
- * Learn how to overdub.
+ * Work on reading in and parsing the WAV file.
+ * Make agenda for next meeting.
+
+==Agenda: Jan 31st==
+ * Continue learing about WAV data format.
+ * Work on t4
  * Make agenda for next meeting.
