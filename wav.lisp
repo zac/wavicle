@@ -35,11 +35,6 @@
       (cons (code-char (car bytes)) (ascii->chrs (cdr bytes)))
       nil))
 
-(defun bytes->integer (bytes type)
-  (if (equal type 'big)
-      bytes
-      bytes))
-
 ; (convertbytes->int bytes integer)
 ;    bytes - a list of bytes ordered in big endian order.
 ;    integer - an intermediate value to store the integer value between reursive
@@ -56,7 +51,7 @@
 ;  This function is a wrapper function for convertbytes->int that takes in
 ;  little-endian ordered bytes read from a WAV file and converts them to a
 ;  Single integer.
-(defun bytes->int (bytes)
+(defun bytes->integer (bytes type)
   (convertbytes->int (reverse bytes) 0))
 
 (defun parse-wav-file (bytes)
