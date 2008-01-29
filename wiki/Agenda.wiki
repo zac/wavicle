@@ -22,3 +22,8 @@
  * Create WAV format page (WavFormat)
  * Do PROBE estimate (ProbeEstimate)
  * Make agenda for next meeting
+
+==Agenda: Jan 29th==
+ * Learn about WAV data format.
+ * Learn how to overdub.
+ * Make agenda for next meeting.
