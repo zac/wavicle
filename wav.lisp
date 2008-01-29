@@ -40,6 +40,25 @@
       bytes
       bytes))
 
+; (convertbytes->int bytes integer)
+;    bytes - a list of bytes ordered in big endian order.
+;    integer - an intermediate value to store the integer value between reursive
+;              loops
+;  This function takes a list of big-endian ordered bytes and converts them to a
+;  single integer value.
+(defun convertbytes->int (bytes integer)
+  (if (cdr bytes)
+      (convertbytes->int (cdr bytes) (+(* 256 (car bytes)) integer))
+      (+ integer (car bytes))))
+
+; (bytes->int bytes)
+;    bytes - a list of bytes ordered in little endian order.
+;  This function is a wrapper function for convertbytes->int that takes in
+;  little-endian ordered bytes read from a WAV file and converts them to a
+;  Single integer.
+(defun bytes->int (bytes)
+  (convertbytes->int (reverse bytes) 0))
+
 (defun parse-wav-file (bytes)
   (wav-file (chrs->str (ascii->chrs (subseq bytes 0 4))) ;chunk-id
             (bytes->integer (subseq bytes 4 8) 'big) ;chunk-size
