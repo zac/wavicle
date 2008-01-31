@@ -32,3 +32,6 @@
  * Continue learing about WAV data format.
  * Work on t4
  * Make agenda for next meeting.
+
+==Agenda: Feb 5th==
+ * Listen to John Barr, IBM
