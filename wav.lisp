@@ -52,18 +52,18 @@
 
 (defun parse-wav-file (bytes)
   (wav-file (chrs->str (ascii->chrs (subseq bytes 0 4))) ;chunk-id
-            (bytes->integer (subseq bytes 4 8) 'big) ;chunk-size
+            (bytes->integer (subseq bytes 4 8)) ;chunk-size
             (chrs->str (ascii->chrs (subseq bytes 8 12))) ;format
             (chrs->str (ascii->chrs (subseq bytes 12 16))) ;subchunk-1-id
-            (bytes->integer (subseq bytes 16 20) 'big) ;subchunk-1-size
-            (bytes->integer (subseq bytes 20 22) 'big) ;audio-format
-            (bytes->integer (subseq bytes 22 24) 'big) ;num-channels
-            (bytes->integer (subseq bytes 24 28) 'big) ;sample-rate
-            (bytes->integer (subseq bytes 28 32) 'big) ;byte-rate
-            (bytes->integer (subseq bytes 32 34) 'big) ;block-align
-            (bytes->integer (subseq bytes 34 36) 'big) ;bits-per-sample
+            (bytes->integer (subseq bytes 16 20)) ;subchunk-1-size
+            (bytes->integer (subseq bytes 20 22)) ;audio-format
+            (bytes->integer (subseq bytes 22 24)) ;num-channels
+            (bytes->integer (subseq bytes 24 28)) ;sample-rate
+            (bytes->integer (subseq bytes 28 32)) ;byte-rate
+            (bytes->integer (subseq bytes 32 34)) ;block-align
+            (bytes->integer (subseq bytes 34 36)) ;bits-per-sample
             (chrs->str (ascii->chrs (subseq bytes 36 40))) ;subchunk-2-id
-            (bytes->integer (subseq bytes 40 44) 'big) ;subchunk-2-size
+            (bytes->integer (subseq bytes 40 44)) ;subchunk-2-size
             (subseq bytes 44 (length bytes))))
 
 (defun test-read (file state)
