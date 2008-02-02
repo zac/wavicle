@@ -40,15 +40,31 @@
 ;  This function is a wrapper function for convertbytes->int that takes in
 ;  little-endian ordered bytes read from a WAV file and converts them to a
 ;  Single integer.
+
+;(defun bytes->integer (bytes)
+;  (if (= (length bytes) 2)
+;      (+ (car bytes) (* (cadr bytes) 256))
+;      (if (= (length bytes) 4)
+;          (+ (car bytes)
+;             (* (cadr bytes) 256)
+;             (* (caddr bytes) (* 256 256))
+;             (* (cadddr bytes) (* (* 256 256) 256)))
+;          -1)))
+
+;(36 8 0 0) = 2084
+
+; (34 21 12 11) = 185341218
+; 
+
+(defun multiply-all (l num)
+  (if (consp l)
+      (cons (* (car l) num) (multiply-all (cdr l) num))
+      nil))
+
 (defun bytes->integer (bytes)
-  (if (= (length bytes) 2)
-      (+ (car bytes) (* (cadr bytes) 256))
-      (if (= (length bytes) 4)
-          (+ (car bytes)
-             (* (cadr bytes) 256)
-             (* (caddr bytes) (* 256 256))
-             (* (cadddr bytes) (* (* 256 256) 256)))
-          -1)))
+  (if (consp bytes)
+      (+ (car bytes) (bytes->integer (multiply-all (cdr bytes) 256)))
+      0))
 
 (defun parse-wav-file (bytes)
   (wav-file (chrs->str (ascii->chrs (subseq bytes 0 4))) ;chunk-id
