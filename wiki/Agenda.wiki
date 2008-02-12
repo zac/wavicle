@@ -38,9 +38,16 @@
 
 ==Agenda: Feb 7th==
  * Progress Report Meeting with Dr. Page
- * Make agenda for next time
+ * Make agenda for next meeting
 
 ==Agenda: Feb 12==
  * Inspection checklist
  * Annotate conceptual design
  * List written defects from design
+ * Make agenda for next meeting
+
+==Agenda: Feb 15==
+ * Work on t4
+ * Finalize design
+ * Adjust PSP PROBE Estimate
+ * Make agenda for next meeting
