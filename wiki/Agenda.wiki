@@ -35,3 +35,12 @@
 
 ==Agenda: Feb 5th==
  * Listen to John Barr, IBM
+
+==Agenda: Feb 7th==
+ * Progress Report Meeting with Dr. Page
+ * Make agenda for next time
+
+==Agenda: Feb 12==
+ * Inspection checklist
+ * Annotate conceptual design
+ * List written defects from design
