@@ -51,3 +51,8 @@
  * Finalize design
  * Adjust PSP PROBE Estimate
  * Make agenda for next meeting
+
+==Agenda: Feb 19==
+ * Turn in t4
+ * Present t5
+ * Listen to other groups present t5
