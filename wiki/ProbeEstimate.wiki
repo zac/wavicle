@@ -9,9 +9,10 @@ Here is the design of the project.
   *  bytes->integer
   *  bytes->string
   *  bytes->wav-packet
+  *  parse-audio-command-file
  *  Operator Handler
-  *  read-operator
-  *  apply-operator
+  *  get-filter
+  *  apply-operator-list
    *  apply-delay
    *  apply-cut
    *  apply-boost
