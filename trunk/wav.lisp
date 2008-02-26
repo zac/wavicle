@@ -66,6 +66,13 @@
       (+ (car bytes) (bytes->integer (multiply-all (cdr bytes) 256)))
       0))
 
+;int is number to convert.
+;num is number of bytes to convert to.
+(defun integer->bytes (int num)
+  (if (= num 0)
+      nil
+      (cons (* (- (/ int 256) (floor int 256)) 256) (integer->bytes (floor int 256) (- num 1)))))
+
 (defun parse-wav-file (bytes)
   (wav-file (chrs->str (ascii->chrs (subseq bytes 0 4))) ;chunk-id
             (bytes->integer (subseq bytes 4 8)) ;chunk-size
