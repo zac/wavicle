@@ -59,7 +59,8 @@
  * Make agenda for next meeting
 
 ==Agenda: Feb 21==
- * Fill this in
+ * Discuss revised design.
+ * Look at different number formats possible.
  * Make agenda for next meeting
 
 ==Agenda: Feb 26==
@@ -70,4 +71,12 @@
 
 ==Agenda: Feb 28==
  * Meet with Dr. Page for Progress Reports
+ * Make agenda for next meeting
+
+==Agenda: March 4==
+ * Investigate output bug.
+ * Make agenda for next meeting
+
+==Agenda: March 6==
+ * Listen attentively to speaker.
  * Make agenda for next meeting
