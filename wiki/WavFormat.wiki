@@ -11,7 +11,7 @@ http://ccrma.stanford.edu/courses/422/projects/WaveFormat/
 
 Our parsing of the WAV file header appears to be accurate. What we read from a file matches what audio-editing programs read. The sound data appears to be stored in one of four ways, and needs to be parsed differently depending on the number of bits per sample and the number of audio channels (stereo or mono).
 
-For the description, we will read 4 bytes from the bytestream: b1 b2 b3 b4
+For the description, we will read 4 bytes from the data portion of the WAV file: b1 b2 b3 b4
 
 For 8bps mono files, that would be four separate samples, each with values ranging from 0 to 255.
 
