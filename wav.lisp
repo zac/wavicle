@@ -35,28 +35,39 @@
       (cons (code-char (car bytes)) (ascii->chrs (cdr bytes)))
       nil))
 
-; (bytes->int bytes)
-;    bytes - a list of bytes ordered in little endian order.
-;  This function is a wrapper function for convertbytes->int that takes in
-;  little-endian ordered bytes read from a WAV file and converts them to a
-;  Single integer.
+; (unsigned->2scomp num numbits)
+;    num - An unsigned integer to be converted.
+;    numbits - The desired number of bits. Used to determine the sign bit.
+;  This function determines the 2's Compliment value of an unsigned series of
+;  bits that is numbits in length.
+(defun unsigned->2scomp (num numbits)
+  (let ((pivot (expt 2 (- numbits 1))))
+    (if (< num pivot)
+        num
+        (- 0 (- pivot (- num pivot))))))
 
-;(defun bytes->integer (bytes)
-;  (if (= (length bytes) 2)
-;      (+ (car bytes) (* (cadr bytes) 256))
-;      (if (= (length bytes) 4)
-;          (+ (car bytes)
-;             (* (cadr bytes) 256)
-;             (* (caddr bytes) (* 256 256))
-;             (* (cadddr bytes) (* (* 256 256) 256)))
-;          -1)))
+; (2scomp->unsigned num numbits)
+;    num - An unsigned integer to be converted.
+;    numbits - The desired number of bits. Used to determine the sign bit.
+;  This function determines the unsigned value of an 2's Compliment series of
+;  bits that is numbits in length.
+(defun 2scomp->unsigned (num numbits)
+  (let ((pivot (expt 2 (- numbits 1))))
+    (if (posp num)
+        num
+        (+ pivot (- pivot (- 0 num))))))
 
 ;int is number to convert.
 ;num is number of bytes to convert to.
-(defun integer->bytes (int num)
+(defun integer->bytes-h (int num)
   (if (posp num)
-      (cons (* (- (/ int 256) (floor int 256)) 256) (integer->bytes (floor int 256) (- num 1)))
+      (cons (* (- (/ int 256) (floor int 256)) 256) (integer->bytes-h (floor int 256) (- num 1)))
       nil))
+
+(defun integer->bytes (int num)
+  (if (> num 1)
+      (integer->bytes-h (2scomp->unsigned int (* 8 num)) num)
+      (integer->bytes-h int num)))
 
 (defthm integer->bytes-thm
   (true-listp (integer->bytes lst n)))
@@ -78,10 +89,16 @@
 (defthm shift-8-bits-lemma
   (implies (true-listp lst) (nat-listp (shift-8-bits lst))))
 
-(defun bytes->integer (bytes)
+(defun bytes->integer-h (bytes)
   (if (endp bytes)
       0
-      (+ (bytes->integer (shift-8-bits (cdr bytes))) (car bytes))))
+      (+ (bytes->integer-h (shift-8-bits (cdr bytes))) (car bytes))))
+
+(defun bytes->integer (bytes)
+  (let ((val (bytes->integer-h bytes)))
+    (if (> (length bytes) 1)
+        (unsigned->2scomp val (* 8 (length bytes)))
+        val)))
 
 (defthm bytes->integer-thm
   (<= 0 (bytes->integer byte-list)))
@@ -94,6 +111,17 @@
 (defthm integer->bytes->integer-thm
   (implies (n-bytep temp-int bytes)
            (equal temp-int (bytes->integer (integer->bytes temp-int bytes)))))
+
+;; Converts a byte list into a list of normalized rationals. One for each sample and channel.
+(defun bytes->samples (data sample-size)
+  (if (endp data)
+      nil
+      (cons (/ (bytes->integer (subseq data 0 sample-size)) (expt 2 (- (* 8 sample-size) 1))) (bytes->samples (subseq data sample-size (length data)) sample-size))))
+
+(defun samples->bytes (samples block-align)
+  (if (endp samples)
+      nil
+      (append (integer->bytes (floor (* (car samples) (expt 2 (- (* 8 block-align) 1))) 1) block-align) (samples->bytes (cdr samples) block-align))))
 
 (defun parse-wav-file (bytes)
   (wav-file (subseq bytes 0 4) ;chunk-id
@@ -109,7 +137,7 @@
             (bytes->integer (subseq bytes 34 36)) ;bits-per-sample
             (subseq bytes 36 40) ;subchunk-2-id
             (bytes->integer (subseq bytes 40 44)) ;subchunk-2-size
-            (subseq bytes 44 (length bytes))))
+            (bytes->samples (subseq bytes 44 (length bytes)) (bytes->integer-h (subseq bytes 32 34)))))
 
 ;(defun parse-wav-file (bytes)
 ;  (wav-file (chrs->str (ascii->chrs (subseq bytes 0 4))) ;chunk-id
@@ -141,7 +169,7 @@
           (integer->bytes (wav-file-bits-per-sample wav) 2)
           (wav-file-subchunk-2-id wav)
           (integer->bytes (wav-file-subchunk-2-size wav) 4)
-          (wav-file-data wav)))
+          (samples->bytes (wav-file-data wav) (wav-file-block-align wav))))
 
 (defun write-wav-file (wav path state)
   (byte-list->binary-file path (wav->byte-list wav) state))
@@ -162,10 +190,20 @@
             (wav-file-subchunk-2-size wav) ;subchunk-2-size
             new-data))
 
-(defun half-vals (data packet-size)
+;(defun half-vals (data packet-size)
+;  (if (endp data)
+;      nil
+;      (append (integer->bytes (* (bytes->integer (subseq data 0 packet-size)) 2) packet-size) (half-vals (subseq data packet-size (length data)) packet-size))))
+
+(defun mod-vals (samples)
+  (if (endp samples)
+      nil
+      (cons (* (car samples) 2) (mod-vals (cdr samples)))))
+
+(defun normalize-data (data maximum)
   (if (endp data)
       nil
-      (append (integer->bytes (floor (bytes->integer (subseq data 0 packet-size)) 2) packet-size) (half-vals (subseq data packet-size (length data)) packet-size))))
+      (cons (/ (car data) maximum) (normalize-data (cdr data) maximum))))
 
 (defun write-wav (data path state)
   (mv-let (error state)
@@ -176,4 +214,9 @@
   (mv-let (bytes error state)
           (binary-file->byte-list file state)
           (let ((wav (parse-wav-file bytes)))
-            (write-wav (modify-data wav (half-vals (wav-file-data wav) (wav-file-block-align wav))) "/Users/zac/Desktop/output.wav" state))))
+            (write-wav (modify-data wav (mod-vals (wav-file-data wav))) "/Users/zac/Desktop/output.wav" state))))
+
+(defun read-wav (file state)
+  (mv-let (bytes error state)
+          (binary-file->byte-list file state)
+          (parse-wav-file bytes)))
