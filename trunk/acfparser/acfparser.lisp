@@ -1,6 +1,7 @@
 (in-package "ACL2")
 (include-book "io-utilities" :dir :teachpacks)
 (set-state-ok t)
+(include-book "world" :dir :teachpacks)
 (include-book "list-utilities" :dir :teachpacks)
 
 #|----------------------reading file -> list of strings---------------|#
@@ -15,11 +16,11 @@
       nil))
 
 (defun readfile (file state)
-  (mv-let (str error state)
+  (mv-let (line error state)
           (file->string file state)
           (if error
               (mv error state)
-              (parse-list (tokens (list #\( #\) #\return #\Newline) (str->chrs str))))))
+              (mv (parse-list (tokens (list #\( #\) #\Newline) (str->chrs line))) state))))
 #|-------------------END file->list of strings------------------------|#
 
 (defstructure acf
@@ -39,8 +40,10 @@
       nil))
 
 (defun get-cmds (str vars)
-  (if (not (equal (car str) vars))
-      (cons (car str) (get-cmds (cdr str) vars))
+  (if (consp str)
+      (if (not (equal (car str) vars))
+          (cons (car str) (get-cmds (cdr str) vars))
+          nil)
       nil))
   
 (defun line-parser(str)
@@ -60,7 +63,6 @@
       nil))
 
 (defun parser (file state)
-  (let* ((str (line->words (readfile file state)))
-         (struct (line-parser str)))
-    struct))
-    
+  (mv-let (str state)
+          (readfile file state)
+          (mv (line-parser (line->words str)) state)))
