@@ -8,6 +8,8 @@
 
 (include-book "world" :dir :teachpacks)
 
+;(include-book "operators")
+
 (defstructure wav-file
   (chunk-id (:assert (stringp chunk-id)))
   (chunk-size (:assert (integerp chunk-size)))
@@ -116,7 +118,7 @@
 (defun bytes->samples (data sample-size)
   (if (endp data)
       nil
-      (cons (/ (bytes->integer (subseq data 0 sample-size)) (expt 2 (- (* 8 sample-size) 1))) (bytes->samples (subseq data sample-size (length data)) sample-size))))
+      (cons (/ (bytes->integer (subseq data 0 sample-size)) (expt 2 (- (* 8 sample-size) 1))) (bytes->samples (nthcdr sample-size data) sample-size))))
 
 (defun samples->bytes (samples block-align)
   (if (endp samples)
@@ -137,7 +139,7 @@
             (bytes->integer (subseq bytes 34 36)) ;bits-per-sample
             (subseq bytes 36 40) ;subchunk-2-id
             (bytes->integer (subseq bytes 40 44)) ;subchunk-2-size
-            (bytes->samples (subseq bytes 44 (length bytes)) (bytes->integer-h (subseq bytes 32 34)))))
+            (bytes->samples (nthcdr 44 bytes) (bytes->integer-h (subseq bytes 32 34)))))
 
 ;(defun parse-wav-file (bytes)
 ;  (wav-file (chrs->str (ascii->chrs (subseq bytes 0 4))) ;chunk-id
@@ -200,6 +202,26 @@
       nil
       (cons (* (car samples) 2) (mod-vals (cdr samples)))))
 
+(defun fuzz-h (h g data)
+  (if (endp data)
+      nil
+      (let ((f (* g h)))
+        (cons (max (- f) (min f (car data))) (fuzz-h h g (cdr data))))))
+; (maximum list)
+;   Gives the maximum element of the list.
+;   list = list of numbers to compare.
+; (maximum '(1 2 43 54 23 11 32 55 33)) -> 55
+
+(defun maximum (list)
+  (if (consp (cdr list))
+      (max (car list) (maximum (cdr list)))
+      (car list)))
+
+(defun fuzz (val wav)
+  (let* ((data (wav-file-data wav))
+         (g (maximum data)))
+    (modify-data wav (fuzz-h val g (wav-file-data wav)))))
+
 (defun normalize-data (data maximum)
   (if (endp data)
       nil
@@ -210,11 +232,11 @@
           (write-wav-file data path state)
           (mv "SUCCES" state)))
 
-(defun test-read (file state)
+(defun test-mod (file output state)
   (mv-let (bytes error state)
           (binary-file->byte-list file state)
           (let ((wav (parse-wav-file bytes)))
-            (write-wav (modify-data wav (mod-vals (wav-file-data wav))) "/Users/zac/Desktop/output.wav" state))))
+            (write-wav (fuzz 1/16 wav) output state))))
 
 (defun read-wav (file state)
   (mv-let (bytes error state)
