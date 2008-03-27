@@ -147,7 +147,7 @@
   (mv-let (bytes error state)
           (binary-file->byte-list file state)
           (let ((wav (parse-wav-file bytes)))
-            (write-wav (fuzz 1/16 wav) output state))))
+            (write-wav (fade-in 2 (fade-out 2 wav)) output state))))
 
 (defun read-wav (file state)
   (mv-let (bytes error state)

@@ -52,10 +52,7 @@
             (wav-file-subchunk-2-size wav) ;subchunk-2-size
             (wav-file-data wav)))
 
-;(defun half-vals (data packet-size)
-;  (if (endp data)
-;      nil
-;      (append (integer->bytes (* (bytes->integer (subseq data 0 packet-size)) 2) packet-size) (half-vals (subseq data packet-size (length data)) packet-size))))
+;---------------------- BOOST ------------------------
 
 (defun boost-h (b samples)
   (if (endp samples)
@@ -65,16 +62,8 @@
 (defun boost (b wav)
   (modify-data wav (boost-h b (wav-file-data wav))))
 
-(defun fuzz-h (h g data)
-  (if (endp data)
-      nil
-      (let ((f (* g h)))
-        (cons (max (- f) (min f (car data))) (fuzz-h h g (cdr data))))))
 
-(defun cut (t wav)
-  (let ((num-samples (floor (* t (wav-file-sample-rate wav)) 1))
-        (data (wav-file-data wav)))
-    (modify-data wav (nthcdr num-samples (butlast data num-samples)))))
+;----------------------- FUZZ -------------------------
 ; (maximum list)
 ;   Gives the maximum element of the list.
 ;   list = list of numbers to compare.
@@ -85,16 +74,63 @@
       (max (car list) (maximum (cdr list)))
       (car list)))
 
+(defun fuzz-h (h g data)
+  (if (endp data)
+      nil
+      (let ((f (* g h)))
+        (cons (max (- f) (min f (car data))) (fuzz-h h g (cdr data))))))
+
 (defun fuzz (val wav)
   (let* ((data (wav-file-data wav))
          (g (maximum data)))
     (modify-data wav (fuzz-h val g (wav-file-data wav)))))
 
+;---------------------- DELAY ------------------------
+
+;--------------------- FADE-IN -----------------------
+
+(defun fade-in-h (total samples)
+  (if (endp samples)
+      nil
+      (cons (* (/ (- total (length samples)) total) (car samples)) (fade-in-h total (cdr samples)))))
+
+(defun fade-in (time wav)
+  (let* ((sample-rate (wav-file-sample-rate wav))
+         (num-packets (* (* sample-rate (wav-file-num-channels wav)) time))
+         (data (wav-file-data wav)))
+    (modify-data wav (append (fade-in-h num-packets
+                                        (butlast data (- (length data) num-packets)))
+                             (nthcdr num-packets data)))))
+
+;--------------------- FADE-OUT ----------------------
+
+(defun fade-out-h (total samples)
+  (if (endp samples)
+      nil
+      (cons (* (/ (length samples) total) (car samples)) (fade-out-h total (cdr samples)))))
+
+(defun fade-out (time wav)
+  (let* ((sample-rate (wav-file-sample-rate wav))
+         (num-packets (* (* sample-rate (wav-file-num-channels wav)) time))
+         (data (wav-file-data wav)))
+    (modify-data wav (append (butlast data num-packets)
+                             (fade-out-h num-packets
+                                         (nthcdr (- (length data) num-packets) data))))))
+
+;----------------------- CUT -------------------------
+
+(defun cut (time wav)
+  (let ((num-samples (floor (* time (wav-file-sample-rate wav)) 1))
+        (data (wav-file-data wav)))
+    (modify-data wav (nthcdr num-samples (butlast data num-samples)))))
+
+;--------------------- CHIPMUNK -----------------------
 (defun chipmunk (p wav)
   (if (< p 0)
       wav
       (modify-sample-rate wav (floor (* p (wav-file-sample-rate wav)) 1))))
 
+;--------------------- REVERSE ------------------------
 (defun audio-reverse (wav)
   (modify-data wav (reverse (wav-file-data wav))))
 
