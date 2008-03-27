@@ -1,4 +1,6 @@
 ;(in-package "ACL2")
+(include-book "operators")
+
 (include-book "list-utilities" :dir :teachpacks)
 
 ;(include-book "ihs/ihs-definitions" :dir :system)
@@ -7,8 +9,6 @@
 (include-book "binary-io-utilities" :dir :teachpacks)
 
 (include-book "world" :dir :teachpacks)
-
-(include-book "operators")
 
 (defun ascii->chrs (bytes)
   (if (consp bytes)
@@ -141,7 +141,7 @@
 (defun write-wav (data path state)
   (mv-let (error state)
           (write-wav-file data path state)
-          (mv "SUCCES" state)))
+          (mv "SUCCESS" state)))
 
 (defun test-mod (file output state)
   (mv-let (bytes error state)

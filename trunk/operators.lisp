@@ -33,24 +33,48 @@
             (wav-file-block-align wav) ;block-align
             (wav-file-bits-per-sample wav) ;bits-per-sample
             (wav-file-subchunk-2-id wav) ;subchunk-2-id
-            (wav-file-subchunk-2-size wav) ;subchunk-2-size
+            (* (length new-data) (* (wav-file-num-channels wav) (/ (wav-file-bits-per-sample wav) 8)))
             new-data))
+
+(defun modify-sample-rate (wav new-rate)
+  (wav-file (wav-file-chunk-id wav) ;chunk-id
+            (wav-file-chunk-size wav) ;chunk-size
+            (wav-file-format wav) ;format
+            (wav-file-subchunk-1-id wav) ;subchunk-1-id
+            (wav-file-subchunk-1-size wav) ;subchunk-1-size
+            (wav-file-audio-format wav) ;audio-format
+            (wav-file-num-channels wav) ;num-channels
+            new-rate
+            (wav-file-byte-rate wav) ;byte-rate
+            (wav-file-block-align wav) ;block-align
+            (wav-file-bits-per-sample wav) ;bits-per-sample
+            (wav-file-subchunk-2-id wav) ;subchunk-2-id
+            (wav-file-subchunk-2-size wav) ;subchunk-2-size
+            (wav-file-data wav)))
 
 ;(defun half-vals (data packet-size)
 ;  (if (endp data)
 ;      nil
 ;      (append (integer->bytes (* (bytes->integer (subseq data 0 packet-size)) 2) packet-size) (half-vals (subseq data packet-size (length data)) packet-size))))
 
-(defun mod-vals (samples)
+(defun boost-h (b samples)
   (if (endp samples)
       nil
-      (cons (* (car samples) 2) (mod-vals (cdr samples)))))
+      (cons (* (car samples) b) (boost-h b (cdr samples)))))
+
+(defun boost (b wav)
+  (modify-data wav (boost-h b (wav-file-data wav))))
 
 (defun fuzz-h (h g data)
   (if (endp data)
       nil
       (let ((f (* g h)))
         (cons (max (- f) (min f (car data))) (fuzz-h h g (cdr data))))))
+
+(defun cut (t wav)
+  (let ((num-samples (floor (* t (wav-file-sample-rate wav)) 1))
+        (data (wav-file-data wav)))
+    (modify-data wav (nthcdr num-samples (butlast data num-samples)))))
 ; (maximum list)
 ;   Gives the maximum element of the list.
 ;   list = list of numbers to compare.
@@ -65,6 +89,14 @@
   (let* ((data (wav-file-data wav))
          (g (maximum data)))
     (modify-data wav (fuzz-h val g (wav-file-data wav)))))
+
+(defun chipmunk (p wav)
+  (if (< p 0)
+      wav
+      (modify-sample-rate wav (floor (* p (wav-file-sample-rate wav)) 1))))
+
+(defun audio-reverse (wav)
+  (modify-data wav (reverse (wav-file-data wav))))
 
 (defun normalize-data (data maximum)
   (if (endp data)
