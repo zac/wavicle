@@ -1,0 +1,7 @@
+(put-signal new-tracks/operator-on-the-street.wav 
+((lambda (w wav1 wav2) 
+(fade-in 5 (fade-out 5 (overdub wav1 (filter w wav2))))) 
+(get-filter filters/blur.flt) 
+(get-signal tracks/operator.wav) 
+(get-signal tracks/street-noise.wav)))
+
