@@ -89,3 +89,12 @@
 ==Agenda: March 13==
  * Listen attentively to speaker.
  * Make agenda for next meeting
+
+==Agenda: March 25==
+ * Meet with Dr. Page for Progress Report
+ * Make agenda for next meeting
+
+==Agenda: March 27==
+ * Code Review
+ * Start integration of individual components
+ * Make agenda for next meeting
