@@ -8,7 +8,7 @@
 
 (include-book "world" :dir :teachpacks)
 
-;(include-book "operators")
+(include-book "operators")
 
 (defstructure wav-file
   (chunk-id (:assert (stringp chunk-id)))
