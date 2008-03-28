@@ -118,8 +118,9 @@
       (cons (car l) (firstn (- n 1) (cdr l)))))
 
 (defun overdub-repeat (slice val samples)
-  (if (endp samples)
-      nil
+  (if (or (endp samples)
+          (< (maximum slice) 1/10))
+      samples
       (let ((scaled (multiply-all val slice))
             (firsts (firstn (length slice) samples)))
         (append (add-lists scaled firsts) (overdub-repeat scaled val (nthcdr (length slice) samples))))))
