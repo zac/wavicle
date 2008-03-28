@@ -8,7 +8,6 @@
 
 (include-book "binary-io-utilities" :dir :teachpacks)
 
-(include-book "world" :dir :teachpacks)
 
 (defun ascii->chrs (bytes)
   (if (consp bytes)

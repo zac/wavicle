@@ -1,3 +1,5 @@
+(include-book "world" :dir :teachpacks)
+
 (defstructure wav-file
   (chunk-id (:assert (stringp chunk-id)))
   (chunk-size (:assert (integerp chunk-size)))
