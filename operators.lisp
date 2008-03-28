@@ -64,11 +64,11 @@
 
 
 ;----------------------- FUZZ -------------------------
+
 ; (maximum list)
 ;   Gives the maximum element of the list.
 ;   list = list of numbers to compare.
 ; (maximum '(1 2 43 54 23 11 32 55 33)) -> 55
-
 (defun maximum (list)
   (if (consp (cdr list))
       (max (car list) (maximum (cdr list)))
@@ -86,6 +86,53 @@
     (modify-data wav (fuzz-h val g (wav-file-data wav)))))
 
 ;---------------------- DELAY ------------------------
+
+(defun gen-0-list (num)
+  (if (posp num)
+      (cons 0 (gen-0-list (- num 1)))
+      nil))
+
+(defun delay (time wav)
+  (let* ((sample-rate (wav-file-sample-rate wav))
+         (num-packets (* (* sample-rate (wav-file-num-channels wav)) time))
+         (data (wav-file-data wav)))
+    (modify-data wav (append (gen-0-list num-packets) data))))
+
+;---------------------- ECHO -------------------------
+
+(defun multiply-all (val l)
+  (if (endp l)
+      nil
+      (cons (* val (car l)) (multiply-all val (cdr l)))))
+
+(defun add-lists (first second)
+  (if (or (endp first)
+          (endp second))
+      nil
+      (cons (+ (car first) (car second)) (add-lists (cdr first) (cdr second)))))
+
+(defun firstn (n l)
+  (if (or (endp l)
+          (zp n))
+      nil
+      (cons (car l) (firstn (- n 1) (cdr l)))))
+
+(defun overdub-repeat (slice val samples)
+  (if (endp samples)
+      nil
+      (let ((scaled (multiply-all val slice))
+            (firsts (firstn (length slice) samples)))
+        (append (add-lists scaled firsts) (overdub-repeat scaled val (nthcdr (length slice) samples))))))
+  
+(defun echo-h (num-samples val samples)
+  (if (endp samples)
+      nil
+      (let ((current (firstn num-samples samples)))
+        (append current (echo-h num-samples val (overdub-repeat current val (nthcdr num-samples samples)))))))
+
+(defun echo (t val wav)
+  (modify-data wav (echo-h (floor (* (* (wav-file-sample-rate wav) (wav-file-num-channels wav)) t) 1) val (wav-file-data wav))))
+
 
 ;--------------------- FADE-IN -----------------------
 
