@@ -137,6 +137,11 @@
   (modify-data wav (echo-h (floor (* (* (wav-file-sample-rate wav) (wav-file-num-channels wav)) t) 1) val (wav-file-data wav))))
 
 
+;--------------------- OVERDUB -----------------------
+;overdubs wav1 onto wav2.
+(defun overdub (wav1 wav2)
+  (modify-data wav2 (add-lists (wav-file-data wav1) (wav-file-data wav2))))
+
 ;--------------------- FADE-IN -----------------------
 
 (defun fade-in-h (total samples)
