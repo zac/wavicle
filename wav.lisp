@@ -46,7 +46,7 @@
 (defun integer->bytes (int num)
   (if (> num 1)
       (integer->bytes-h (2scomp->unsigned int (* 8 num)) num)
-      (integer->bytes-h int num)))
+      (integer->bytes-h (+ int 128) num)))
 
 (defthm integer->bytes-thm
   (true-listp (integer->bytes lst n)))
@@ -77,7 +77,7 @@
   (let ((val (bytes->integer-h bytes)))
     (if (> (length bytes) 1)
         (unsigned->2scomp val (* 8 (length bytes)))
-        val)))
+        (- val 128))))
 
 (defthm bytes->integer-thm
   (<= 0 (bytes->integer byte-list)))
@@ -146,7 +146,7 @@
   (mv-let (bytes error state)
           (binary-file->byte-list file state)
           (let ((wav (parse-wav-file bytes)))
-            (write-wav (echo 1/2 1/3 wav) output state))))
+            (write-wav (boost 1/2 wav) output state))))
 
 (defun read-wav (file state)
   (mv-let (bytes error state)
