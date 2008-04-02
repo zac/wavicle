@@ -10,9 +10,7 @@
 (defconst *height* 600)
 (defconst *width*  800)
 
-(defconst *ob* (make-posn -50 -50)) ; off canvas
 (defconst *seconds-per-tick* 1/10)
-(defconst *hello-world* (m-world *ob* *ob*)) ; balls start off canvas
 
 ;----- Determine how many pixels to move forward between samples ----
 ;Works best when (length sample-list) is used as the parameter
@@ -60,7 +58,8 @@
 ;----- Generates a single graph for a single-channel wave ------------
 (defun get-mono-graph (sample-list)
   (let ((del-x (delta-x (length sample-list))))
-    (calculate-graph 0 del-x sample-list)))
+    (cons (calculate-graph 0 del-x sample-list)
+          nil)))
 
 ;----- Generates a cons-pair of graphs -------------------------------
 ;----- ((left-channel-graph)(right-channel-graph)) -------------------
@@ -82,7 +81,42 @@
          (num-channels (car(nthcdr 7 wav))))
     (get-graph sample-list num-channels)))
 
+;----- Functions to take the graph points and draw a line on the canvas----
+
+(defun draw-line (list color scene)
+  (if (null (cddr list))
+      scene
+      (let ((x1 (car (car list)))
+            (y1 (cdr (car list)))
+            (x2 (car (cadr list)))
+            (y2 (cdr (cadr list))))
+        (add-line (draw-line (cdr list) color scene) x1 y1 x2 y2 color))))
+
+(defun draw-wave (w)
+  (draw-line (m-world-left-channel w) 'blue
+  (draw-line (m-world-right-channel w) 'red
+  (empty-scene *width* *height*))))
+
 ;----- Call calculate-wave to get a graph from the wav-structure -----
 ;----- then draw it to the screen in a window ------------------------
-(defun startx ()
-  (big-bang *width* *height* *seconds-per-tick* *hello-world*))
+(defun show-canvas (wav)
+  (let ((solution (calculate-wave wav)))
+    (big-bang *width* *height* *seconds-per-tick*
+              (m-world (car solution)
+                       (cadr solution)))))
+
+(defun display-wave ()
+  (on-redraw draw-wave))
+
+;---------------------- Usage Instructions ---------------------------
+; (show-canvas wav) - This function will take a wave structure and use
+;                     the sections of the structure that it needs to
+;                     generate an m-world structure with two lists
+;                     containing graph points for the left and right
+;                     channels. This will also draw an empty canvas as
+;                     the first step in creating the graph.
+;
+; (display-wave) - This function reads the m-world structure created
+;                  in the (show-canvas) function and will draw the
+;                  left and right channels in blue and red as lines on
+;                  the canvas.
