@@ -98,3 +98,12 @@
  * Code Review
  * Start integration of individual components
  * Make agenda for next meeting
+
+==Agenda: April 1==
+ * Meet with Dr. Page for Progress Report
+ * Make agenda for next meeting
+
+==Agenda: April 3==
+ * Discuss finalizing project
+ * Start creating powerpoint presentation
+ * Make agenda for next meeting
