@@ -99,24 +99,13 @@
 
 ;----- Call calculate-wave to get a graph from the wav-structure -----
 ;----- then draw it to the screen in a window ------------------------
-(defun show-canvas (wav)
-  (let ((solution (calculate-wave wav)))
-    (big-bang *width* *height* *seconds-per-tick*
-              (m-world (car solution)
-                       (cadr solution)))))
-
-(defun display-wave ()
+(defun draw-wave-line ()
   (on-redraw draw-wave))
 
-;---------------------- Usage Instructions ---------------------------
-; (show-canvas wav) - This function will take a wave structure and use
-;                     the sections of the structure that it needs to
-;                     generate an m-world structure with two lists
-;                     containing graph points for the left and right
-;                     channels. This will also draw an empty canvas as
-;                     the first step in creating the graph.
-;
-; (display-wave) - This function reads the m-world structure created
-;                  in the (show-canvas) function and will draw the
-;                  left and right channels in blue and red as lines on
-;                  the canvas.
+(defun display-wave (wav)
+  (let* ((solution (calculate-wave wav))
+         (startx (big-bang *width* *height* *seconds-per-tick*
+               (m-world (car solution)
+                        (cadr solution))))
+         (showfunction (draw-wave-line)))
+     t))
