@@ -25,7 +25,6 @@
 
 (defstructure acf
   (output       (:assert (string-listp output)))
-  (files        (:assert (string-listp files)))
   (commands     (:assert (string-listp commands))))
 
 (defun keywords-output (word)
@@ -45,7 +44,26 @@
           (cons (car str) (get-cmds (cdr str) vars))
           nil)
       nil))
+
+(defun replace-variable (word vars-list file-vars)
+  (if (consp vars-list)
+      (if (member-equal word file-vars)
+          (if (equal (caar vars-list) word)
+              (caddar vars-list)
+              (replace-variable word (cdr vars-list) file-vars))
+          word)
+      nil))
   
+(defun replace-vars-helper (cmd vars-list file-vars)
+  (if (consp cmd)
+      (cons (replace-variable (car cmd) vars-list file-vars) (replace-vars-helper (cdr cmd) vars-list file-vars))
+      nil))
+
+(defun replace-vars (cmds vars-list file-vars)
+  (if (consp cmds)
+      (cons (replace-vars-helper (car cmds) vars-list file-vars) (replace-vars (cdr cmds) vars-list file-vars))
+      nil))
+
 (defun line-parser(str)
   (let* ((output (if (keywords-output (caar str))
                      (car str)
@@ -54,8 +72,9 @@
                     (caddr str)
                     (cadr str)))
          (vars-list (get-vars (reverse file-vars) (reverse str)))
-         (commands (get-cmds (nthcdr (len file-vars) (reverse str)) file-vars)))
-    (acf output vars-list commands)))
+         (commands (get-cmds (nthcdr (len file-vars) (reverse str)) file-vars))
+         (newcmds (replace-vars commands vars-list file-vars)))
+    (acf output newcmds)))
 
 (defun line->words(line)
   (if (consp line)
