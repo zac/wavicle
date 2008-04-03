@@ -119,22 +119,22 @@
       nil
       (cons (car l) (firstn (- n 1) (cdr l)))))
 
-(defun overdub-repeat (slice val samples)
-  (if (or (endp samples)
-          (< (maximum slice) 1/10))
-      samples
-      (let ((scaled (multiply-all val slice))
-            (firsts (firstn (length slice) samples)))
-        (append (add-lists scaled firsts) (overdub-repeat scaled val (nthcdr (length slice) samples))))))
-  
-(defun echo-h (num-samples val samples)
-  (if (endp samples)
-      nil
-      (let ((current (firstn num-samples samples)))
-        (append current (echo-h num-samples val (overdub-repeat current val (nthcdr num-samples samples)))))))
-
-(defun echo (t val wav)
-  (modify-data wav (echo-h (floor (* (* (wav-file-sample-rate wav) (wav-file-num-channels wav)) t) 1) val (wav-file-data wav))))
+;(defun overdub-repeat (slice val samples)
+;  (if (or (endp samples)
+;          (< (maximum slice) 1/10))
+;      samples
+;      (let ((scaled (multiply-all val slice))
+;            (firsts (firstn (length slice) samples)))
+;        (append (add-lists scaled firsts) (overdub-repeat scaled val (nthcdr (length slice) samples))))))
+;  
+;(defun echo-h (num-samples val samples)
+;  (if (endp samples)
+;      nil
+;      (let ((current (firstn num-samples samples)))
+;        (append current (echo-h num-samples val (overdub-repeat current val (nthcdr num-samples samples)))))))
+;
+;(defun echo (t val wav)
+;  (modify-data wav (echo-h (floor (* (* (wav-file-sample-rate wav) (wav-file-num-channels wav)) t) 1) val (wav-file-data wav))))
 
 
 ;--------------------- OVERDUB -----------------------
@@ -193,3 +193,27 @@
   (if (endp data)
       nil
       (cons (/ (car data) maximum) (normalize-data (cdr data) maximum))))
+
+;--------------------- FILTER ------------------------
+(defun generateBoundary (xs)
+  (if (consp xs)
+      (cons 0 (generateBoundary (cddr xs)))
+      nil))
+
+(defun getFirstPart (xs)
+  (take (floor (len xs) 2) xs))
+
+(defun getRest (xs)
+  (nthcdr (floor (len xs) 2) xs))
+
+(defun sumFilters (xs ys)
+  (if (consp xs)
+      (+ (* (car xs) (car ys))
+         (sumFilters (cdr xs) (cdr ys)))
+      0))
+
+(defun compileFilter (xs ys)
+  (let ((center (sumFilters xs ys))
+        (front (getFirstPart xs))
+        (rest (cdr (getRest xs))))
+    (append front (cons center rest))))
