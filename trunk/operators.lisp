@@ -242,7 +242,6 @@
   (let* ((p (padding ys))
          (results (filter-helper (append p (append xs p))
                                  ys 
-                                 ;(- (+ (len xs) (len p) 4) (len ys))))
                                  (len xs)))
          (n (- (len results) (len p)))
          )
