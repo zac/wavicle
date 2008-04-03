@@ -29,14 +29,6 @@
                         sample-val))))
 
 ;----- Split a list of audio samples into left and right channels ----
-(defun get-nth-channel (sample-list channel-number num-channels)
-  (if (nthcdr num-channels sample-list)
-      (cons (car (nthcdr channel-number sample-list))
-            (get-nth-channel (nthcdr (- num-channels 1) sample-list)
-                              channel-number
-                              num-channels)))
-      (car (nthcdr (- channel-number 1) sample-list)))
-
 (defun get-left-channel (sample-list)
   (if (cdr sample-list)
       (cons (car sample-list) (get-left-channel (cddr sample-list)))
@@ -105,7 +97,7 @@
 (defun display-wave (wav)
   (let* ((solution (calculate-wave wav))
          (startx (big-bang *width* *height* *seconds-per-tick*
-               (m-world (car solution)
-                        (cadr solution))))
+                           (m-world (car solution)
+                                    (cadr solution))))
          (showfunction (draw-wave-line)))
      t))
