@@ -119,22 +119,22 @@
       nil
       (cons (car l) (firstn (- n 1) (cdr l)))))
 
-;(defun overdub-repeat (slice val samples)
-;  (if (or (endp samples)
-;          (< (maximum slice) 1/10))
-;      samples
-;      (let ((scaled (multiply-all val slice))
-;            (firsts (firstn (length slice) samples)))
-;        (append (add-lists scaled firsts) (overdub-repeat scaled val (nthcdr (length slice) samples))))))
-;  
-;(defun echo-h (num-samples val samples)
-;  (if (endp samples)
-;      nil
-;      (let ((current (firstn num-samples samples)))
-;        (append current (echo-h num-samples val (overdub-repeat current val (nthcdr num-samples samples)))))))
-;
-;(defun echo (t val wav)
-;  (modify-data wav (echo-h (floor (* (* (wav-file-sample-rate wav) (wav-file-num-channels wav)) t) 1) val (wav-file-data wav))))
+(defun overdub-repeat (slice val samples)
+  (if (or (endp samples)
+          (< (maximum slice) 1/10))
+      samples
+      (let ((scaled (multiply-all val slice))
+            (firsts (firstn (length slice) samples)))
+        (append (add-lists scaled firsts) (overdub-repeat scaled val (nthcdr (length slice) samples))))))
+  
+(defun echo-h (num-samples val samples)
+  (if (endp samples)
+      nil
+      (let ((current (firstn num-samples samples)))
+        (append current (echo-h num-samples val (overdub-repeat current val (nthcdr num-samples samples)))))))
+
+(defun echo (t val wav)
+  (modify-data wav (echo-h (floor (* (* (wav-file-sample-rate wav) (wav-file-num-channels wav)) t) 1) val (wav-file-data wav))))
 
 
 ;--------------------- OVERDUB -----------------------
@@ -217,3 +217,4 @@
         (front (getFirstPart xs))
         (rest (cdr (getRest xs))))
     (append front (cons center rest))))
+
