@@ -119,22 +119,22 @@
       nil
       (cons (car l) (firstn (- n 1) (cdr l)))))
 
-(defun overdub-repeat (slice val samples)
-  (if (or (endp samples)
-          (< (maximum slice) 1/10))
-      samples
-      (let ((scaled (multiply-all val slice))
-            (firsts (firstn (length slice) samples)))
-        (append (add-lists scaled firsts) (overdub-repeat scaled val (nthcdr (length slice) samples))))))
-  
-(defun echo-h (num-samples val samples)
-  (if (endp samples)
-      nil
-      (let ((current (firstn num-samples samples)))
-        (append current (echo-h num-samples val (overdub-repeat current val (nthcdr num-samples samples)))))))
-
-(defun echo (t val wav)
-  (modify-data wav (echo-h (floor (* (* (wav-file-sample-rate wav) (wav-file-num-channels wav)) t) 1) val (wav-file-data wav))))
+;(defun overdub-repeat (slice val samples)
+;  (if (or (endp samples)
+;          (< (maximum slice) 1/10))
+;      samples
+;      (let ((scaled (multiply-all val slice))
+;            (firsts (firstn (length slice) samples)))
+;        (append (add-lists scaled firsts) (overdub-repeat scaled val (nthcdr (length slice) samples))))))
+;  
+;(defun echo-h (num-samples val samples)
+;  (if (endp samples)
+;      nil
+;      (let ((current (firstn num-samples samples)))
+;        (append current (echo-h num-samples val (overdub-repeat current val (nthcdr num-samples samples)))))))
+;
+;(defun echo (t val wav)
+;  (modify-data wav (echo-h (floor (* (* (wav-file-sample-rate wav) (wav-file-num-channels wav)) t) 1) val (wav-file-data wav))))
 
 
 ;--------------------- OVERDUB -----------------------
@@ -195,26 +195,56 @@
       (cons (/ (car data) maximum) (normalize-data (cdr data) maximum))))
 
 ;--------------------- FILTER ------------------------
-(defun generateBoundary (xs)
-  (if (consp xs)
-      (cons 0 (generateBoundary (cddr xs)))
-      nil))
+(defun generate-boundary (n)
+  (if (zp n)
+      nil
+      (cons 0 (generate-boundary (- n 1)))))
 
-(defun getFirstPart (xs)
-  (take (floor (len xs) 2) xs))
+;ys is the filter list
+(defun padding (ys)
+  (generate-boundary (floor (len ys) 2)))
 
-(defun getRest (xs)
+(defun get-first-part (xs)
+  (take (floor (len xs) 2) 
+        xs))
+
+(defun get-rest (xs)
   (nthcdr (floor (len xs) 2) xs))
 
-(defun sumFilters (xs ys)
+(defun sum-elements (xs ys)
   (if (consp xs)
       (+ (* (car xs) (car ys))
-         (sumFilters (cdr xs) (cdr ys)))
+         (sum-elements (cdr xs) (cdr ys)))
       0))
 
-(defun compileFilter (xs ys)
-  (let ((center (sumFilters xs ys))
-        (front (getFirstPart xs))
-        (rest (cdr (getRest xs))))
+(defun compile-filter (xs ys)
+  (let ((center (sum-elements xs ys))
+        (front (get-first-part xs))
+        (rest (cdr (get-rest xs))))
     (append front (cons center rest))))
 
+(defun get-modifiable-list (xs ys)
+  (take (len ys) xs))
+
+(defun get-rest-of-list (xs ys)
+  (nthcdr (len ys) xs))
+
+(defun filter-helper (xs ys n)
+  (if (zp n)
+      xs
+      (let ((modified (compile-filter (get-modifiable-list xs ys) ys))
+            (rest (get-rest-of-list xs ys)))
+        (cons (car modified) 
+              (filter-helper (append 
+                              (cdr modified) rest) ys (- n 1))))))
+
+(defun filter-handler (xs ys)
+  (let* ((p (padding ys))
+         (results (filter-helper (append p (append xs p))
+                                 ys 
+                                 ;(- (+ (len xs) (len p) 4) (len ys))))
+                                 (len xs)))
+         (n (- (len results) (len p)))
+         )
+    ;remove padding
+    (nthcdr (len p) (take n results))))
