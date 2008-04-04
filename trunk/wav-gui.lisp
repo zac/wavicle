@@ -1,4 +1,5 @@
-(include-book "world" :dir :teachpacks)
+(in-package "ACL2")
+;(include-book "world" :dir :teachpacks)
 
 ;----- Define the mouse world data structure -------------------------
 (defstructure m-world 
@@ -29,6 +30,14 @@
                         sample-val))))
 
 ;----- Split a list of audio samples into left and right channels ----
+;(defun get-nth-channel (sample-list channel-number num-channels)
+;  (if (nthcdr num-channels sample-list)
+;      (cons (car (nthcdr channel-number sample-list))
+;            (get-nth-channel (nthcdr (- num-channels 1) sample-list)
+;                              channel-number
+;                              num-channels)))
+;      (car (nthcdr (- channel-number 1) sample-list)))
+
 (defun get-left-channel (sample-list)
   (if (cdr sample-list)
       (cons (car sample-list) (get-left-channel (cddr sample-list)))
@@ -89,15 +98,9 @@
   (draw-line (m-world-right-channel w) 'red
   (empty-scene *width* *height*))))
 
-;----- Call calculate-wave to get a graph from the wav-structure -----
-;----- then draw it to the screen in a window ------------------------
-(defun draw-wave-line ()
-  (on-redraw draw-wave))
-
 (defun display-wave (wav)
   (let* ((solution (calculate-wave wav))
          (startx (big-bang *width* *height* *seconds-per-tick*
-                           (m-world (car solution)
-                                    (cadr solution))))
-         (showfunction (draw-wave-line)))
+               (m-world (car solution)
+                        (cadr solution)))))
      t))
