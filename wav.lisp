@@ -151,4 +151,4 @@
 (defun read-wav (file state)
   (mv-let (bytes error state)
           (binary-file->byte-list file state)
-          (parse-wav-file bytes)))
+          (mv (parse-wav-file bytes) state)))
