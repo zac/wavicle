@@ -101,6 +101,8 @@
       nil
       (append (integer->bytes (floor (* (car samples) (expt 2 (- (* 8 block-align) 1))) 1) block-align) (samples->bytes (cdr samples) block-align))))
 
+
+;; TAKES 44.2 seconds to run on voice5.wav.
 (defun parse-wav-file (bytes)
   (wav-file (subseq bytes 0 4) ;chunk-id
             (bytes->integer (subseq bytes 4 8)) ;chunk-size
@@ -117,6 +119,7 @@
             (bytes->integer (subseq bytes 40 44)) ;subchunk-2-size
             (bytes->samples (nthcdr 44 bytes) (bytes->integer-h (subseq bytes 32 34)))))
 
+;; TAKES 20.4 seconds to run on voice5.wav.
 (defun wav->byte-list (wav)
   (append (wav-file-chunk-id wav)
           (integer->bytes (wav-file-chunk-size wav) 4)
@@ -146,6 +149,13 @@
           (binary-file->byte-list file state)
           (let ((wav (parse-wav-file bytes)))
             (write-wav (boost 1/2 wav) output state))))
+
+(defun test-time (file output state)
+  (mv-let (bytes error state)
+          (binary-file->byte-list file state)
+          (let* ((wav (parse-wav-file bytes))
+                 (bytes (wav->byte-list wav)))
+            t)))
 
 (defun read-wav (file state)
   (mv-let (bytes error state)
