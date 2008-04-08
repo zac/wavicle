@@ -7,6 +7,7 @@
 ;(include-book "ihs/ihs-lemmas" :dir :system)
 
 (include-book "binary-io-utilities" :dir :teachpacks)
+(include-book "wav-gui")
 
 (defun ascii->chrs (bytes)
   (if (consp bytes)
@@ -94,13 +95,12 @@
 (defun bytes->samples (data sample-size)
   (if (endp data)
       nil
-      (cons (/ (bytes->integer (subseq data 0 sample-size)) (expt 2 (- (* 8 sample-size) 1))) (bytes->samples (nthcdr sample-size data) sample-size))))
+      (cons (/ (bytes->integer (firstn sample-size data)) (expt 2 (- (* 8 sample-size) 1))) (bytes->samples (nthcdr sample-size data) sample-size))))
 
 (defun samples->bytes (samples block-align)
   (if (endp samples)
       nil
       (append (integer->bytes (floor (* (car samples) (expt 2 (- (* 8 block-align) 1))) 1) block-align) (samples->bytes (cdr samples) block-align))))
-
 
 ;; TAKES 44.2 seconds to run on voice5.wav.
 (defun parse-wav-file (bytes)
@@ -117,7 +117,7 @@
             (bytes->integer (subseq bytes 34 36)) ;bits-per-sample
             (subseq bytes 36 40) ;subchunk-2-id
             (bytes->integer (subseq bytes 40 44)) ;subchunk-2-size
-            (bytes->samples (nthcdr 44 bytes) (bytes->integer-h (subseq bytes 32 34)))))
+            (bytes->samples (nthcdr 44 bytes) (bytes->integer (subseq bytes 32 34)))))
 
 ;; TAKES 20.4 seconds to run on voice5.wav.
 (defun wav->byte-list (wav)
@@ -148,14 +148,13 @@
   (mv-let (bytes error state)
           (binary-file->byte-list file state)
           (let ((wav (parse-wav-file bytes)))
-            (write-wav (boost 1/2 wav) output state))))
+            (write-wav (boost 1 wav) output state))))
 
 (defun test-time (file output state)
   (mv-let (bytes error state)
           (binary-file->byte-list file state)
-          (let* ((wav (parse-wav-file bytes))
-                 (bytes (wav->byte-list wav)))
-            t)))
+          (let* ((wav (parse-wav-file bytes)))
+            wav)))
 
 (defun read-wav (file state)
   (mv-let (bytes error state)

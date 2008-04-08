@@ -79,7 +79,7 @@
 ;----- Extracts the required data from a wav-structure and calls get-graph ---
 (defun calculate-wave (wav)
   (let* ((sample-list (car (nthcdr 14 wav)))
-         (num-channels (car(nthcdr 7 wav))))
+         (num-channels (car (nthcdr 7 wav))))
     (get-graph sample-list num-channels)))
 
 ;----- Functions to take the graph points and draw a line on the canvas----
@@ -102,5 +102,6 @@
   (let* ((solution (calculate-wave wav))
          (startx (big-bang *width* *height* *seconds-per-tick*
                (m-world (car solution)
-                        (cadr solution)))))
+                        (cadr solution))))
+         (showfunction (on-redraw draw-wave)))
      t))
