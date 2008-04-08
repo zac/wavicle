@@ -151,3 +151,8 @@
                                     wav) state)
             (cond ((string-equal action "put-signal") (write-wav wav file state))
                   ((string-equal action "display-signal") (display-wave wav))))))
+
+(defun acf-caller (file state)
+  (mv-let (acf state)
+          (parser file state)
+          (acf-function acf state)))
