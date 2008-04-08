@@ -7,7 +7,7 @@
 ;(include-book "ihs/ihs-lemmas" :dir :system)
 
 (include-book "binary-io-utilities" :dir :teachpacks)
-(include-book "wav-gui")
+;(include-book "wav-gui")
 
 (defun ascii->chrs (bytes)
   (if (consp bytes)
