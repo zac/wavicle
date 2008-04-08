@@ -230,33 +230,40 @@
          (sum-elements (cdr xs) (cdr ys)))
       0))
 
-(defun compile-filter (xs ys)
-  (let ((center (sum-elements xs ys))
-        (front (get-first-part xs))
-        (rest (cdr (get-rest xs))))
-    (append front (cons center rest))))
-
 (defun get-modifiable-list (xs ys)
   (take (len ys) xs))
 
-(defun get-rest-of-list (xs ys)
-  (nthcdr (len ys) xs))
-
 (defun filter-helper (xs ys n)
   (if (zp n)
-      xs
-      (let ((modified (compile-filter (get-modifiable-list xs ys) ys))
-            (rest (get-rest-of-list xs ys)))
-        (cons (car modified) 
-              (filter-helper (append 
-                              (cdr modified) rest) ys (- n 1))))))
+      nil
+      (cons (sum-elements (get-modifiable-list xs ys) ys)
+            (filter-helper (cdr xs) ys (- n 1)))))
+
+;(defun filter-helper (xs ys n)
+;  (if (zp n)
+;      xs
+;      (let ((modified (compile-filter (get-modifiable-list xs ys) ys))
+;            (rest (get-rest-of-list xs ys)))
+;        (cons (car modified) 
+;              (filter-helper (append 
+;                              (cdr modified) rest) ys (- n 1))))))
 
 (defun filter-handler (xs ys)
   (let* ((p (padding ys))
-         (results (filter-helper (append p (append xs p))
-                                 ys 
-                                 (len xs)))
-         (n (- (len results) (len p)))
+         (newData (append p (append xs p)))
+         (n (- (- (len newData) (len p)) (len p)))
+         (results (filter-helper newData ys n))
          )
+    results))
+
+(defun filter (ys wav)
+  (modify-data wav (filter-handler (wav-file-data wav) ys)))
+    ;(cons n newData)))
+         ;(results (filter-helper (append p (append xs p))
+         ;                        ys 
+         ;                        (len xs)))
+         ;(n (- (len results) (len p)))
+        ;)
     ;remove padding
-    (nthcdr (len p) (take n results))))
+    ;(nthcdr (len p) (take n results))))
+  ;(append (padding ys) (append xs (padding ys))))
