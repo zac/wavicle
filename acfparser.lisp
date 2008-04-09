@@ -22,6 +22,31 @@
               (mv (parse-list (tokens (list #\( #\) #\Newline) (str->chrs line))) state))))
 #|-------------------END file->list of strings------------------------|#
 
+;get filter code
+(defun validate-filter-length (xs)
+  (if (= (mod (len xs) 2) 0)
+      (cons 0 xs)
+      xs))
+  
+(defun parse-filter (xs)
+  (if (consp xs)     
+      (let ((number (str->rat (chrs->str (car xs)))))
+        (if (> number 1)
+            (cons 1 (parse-filter (cdr xs)))
+            (if (< number 0)
+                (cons 0 (parse-filter (cdr xs)))
+                (cons number (parse-filter (cdr xs))))))
+      nil))
+  
+(defun read-filter (file state)
+  (mv-let (line error state)
+          (file->string file state)
+          (if error
+              (mv error state)
+              (mv (validate-filter-length (parse-filter (packets #\, (str->chrs line)))) state))))
+
+;end of get filter
+
 (defstructure acf
   (output       (:assert (string-listp output)))
   (commands     (:assert (true-listp commands))))
