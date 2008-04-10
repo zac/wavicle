@@ -170,7 +170,10 @@
                             (mv-let (wav state)
                                     (read-wav (get-last (car commands)) state) 
                                     wav) state)
-            (cond ((string-equal action "put-signal") (write-wav wav file state))
+            (cond ((string-equal action "put-signal")
+                   (if (not (stringp file))
+                       (mv "Bad output filename" state)
+                       (write-wav wav file state)))
                   ((string-equal action "display-signal") (display-wave wav))))))
 
 (defun acf-caller (file state)
