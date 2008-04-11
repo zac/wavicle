@@ -1,13 +1,15 @@
 (in-package "ACL2")
 (include-book "operators")
 
+(include-book "audio" :dir :teachpacks)
+
 (include-book "list-utilities" :dir :teachpacks)
 
 ;(include-book "ihs/ihs-definitions" :dir :system)
 ;(include-book "ihs/ihs-lemmas" :dir :system)
 
 (include-book "binary-io-utilities" :dir :teachpacks)
-;(include-book "wav-gui")
+(include-book "wav-gui")
 
 (defun ascii->chrs (bytes)
   (if (consp bytes)
@@ -148,7 +150,7 @@
   (mv-let (bytes error state)
           (binary-file->byte-list file state)
           (let ((wav (parse-wav-file bytes)))
-            (write-wav (boost 1 wav) output state))))
+            (write-wav (chipmunk 2 wav) output state))))
 
 (defun test-time (file output state)
   (mv-let (bytes error state)
