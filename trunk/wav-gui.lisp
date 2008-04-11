@@ -8,7 +8,7 @@
 )
 
 ;----- Define an initial world with some basic constants -------------
-(defconst *height* 600)
+(defconst *height* 300)
 (defconst *width*  800)
 
 (defconst *seconds-per-tick* 1/10)
