@@ -1,7 +1,6 @@
 (in-package "ACL2")
 (include-book "io-utilities" :dir :teachpacks)
-(include-book "wav")
-(include-book "wav-gui")
+
 
 #|----------------------reading file -> list of strings---------------|#
 (defun parse-lines (line)
@@ -175,8 +174,3 @@
                        (mv "Bad output filename" state)
                        (write-wav wav file state)))
                   ((string-equal action "display-signal") (display-wave wav))))))
-
-(defun acf-caller (file state)
-  (mv-let (acf state)
-          (parser file state)
-          (acf-function acf state)))
