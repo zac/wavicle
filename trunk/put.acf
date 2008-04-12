@@ -1,4 +1,4 @@
-(display-signal output.wav
-((lambda  	(wav) 
-(fuzz .3 (fade-out 3 (boost 3 wav)))
+(put-signal output.wav
+((lambda (wav) 
+(fuzz .3 (fade-out 3 (boost 3 (cut 2 wav))))
 (get-signal voice5.wav)))
