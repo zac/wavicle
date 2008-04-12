@@ -1,4 +1,4 @@
-(display-signal rickreverse.wav
+(display-signal rickecho2.wav
 ((lambda (wav)
-(reverse wav))
-(get-signal ./Samples/rick.wav)))
+(echo 1 .33 wav))
+(get-signal samples/rick2.wav)))
