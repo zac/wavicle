@@ -132,22 +132,22 @@
                 (rationalp val))
            (= (length list1) (length (multiply-all val list1)))))
 
-;(defun overdub-repeat (slice val samples)
-;  (if (or (endp slice)
-;          (endp samples))
-;      samples
-;      (let ((scaled (multiply-all val slice))
-;            (firsts (firstn (length slice) samples)))
-;        (append (add-lists scaled firsts) (overdub-repeat scaled val (nthcdr (length slice) samples))))))
+(defun overdub-repeat (slice val samples)
+  (if (or (endp slice)
+          (endp samples))
+      samples
+      (let ((scaled (multiply-all val slice))
+            (firsts (firstn (length slice) samples)))
+        (append (add-lists scaled firsts) (overdub-repeat scaled val (nthcdr (length slice) samples))))))
   
-;(defun echo-h (num-samples val samples)
-;  (if (endp samples)
-;      nil
-;      (let ((current (firstn num-samples samples)))
-;        (append current (echo-h num-samples val (overdub-repeat current val (nthcdr num-samples samples)))))))
+(defun echo-h (num-samples val samples)
+  (if (endp samples)
+      nil
+      (let ((current (firstn num-samples samples)))
+        (append current (echo-h num-samples val (overdub-repeat current val (nthcdr num-samples samples)))))))
 
-;(defun echo (t val wav)
-;  (modify-data wav (echo-h (floor (* (* (wav-file-sample-rate wav) (wav-file-num-channels wav)) t) 1) val ;(wav-file-data wav))))
+(defun echo (t val wav)
+  (modify-data wav (echo-h (floor (* (* (wav-file-sample-rate wav) (wav-file-num-channels wav)) t) 1) val (wav-file-data wav))))
 
 
 ;--------------------- OVERDUB -----------------------

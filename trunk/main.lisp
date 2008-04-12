@@ -1,0 +1,11 @@
+(in-package "ACL2")
+(include-book "operators")
+(include-book "wav")
+(include-book "wav-gui")
+(include-book "acfparser")
+(include-book "filter")
+
+(defun main (file state)
+  (mv-let (acf state)
+          (parser file state)
+          (acf-function acf state)))
