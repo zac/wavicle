@@ -1,7 +1,4 @@
 (in-package "ACL2")
-(include-book "io-utilities" :dir :teachpacks)
-(include-book "list-utilities" :dir :teachpacks)
-(include-book "operators")
 
 (set-state-ok t)
 
