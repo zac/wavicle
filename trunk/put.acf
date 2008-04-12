@@ -1,4 +1,4 @@
-(put-signal rickcut.wav
+(display-signal rickcut.wav
 ((lambda (wav)
 (cut 2 wav))
 (get-signal ./Samples/rick.wav)))
