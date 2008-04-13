@@ -19,10 +19,38 @@ In order to use wAviCLe, you will require the following software on your compute
   # A copy of [http://www.plt-scheme.org/ PLT Scheme] to run the program
   # A copy of [http://www.ccs.neu.edu/home/cce/acl2/ drACuLa] to allow PLT Scheme to interpret ACL2 code.
 
+
 == Loading and Running wAviCLe ==
+
+Once the required setup is complete, actually running wAviCLe has been done on just a couple of commands. To load wAviCLe, you will need to open the main.lisp file in PLT Scheme and click the "Run" button. This will load all of the required functions needed to run wAviCLe and open an interface window in PLT Scheme so that you can get things started.
+
+Now that everything has been loaded, just enter `(set-state-ok t)` into the interface window and PLT Scheme is ready to run wAviCLe.
+
+Actually executing wAviCLe's code has been condensed down to a single command. The functions and sound files that you want to work with will be read from a .acf (audio command file) and the commands listed there will be run in order, so running wAviCLe requires you to use only the following command: 
+
+  `(main acf state)`
+
+where acf represents the location of the .acf file.
 
 
 == Creating lists of commands in .acf files ==
 
+The .acf files are where most of the user's interaction with wAviCLe takes place. The program will automatically load .wav audio files, and run pre-made or user-made filters on them, combine multiple .wav files together and write the resulting soundwave to it's own audio file or draw it to a window on the screen.
+
+wAviCLe has been written to perform the following functions on a .wav audio file:
+
+  * `(get-signal sample.wav)` - Read the file "sample.wav" from your hard disk and creates a wav-structure in order to allow wAviCLe to run it's filters on it.
+  * `(put-signal output.wav wav-structure)` - Takes wav-structure, the output from filtered .wav files and other functions, then writes that to "output.wav" to playback your results in other audio programs.
+  * `(display-signal wav-structure)` - Takes a wav-structure that has been filtered and displays it as a waveform in a window on the screen. This allows users to visualize how the results of their filtering will look when written to a file.
+  * *Need more information on how to run functions from .acf files*
+
 
 == Building filters in .flt files ==
+
+The .flt files bring flexibility to wAviCLe by allowing users to create their own filters when none of the built-in functions perform the function that the user wants. Each .flt file consists of a list of numbers, seperated by commas. For each of these numbers, wAviCLe will take a sample of sound from the .wav file, multiply the filter value and the sample value together, then sum the products of each of those calculations together to create a new sample value for a new wav-structure.
+
+A user may create as many filters as they like in an .flt file, for example:
+
+`0.33,0.33,0.33`
+
+will take the first three samples from a wav-structure, multiply them all by 1/3, then add them together and make them the first sample on a new wav-structure before moving up to perform the same function on samples 2, 3, and 4 of the old wav-structure and so-on until wAviCLe runs out of samples to filter. The resulting new wav-structure can then be written to a file by (put-signal) or displayed to the screen by (display-signal).
