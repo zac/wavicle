@@ -1,4 +1,5 @@
-(display-signal rickecho2.wav
-((lambda (wav)
-(echo 1 .33 wav))
-(get-signal samples/rick2.wav)))
+(put-signal rickfilter.wav
+((lambda (w wav1)
+(filter w wav1))
+(get-filter test.flt)
+(get-signal samples/rick.wav)))

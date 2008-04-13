@@ -1,5 +1,5 @@
 (in-package "ACL2")
-(include-book "io-utilities" :dir :teachpacks)
+;(include-book "io-utilities" :dir :teachpacks)
 
 
 #|----------------------reading file -> list of strings---------------|#
@@ -109,9 +109,9 @@
                                    (acf-function-h (cdr commands) wav state)
                                    wav2)) state))
               ((string-equal arg1 "overdub")
-               (mv (overdub arg2 (mv-let (wav2 state)
+               (mv (overdub (mv-let (wav2 state) (read-wav arg2 state) wav2) (mv-let (wav3 state)
                                    (acf-function-h (cdr commands) wav state)
-                                   wav2)) state))
+                                   wav3)) state))
               ((string-equal arg1 "echo")
                (mv (echo (str->rat arg2) (str->rat arg3) (mv-let (wav2 state)
                                    (acf-function-h (cdr commands) wav state)
@@ -135,6 +135,11 @@
               ((string-equal arg1 "reverse")
                (mv (audio-reverse (mv-let (wav2 state)
                                    (acf-function-h (cdr commands) wav state)
+                                   wav2)) state))
+              ((string-equal arg1 "filter")
+               (mv (filter (car (read-filter arg2 state))
+                           (mv-let (wav2 state)
+                                   (acf-function-h (cdr commands) wav state)
                                    wav2)) state))))))
               
               
@@ -143,6 +148,8 @@
          (action (car output))
          (file (cadr output))
          (commands (acf-commands acf)))
+    (if (not (stringp (get-last (car commands))))
+        (mv "Bad input filename" state)
     (mv-let (wav state)
             (acf-function-h (cons (butlast (car commands) 1) (cdr commands))
                             (mv-let (wav state)
@@ -152,4 +159,4 @@
                    (if (not (stringp file))
                        (mv "Bad output filename" state)
                        (write-wav wav file state)))
-                  ((string-equal action "display-signal") (display-wave wav))))))
+                  ((string-equal action "display-signal") (display-wave wav)))))))
