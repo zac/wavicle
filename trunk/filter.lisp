@@ -1,6 +1,5 @@
 (in-package "ACL2")
-
-(set-state-ok t)
+(include-book "io-utilities" :dir :teachpacks)
 
 ;--------------------- FILTER ------------------------
 (defun generate-boundary (n)

@@ -2,8 +2,8 @@
 (include-book "operators")
 (include-book "wav")
 (include-book "wav-gui")
-(include-book "acfparser")
 (include-book "filter")
+(include-book "acfparser")
 
 (defun main (file state)
   (mv-let (acf state)
