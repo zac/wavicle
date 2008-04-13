@@ -1,0 +1,28 @@
+= Introduction =
+
+wAviCLe's interface has been made as simple as possible to aid new users. We hope that this instructional page will allow people who have never tried using wAviCLe to edit audio files to understand how the program works and what it is capable of.
+
+
+= Details =
+
+We will be covering the following topics in discussing how to use wAviCLe:
+  * Requirements to use wAviCLe
+  * Loading and Running wAviCLe
+  * Creating lists of commands in .acf files
+  * Building filters in .flt files.
+
+
+== Requirements to use wAviCLe ==
+In order to use wAviCLe, you will require the following software on your computer.
+
+  # A recent version of the [http://www.cs.utexas.edu/users/moore/acl2/ ACL2] interpreter (currently at ver 3.3)
+  # A copy of [http://www.plt-scheme.org/ PLT Scheme] to run the program
+  # A copy of [http://www.ccs.neu.edu/home/cce/acl2/ drACuLa] to allow PLT Scheme to interpret ACL2 code.
+
+== Loading and Running wAviCLe ==
+
+
+== Creating lists of commands in .acf files ==
+
+
+== Building filters in .flt files ==
