@@ -1,3 +1,5 @@
+#summary A simple guide for using wAviCLe.
+
 = Introduction =
 
 wAviCLe's interface has been made as simple as possible to aid new users. We hope that this instructional page will allow people who have never tried using wAviCLe to edit audio files to understand how the program works and what it is capable of.
