@@ -119,8 +119,8 @@
  * Make agenda for next meeting
 
 ==Agenda: April 15==
-* View other teams' presentations
+ * View other teams' presentations
 
 ==Agenda: April 17==
-* Give wAviCLe presentation
-* View other teams' presentations
+ * Give wAviCLe presentation
+ * View other teams' presentations
