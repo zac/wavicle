@@ -107,3 +107,20 @@
  * Discuss finalizing project
  * Start creating powerpoint presentation
  * Make agenda for next meeting
+
+==Agenda: April 8==
+ * Put individual parts of code together
+ * Presentation
+ * Make agenda for next meeting
+
+==Agenda: April 10==
+ * Presentation
+ * Finalize Bug Reports/Testing
+ * Make agenda for next meeting
+
+==Agenda: April 15==
+* View other teams' presentations
+
+==Agenda: April 17==
+* Give wAviCLe presentation
+* View other teams' presentations
