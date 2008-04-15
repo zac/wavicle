@@ -1,27 +1,4 @@
 (in-package "ACL2")
-(include-book "world" :dir :teachpacks)
-
-(defstructure wav-file
-  (chunk-id (:assert (stringp chunk-id)))
-  (chunk-size (:assert (integerp chunk-size)))
-  (format (:assert (stringp format)))
-  (subchunk-1-id (:assert (listp subchunk-1-id)))
-  ;Make sure it is PCM.
-  (subchunk-1-size (:assert (integerp subchunk-1-size)))
-  (audio-format (:assert (= audio-format 1)))
-  ;Mono = 1, Stereo = 2, etc.
-  (num-channels (:assert (integerp num-channels)))
-  ;8000, 44100, etc.
-  (sample-rate (:assert (integerp sample-rate)))
-  ;== sample-rate * num-channels * (bits-per-sample / 8)
-  (byte-rate (:assert (integerp byte-rate)))
-  ;== num-channels * (bits-per-sample / 8)
-  (block-align (:assert (integerp block-align)))
-  ;8 bits = 8, 16 bits = 16, etc.
-  (bits-per-sample (:assert (integerp bits-per-sample)))
-  (subchunk-2-id (:assert (listp subchunk-2-id)))
-  (subchunk-2-size (:assert (integerp subchunk-2-size)))
-  (data (:assert (listp data))))
 
 (defun modify-data (wav new-data)
   (wav-file (wav-file-chunk-id wav) ;chunk-id
@@ -101,16 +78,16 @@
          (data (wav-file-data wav)))
     (modify-data wav (append (gen-0-list num-packets) data))))
 
-;--------------------- OVERDUB -----------------------
 
-(defun add-lists (xs ys)
-  (if (and (consp xs)
-           (consp ys))
-      (cons (+ (car xs) (car ys))
-            (add-lists (cdr xs) (cdr ys)))
-      nil))
-  
+;--------------------- OVERDUB -----------------------
 ;overdubs wav1 onto wav2.
+(defun add-lists (first second)
+  (if (endp first)
+      second
+      (if (endp second)
+          nil
+          (cons (+ (car first) (car second)) (add-lists (cdr first) (cdr second))))))
+
 (defun overdub (wav1 wav2)
   (modify-data wav2 (add-lists (wav-file-data wav1) (wav-file-data wav2))))
 
@@ -128,6 +105,55 @@
     (modify-data wav (append (fade-in-h num-packets
                                         (butlast data (- (length data) num-packets)))
                              (nthcdr num-packets data)))))
+
+;---------------------- ECHO -------------------------
+
+(defun multiply-list (val xs)
+  (if (consp xs)
+      (cons (* (car xs) val)
+            (multiply-list val (cdr xs)))
+      nil))
+
+(defun get-slice (x length xs) 
+  (multiply-list x (take length xs)))
+
+;ys is the data
+(defun add-lists-echo (xs ys)
+  (if (and (consp xs)
+           (consp ys))
+      (cons (+ (car xs) (car ys))
+            (add-lists-echo (cdr xs) (cdr ys)))
+      ys))
+
+(defun echo-helper (slice val xs n)
+  (if (zp n)
+      nil
+      (let* ((length (if (> (len xs) (len slice))
+                         (len slice)
+                         (len xs)))
+             (modifiable-part (take length xs))
+             (rest (nthcdr length xs))
+             (new-slice (multiply-list val modifiable-part))
+            )
+        (append (add-lists-echo slice modifiable-part)
+                (echo-helper new-slice
+                      val
+                      rest
+                      (- n 1))))))
+                
+
+(defun echo-handler (length val xs)
+  (let ((slice (get-slice val length xs))
+        (rest (nthcdr length xs))
+        (run-time (floor (len xs) length)))
+    (append slice
+            (echo-helper slice
+                         val
+                         rest
+                         run-time))))
+
+(defun echo (time val wav)
+  (modify-data wav (echo-handler (floor (* (* (wav-file-sample-rate wav) (wav-file-num-channels wav)) time) 1) val (wav-file-data wav))))
 
 ;--------------------- FADE-OUT ----------------------
 

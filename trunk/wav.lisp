@@ -95,7 +95,7 @@
 (defun bytes->samples (data sample-size)
   (if (endp data)
       nil
-      (cons (/ (bytes->integer (firstn sample-size data)) (expt 2 (- (* 8 sample-size) 1))) (bytes->samples (nthcdr sample-size data) sample-size))))
+      (cons (/ (bytes->integer (take sample-size data)) (expt 2 (- (* 8 sample-size) 1))) (bytes->samples (nthcdr sample-size data) sample-size))))
 
 (defun samples->bytes (samples block-align)
   (if (endp samples)
@@ -143,18 +143,6 @@
   (mv-let (error state)
           (write-wav-file data path state)
           (mv "SUCCESS" state)))
-
-(defun test-mod (file output state)
-  (mv-let (bytes error state)
-          (binary-file->byte-list file state)
-          (let ((wav (parse-wav-file bytes)))
-            (write-wav (chipmunk 2 wav) output state))))
-
-(defun test-time (file output state)
-  (mv-let (bytes error state)
-          (binary-file->byte-list file state)
-          (let* ((wav (parse-wav-file bytes)))
-            wav)))
 
 (defun read-wav (file state)
   (mv-let (bytes error state)
