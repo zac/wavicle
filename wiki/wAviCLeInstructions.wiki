@@ -30,7 +30,7 @@ Now that everything has been loaded, just enter `(set-state-ok t)` into the inte
 
 Actually executing wAviCLe's code has been condensed down to a single command. The functions and sound files that you want to work with will be read from a .acf (audio command file) and the commands listed there will be run in order, so running wAviCLe requires you to use only the following command: 
 
-  `(main acf state)`
+  `(main "acf" state)`
 
 where acf represents the location of the .acf file.
 
@@ -56,10 +56,11 @@ Inside of the lambda function, a user is free to perform any changes that they l
   * `(overdub wav-structure1 wav-structure2)` - Overdub creates a new wav-structure by playing one structure on top of another. The result of this function is like playing both of the wav-structures at the same time. This function can be used to combine changes to multiple sound files and merge them into one.
   * `(fade-in b wav-structure)` - Fade-in gradually raises the volume of a wav-structure from 0 up to it's normal level over the first b seconds of that wav. The result is good way to begin a .wav sound file gradually. The parameter b needs to be a positive number that represents the duration in seconds that the user wants to fade the sound in.
   * `(fade-out e wav-structure)` - Fade-out gradually lowers the volume of a wav-structure from it's normal level down to 0 over the last e seconds of that wav. The result is good way to let a .wav sound file end gradually and quietly. The parameter e needs to be a positive number that represents the duration in seconds that the user wants to fade the sound out.
-  * `(fuzz f wav-structure)` - Fuzz sets a maximum volume for a wav-structure. The parameter f sets a value between 0 and 1 where the volume of the wav-structure will have a maximum value of f times the maximum value that the wav-structure can handle. Setting f to 0 would mute the wav-structure while setting f to 1 would leave the structure unchanged.
+  * `(fuzz f wav-structure)` - Fuzz sets a maximum volume for a wav-structure. The parameter f sets a value between 0 and 1 where the volume of the wav-structure will have a maximum value of f times the maximum value that the wav-structure can handle. Setting f to 0 would mute the wav-structure while setting f to 1 would leave the wav-structure unchanged.
   * `(chipmunk c wav-structure)` - The chimpmunk feature allows users to speed up or slow down the playback of of a sound file. This change also affects the pitch of the sound being played back so it can be used to make funny changes to your sound files. The parameter c represents a number to multiply the playback speed by.
-  * `(filter filter wav-structure)` - The filter function uses a filter read from a .flt file described below, to run a user-defined filter on a wav-structure.
-
+  * `(filter filter wav-structure)` - The filter function uses a filter read from a .flt file described below, to run a user-defined filter on a wav-structure. The filter will be read from a separate file and can be read defined however the user likes.
+  * `(echo d v wav-structure)` - The echo function creates an echo effect. The wav-structure is divided up by every d seconds of audio and every d seconds of audio is repeated with it's volume reduced by v. The parameter d represents the length of time in seconds of the audio that you would like to repeat and the parameter v represents a value between 0 and 1 to multiply the audio's volume by with each repeat.
+  * `(reverse wav-structure)` - The reverse function
 
 
   * `(get-signal sample.wav)` - Read the file "sample.wav" from your hard disk and creates a wav-structure in order to allow wAviCLe to run it's filters on it.
