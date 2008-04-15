@@ -102,6 +102,14 @@
     (modify-data wav (append (gen-0-list num-packets) data))))
 
 ;--------------------- OVERDUB -----------------------
+
+(defun add-lists (xs ys)
+  (if (and (consp xs)
+           (consp ys))
+      (cons (+ (car xs) (car ys))
+            (add-lists (cdr xs) (cdr ys)))
+      nil))
+  
 ;overdubs wav1 onto wav2.
 (defun overdub (wav1 wav2)
   (modify-data wav2 (add-lists (wav-file-data wav1) (wav-file-data wav2))))
