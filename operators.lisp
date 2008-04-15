@@ -85,7 +85,7 @@
   (if (endp first)
       second
       (if (endp second)
-          nil
+          first
           (cons (+ (car first) (car second)) (add-lists (cdr first) (cdr second))))))
 
 (defun overdub (wav1 wav2)
