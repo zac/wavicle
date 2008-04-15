@@ -4,7 +4,7 @@
 
 wAviCLe's interface has been made as simple as possible to aid new users. We hope that this instructional page will allow people who have never tried using wAviCLe to edit audio files to understand how the program works and what it is capable of.
 
-
+----
 = Details =
 
 We will be covering the following topics in discussing how to use wAviCLe:
@@ -13,7 +13,7 @@ We will be covering the following topics in discussing how to use wAviCLe:
   * Creating lists of commands in .acf files
   * Building filters in .flt files.
 
-
+----
 == Requirements to use wAviCLe ==
 In order to use wAviCLe, you will require the following software on your computer.
 
@@ -21,7 +21,7 @@ In order to use wAviCLe, you will require the following software on your compute
   # A copy of [http://www.plt-scheme.org/ PLT Scheme] to run the program
   # A copy of [http://www.ccs.neu.edu/home/cce/acl2/ drACuLa] to allow PLT Scheme to interpret ACL2 code.
 
-
+----
 == Loading and Running wAviCLe ==
 
 Once the required setup is complete, actually running wAviCLe has been done on just a couple of commands. To load wAviCLe, you will need to open the main.lisp file in PLT Scheme and click the "Run" button. This will load all of the required functions needed to run wAviCLe and open an interface window in PLT Scheme so that you can get things started.
@@ -34,7 +34,7 @@ Actually executing wAviCLe's code has been condensed down to a single command. T
 
 where acf represents the location of the .acf file.
 
-
+----
 == Creating lists of commands in .acf files ==
 
 The .acf files are where most of the user's interaction with wAviCLe takes place. The program will automatically load .wav audio files, and run pre-made or user-made filters on them, combine multiple .wav files together and write the resulting soundwave to it's own audio file or draw it to a window on the screen.
@@ -60,13 +60,39 @@ Inside of the lambda function, a user is free to perform any changes that they l
   * `(chipmunk c wav-structure)` - The chimpmunk feature allows users to speed up or slow down the playback of of a sound file. This change also affects the pitch of the sound being played back so it can be used to make funny changes to your sound files. The parameter c represents a number to multiply the playback speed by.
   * `(filter filter wav-structure)` - The filter function uses a filter read from a .flt file described below, to run a user-defined filter on a wav-structure. The filter will be read from a separate file and can be read defined however the user likes.
   * `(echo d v wav-structure)` - The echo function creates an echo effect. The wav-structure is divided up by every d seconds of audio and every d seconds of audio is repeated with it's volume reduced by v. The parameter d represents the length of time in seconds of the audio that you would like to repeat and the parameter v represents a value between 0 and 1 to multiply the audio's volume by with each repeat.
-  * `(reverse wav-structure)` - The reverse function
+  * `(reverse wav-structure)` - The reverse function takes a wav-structure and changes the audio so that it plays in reverse.
 
+After a lambda function has been defined using the above functions, the variables that the lambda function uses need to be defined. In order to create the initial wav-structures and filters that the lambda function operations, the following functions are used: 
 
   * `(get-signal sample.wav)` - Read the file "sample.wav" from your hard disk and creates a wav-structure in order to allow wAviCLe to run it's filters on it.
   * `(get-filter filter.flt)` - Read a user-made filter to be applied to the data in a wav-structure.
 
+----
+=== Sample .acf file ===
 
+Once the pieces of the lambda function have been brought together, defined, and sent to an output function, the result should be a single file that wAviCLe can read, interpret, and understand to perform the functions that it is being used for. 
+
+An example of a sample .acf file would be:
+
+{{{
+(put-signal output.wav
+	((lambda (f input1 input2)
+		(overdub (filter f input1)
+			 (reverse (chipmunk 2 input2))
+		)
+	 )
+	(get-filter test.flt)
+	(get-signal samples/voice1.wav)
+	(get-signal samples/voice2.wav)
+	)
+)
+}}}
+
+The above .acf file is designed to run several of the functions available to it. The program starts at the bottom of the file and reads a filter (test.flt) as well as two wav files (samples/voice1.wav and samples/voice2.wav). The lambda function stores the filter as f and the wav files as a wav-structures input1 and input2.
+
+Once the files have been read into structures in memory, the lambda function applies the filter to the first wav-structure and doubles the speed of the second wav-structure and reverses it's audio. The overdub function then takes the results of these two operations and dubs one over the other. The result of these changes is then sent to the put-signal operation and written out to a file called output.wav that can be opened in other audio processing programs.
+
+----
 == Building filters in .flt files ==
 
 The .flt files bring flexibility to wAviCLe by allowing users to create their own filters when none of the built-in functions perform the function that the user wants. Each .flt file consists of a list of numbers, seperated by commas. For each of these numbers, wAviCLe will take a sample of sound from the .wav file, multiply the filter value and the sample value together, then sum the products of each of those calculations together to create a new sample value for a new wav-structure.
