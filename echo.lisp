@@ -1,7 +1,5 @@
 (in-package "ACL2")
 
-(include-book "operators")
-
 (defun multiply-list (val xs)
   (if (consp xs)
       (cons (* (car xs) val)
@@ -46,5 +44,5 @@
                          rest
                          run-time))))
 
-(defun echo-2 (time val wav)
+(defun echo (time val wav)
   (modify-data wav (echo-handler (floor (* (* (wav-file-sample-rate wav) (wav-file-num-channels wav)) time) 1) val (wav-file-data wav))))

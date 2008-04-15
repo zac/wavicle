@@ -101,55 +101,6 @@
          (data (wav-file-data wav)))
     (modify-data wav (append (gen-0-list num-packets) data))))
 
-;---------------------- ECHO -------------------------
-
-(defun multiply-all (val l)
-  (if (endp l)
-      nil
-      (cons (* val (car l)) (multiply-all val (cdr l)))))
-
-(defun add-lists (first second)
-  (if (or (endp first)
-          (endp second))
-      nil
-      (cons (+ (car first) (car second)) (add-lists (cdr first) (cdr second)))))
-
-(defun firstn (n l)
-  (if (or (endp l)
-          (zp n))
-      nil
-      (cons (car l) (firstn (- n 1) (cdr l)))))
-
-;(defthm nthcdr-thm
-;  (implies (and (listp list1)
-;                (listp list2)
-;                (not (endp list1))
-;                (not (endp list2)))
-;           (> (length list2) (length (nthcdr (length list1) list2)))))
-
-(defthm multiply-all-thm
-  (implies (and (listp list1)
-                (rationalp val))
-           (= (length list1) (length (multiply-all val list1)))))
-
-(defun overdub-repeat (slice val samples)
-  (if (or (endp slice)
-          (endp samples))
-      samples
-      (let ((scaled (multiply-all val slice))
-            (firsts (firstn (length slice) samples)))
-        (append (add-lists scaled firsts) (overdub-repeat scaled val (nthcdr (length slice) samples))))))
-  
-(defun echo-h (num-samples val samples)
-  (if (endp samples)
-      nil
-      (let ((current (firstn num-samples samples)))
-        (append current (echo-h num-samples val (overdub-repeat current val (nthcdr num-samples samples)))))))
-
-(defun echo (t val wav)
-  (modify-data wav (echo-h (floor (* (* (wav-file-sample-rate wav) (wav-file-num-channels wav)) t) 1) val (wav-file-data wav))))
-
-
 ;--------------------- OVERDUB -----------------------
 ;overdubs wav1 onto wav2.
 (defun overdub (wav1 wav2)
