@@ -39,11 +39,27 @@ where acf represents the location of the .acf file.
 
 The .acf files are where most of the user's interaction with wAviCLe takes place. The program will automatically load .wav audio files, and run pre-made or user-made filters on them, combine multiple .wav files together and write the resulting soundwave to it's own audio file or draw it to a window on the screen.
 
-wAviCLe has been written to perform the following functions on a .wav audio file:
+wAviCLe works in three stages to apply changes to a .wav audio file, all of these stages are written into the .acf files that wAviCLe reads it's commands from. To output the results of your filters, wAviCLe uses these two commands at the beginning of the .acf file:
 
-  * `(get-signal sample.wav)` - Read the file "sample.wav" from your hard disk and creates a wav-structure in order to allow wAviCLe to run it's filters on it.
   * `(put-signal output.wav wav-structure)` - Takes wav-structure, the output from filtered .wav files and other functions, then writes that to "output.wav" to playback your results in other audio programs.
   * `(display-signal wav-structure)` - Takes a wav-structure that has been filtered and displays it as a waveform in a window on the screen. This allows users to visualize how the results of their filtering will look when written to a file.
+
+Now that wAviCLe knows where to send the result, you need some sound data for those functions to output. The lambda function handles all changes to the wav-structures and provides it's result as another wav-structure for the output functions to use. To create a lambda function, you create a single function:
+
+  * `(lambda (var-list))` - Lambda creates a single function that will run several functions inside of itself. The var-list defines variables that will be used in the .acf file and can be as long as is needed, as long as each variable is defined later by an input function.
+
+Inside of the lambda function, a user is free to perform any changes that they like to an audio file. After the var-list has been defined, the variables in it can be used with the functions of wAviCLe to create new wav-structures. The functions that can be used in lambda functions are:
+
+  * `(delay d wav-structure)` - This function changes the wav-structure by adding d seconds of silence to the beginning of it. The parameter d will need to be a number that represents the duration, in seconds, that you want to delay playback.
+  * `(cut b e wav-structure)` - The cut function will remove the first b seconds and the last e seconds from a wav-structure. The parameters b and e will need to be numbers that represent the length of time, in seconds, that you want to remove from the beginning and end of the wav-structure.
+  * `(boost b wav-structure)` - Boost changes the sound data stored in the wav-structure by multiplying it's volume by b. Multiplying the volume can make the sound significantly louder or softer. The parameter b will need to be a positive number value.
+  * `(overdub wav-structure1 wav-structure2)` - Overdub creates a new wav-structure by playing one structure on top of another. The result of this function is like playing both of the wav-structures at the same time. This function can be used to combine changes to multiple sound files and merge them into one.
+  * `(fade-in b wav-structure)` - Fade-in gradually raises the volume of a wav-structure from 0 up to it's normal level over the first b seconds of that wav. The result is good way to begin a .wav sound file gradually. The parameter b needs to be a positive number that represents the duration in seconds that the user wants to fade the sound in.
+  * `(fade-out e wav-structure)` - Fade-out gradually lowers the volume of a wav-structure from it's normal level down to 0 over the last e seconds of that wav. The result is good way to let a .wav sound file end gradually and quietly. The parameter e needs to be a positive number that represents the duration in seconds that the user wants to fade the sound out.
+
+  * `(get-signal sample.wav)` - Read the file "sample.wav" from your hard disk and creates a wav-structure in order to allow wAviCLe to run it's filters on it.
+  * `(get-filter filter.flt)` - Read a user-made filter to be applied to the data in a wav-structure.
+
   * *Need more information on how to run functions from .acf files*
 
 
