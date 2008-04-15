@@ -1,5 +1,7 @@
-(put-signal rickfilter.wav
-((lambda (w wav1)
-(filter w wav1))
-(get-filter test.flt)
-(get-signal samples/rick.wav)))
+(put-signal samples/taseredCow.wav
+((lambda (cow taser explos)
+(overdub (delay 3 explos)
+(overdub (delay 1.5 cow) taser)))
+(get-signal samples/cow.wav)
+(get-signal samples/strom.wav)
+(get-signal samples/explos.wav)))

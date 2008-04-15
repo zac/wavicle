@@ -1,4 +1,5 @@
 (in-package "ACL2")
+(include-book "structures")
 (include-book "operators")
 (include-book "wav")
 (include-book "wav-gui")
