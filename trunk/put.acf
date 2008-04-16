@@ -1,6 +1,6 @@
 (put-signal samples/output3.wav
 ((lambda (w rick rick2)
-(overdub rick2 (overdub rick rick2)))
+(overdub (boost 1.5 rick) (delay 2 rick2)))
 (get-filter test.flt)
 (get-signal samples/rick.wav)
-(get-signal samples/rick2.wav)))
+(get-signal rickreverse.wav)))
