@@ -4,6 +4,7 @@
 (include-book "wav")
 (include-book "wav-gui")
 (include-book "filter")
+(include-book "csv-writer")
 (include-book "acfparser")
 
 (defun main (file state)

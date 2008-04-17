@@ -1,7 +1,7 @@
 (in-package "ACL2")
-(include-book "io-utilities" :dir :teachpacks)
-(include-book "world" :dir :teachpacks)
-(include-book "list-utilities" :dir :teachpacks)
+;(include-book "io-utilities" :dir :teachpacks)
+;(include-book "world" :dir :teachpacks)
+;(include-book "list-utilities" :dir :teachpacks)
 
 #|---------------------Convert Rational numbers to string----------------------|#
 ;converts a list of rational numbers to a list of comma seperated strings

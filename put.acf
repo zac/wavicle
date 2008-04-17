@@ -1,6 +1,5 @@
-(put-signal samples/output3.wav
-((lambda (w rick rick2)
-(overdub (boost 1.5 rick) (delay 2 rick2)))
+(display-signal csv-output.csv
+((lambda (w rick)
+(fade-in 3 (fade-out 3 rick)))
 (get-filter test.flt)
-(get-signal samples/rick.wav)
-(get-signal rickreverse.wav)))
+(get-signal samples/rick.wav)))
