@@ -23,3 +23,8 @@
   (subchunk-2-id (:assert (listp subchunk-2-id)))
   (subchunk-2-size (:assert (integerp subchunk-2-size)))
   (data (:assert (listp data))))
+
+;Structure that contains the required information to run the program.
+(defstructure acf
+  (output       (:assert (string-listp output)))
+  (commands     (:assert (true-listp commands))))

@@ -22,11 +22,6 @@
 #|--------------------------------End of this code----------------------------|#
 
 #|------------------------Required Structures and Keywords--------------------|#
-;Structure that contains the required information to run the program.
-(defstructure acf
-  (output       (:assert (string-listp output)))
-  (commands     (:assert (true-listp commands))))
-
 ;Function that checks for output types.
 (defun keywords-output (word)
   (let ((keylist '("put-signal" "display-signal")))
@@ -141,7 +136,10 @@
           (mv (line-parser (line->words str)) state)))
 #|--------------------------------End of this code----------------------------|#
 
-    
+#|-------------------------------Parser/Operator Integration------------------|#
+
+;Helper function for acf-function that translates what is returned from
+;the parser into function calls that will alter a wav file
 (defun acf-function-h (commands wav state)
   (if (endp commands)
       (mv wav state)
@@ -198,7 +196,8 @@
                                    (acf-function-h (cdr commands) wav state)
                                    wav2)) state))))))
               
-              
+;Sets up the necessary conditions for acf-function-h to correctly call
+;functions to alter a wav file.
 (defun acf-function (acf state)
   (let* ((output (acf-output acf))
          (action (car output))
@@ -215,4 +214,8 @@
                    (if (not (stringp file))
                        (mv "Bad output filename" state)
                        (write-wav wav file state)))
-                  ((string-equal action "display-signal") (display-wave wav)))))))
+                  ((string-equal action "display-signal")
+                   (if (not (stringp file))
+                       (mv "Bad csv filename" state)
+                   (let ((state (display-wave wav)))
+                         (write-csv file (wav-file-data wav) state)))))))))
