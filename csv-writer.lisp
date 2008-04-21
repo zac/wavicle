@@ -1,5 +1,5 @@
 (in-package "ACL2")
-(include-book "io-utilities" :dir :teachpacks)
+;(include-book "io-utilities" :dir :teachpacks)
 ;(include-book "world" :dir :teachpacks)
 ;(include-book "list-utilities" :dir :teachpacks)
 
@@ -27,7 +27,8 @@
 
 ;combine the two above functions.
 (defun get-csv-list (ratlist)
-  (let* ((str-comma (convert-to-string ratlist))
+  (let* ((n (* (floor (/ (len ratlist) 1000) 2)))
+         (str-comma (convert-to-string (shorten-list ratlist n 0)))
          (str       (remove-last-comma str-comma)))
     str))
 #|--------------------------------End of this code----------------------------|#
