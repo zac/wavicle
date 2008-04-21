@@ -1,0 +1,4 @@
+(display-signal output.csv
+                ((lambda (input2)
+                       (reverse (chipmunk 2 input2)))
+             (get-signal samples/voice3.wav)))
