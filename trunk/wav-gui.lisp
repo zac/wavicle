@@ -78,8 +78,8 @@
 
 ;----- Extracts the required data from a wav-structure and calls get-graph ---
 (defun calculate-wave (wav)
-  (let* ((n (* (floor (/ (len ratlist) 1000) 2)))
-         (sample-list (car (nthcdr 14 wav)))
+  (let* ((sample-list (car (nthcdr 14 wav)))
+         (n (* (floor (/ (len sample-list) 1000) 2)))
          (small-list (shorten-list sample-list n 0))
          (num-channels (car (nthcdr 7 wav))))
     (get-graph small-list num-channels)))
