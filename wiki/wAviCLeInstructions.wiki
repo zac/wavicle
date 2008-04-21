@@ -67,6 +67,8 @@ After a lambda function has been defined using the above functions, the variable
   * `(get-signal sample.wav)` - Read the file "sample.wav" from your hard disk and creates a wav-structure in order to allow wAviCLe to run it's filters on it.
   * `(get-filter filter.flt)` - Read a user-made filter to be applied to the data in a wav-structure.
 
+Note: File path may not contain any spaces when loading either wav files or filters.
+
 ----
 === Sample .acf file ===
 
