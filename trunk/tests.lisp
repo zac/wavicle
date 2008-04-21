@@ -1,6 +1,7 @@
 (in-package "ACL2")
 (include-book "doublecheck" :dir :teachpacks)
-
+(include-book "structures")
+(include-book "operators")
 (include-book "wav")
 
 ;; Theorems.
@@ -21,7 +22,7 @@
 (defproperty 2scomp-test 20
   ((bits (random-int-between 4 32)
          t)
-   (num (random-int-between 1 (expt 2 bits))
+   (num (random-int-between 0 (expt 2 bits))
         t))
   (equal num (2scomp->unsigned (unsigned->2scomp num bits) bits)))
 
@@ -84,15 +85,15 @@
         random-lst))
         
 
-(defgenerator wav-gen (max-length)
-  (1 (generate-wav-list (random-int-between 1 2)
-                        (random-int-between 8000 96000)
-                        (* 8 (random-int-between 1 4))
-                        (random-int-between 10 max-length)
-                        (random-list-of (random-normalized-rat (- bits-per-sample 1)) data-length))))
+;(defgenerator wav-gen (max-length)
+;  (1 (generate-wav-list (random-int-between 1 2)
+;                        (random-int-between 8000 96000)
+;                        (* 8 (random-int-between 1 4))
+;                        (random-int-between 10 max-length)
+;                        (random-list-of (random-normalized-rat (- bits-per-sample 1)) data-length))))
 
-(defproperty wav-test 1
-  ((wav (wav-gen 1000) t))
-  (equal wav (wav->list (boost 1 (list->wav wav)))))
+;(defproperty wav-test 1
+;  ((wav (wav-gen 1000) t))
+;  (equal wav (wav->list (boost 1 (list->wav wav)))))
 
 (check-properties)
