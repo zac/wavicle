@@ -86,7 +86,7 @@ An example of a sample .acf file would be:
              (get-signal samples/voice2.wav)))
 }}}
 
-The above .acf file is designed to run several of the functions available to it. The program starts at the bottom of the file and reads a filter (test.flt) as well as two wav files (samples/voice1.wav and samples/voice2.wav). The lambda function stores the filter as f and the wav files as a wav-structures input1 and input2.
+The above .acf file is designed to run several of the functions available to it. The program starts at the bottom of the file and reads a filter (test.flt) as well as two wav files (samples/voice1.wav and samples/voice2.wav). The lambda function stores the filter as f and the wav files as a wav-structures input1 and input2 respectively.
 
 Once the files have been read into structures in memory, the lambda function applies the filter to the first wav-structure and doubles the speed of the second wav-structure and reverses it's audio. The overdub function then takes the results of these two operations and dubs one over the other. The result of these changes is then sent to the put-signal operation and written out to a file called output.wav that can be opened in other audio processing programs.
 
