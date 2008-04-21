@@ -1,5 +1,5 @@
 (in-package "ACL2")
-;(include-book "io-utilities" :dir :teachpacks)
+(include-book "io-utilities" :dir :teachpacks)
 ;(include-book "world" :dir :teachpacks)
 ;(include-book "list-utilities" :dir :teachpacks)
 
@@ -14,6 +14,16 @@
 ;removes the last comma in the list of strings
 (defun remove-last-comma (str)
   (subseq str 0 (- (length str) 1)))
+
+;shortens the list
+(defun shorten-list (xs n count)
+  (if (> (len xs) n)
+      (if (consp xs)
+          (if (= count n)
+              (cons (car xs) (shorten-list (cdr xs) n 0))
+              (shorten-list (cdr xs) n (+ count 1)))
+          nil)
+      xs))
 
 ;combine the two above functions.
 (defun get-csv-list (ratlist)
