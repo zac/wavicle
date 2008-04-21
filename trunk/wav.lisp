@@ -32,7 +32,7 @@
 ;  bits that is numbits in length.
 (defun 2scomp->unsigned (num numbits)
   (let ((pivot (expt 2 (- numbits 1))))
-    (if (posp num)
+    (if (>= num 0)
         num
         (+ pivot (- pivot (- 0 num))))))
 
