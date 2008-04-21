@@ -97,7 +97,7 @@
 ;; Converts a byte list into a list of normalized rationals. One for each sample and channel.
 (defun bytes->samples (data sample-size acc)
   (if (endp data)
-      acc
+      (reverse acc)
       (bytes->samples (nthcdr sample-size data) sample-size (cons (/ (bytes->integer (take sample-size data)) (expt 2 (- (* 8 sample-size) 1))) acc))))
 
 (defun samples->bytes (samples block-align)
