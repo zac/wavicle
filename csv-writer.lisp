@@ -15,16 +15,6 @@
 (defun remove-last-comma (str)
   (subseq str 0 (- (length str) 1)))
 
-;shortens the list
-(defun shorten-list (xs n count)
-  (if (> (len xs) n)
-      (if (consp xs)
-          (if (= count n)
-              (cons (car xs) (shorten-list (cdr xs) n 0))
-              (shorten-list (cdr xs) n (+ count 1)))
-          nil)
-      xs))
-
 ;combine the two above functions.
 (defun get-csv-list (ratlist)
   (let* ((n (* (floor (/ (len ratlist) 1000) 2)))

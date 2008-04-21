@@ -33,6 +33,17 @@
             (wav-file-subchunk-2-size wav) ;subchunk-2-size
             (wav-file-data wav)))
 
+;--------------------UTILITIES-----------------------
+;shortens the list
+(defun shorten-list (xs n count)
+  (if (> (len xs) n)
+      (if (consp xs)
+          (if (= count n)
+              (cons (car xs) (shorten-list (cdr xs) n 0))
+              (shorten-list (cdr xs) n (+ count 1)))
+          nil)
+      xs))
+
 ;---------------------- BOOST ------------------------
 
 (defun boost-h (b samples)
@@ -175,10 +186,11 @@
 
 ;----------------------- CUT -------------------------
 
-(defun cut (time wav)
-  (let ((num-samples (floor (* time (wav-file-sample-rate wav)) 1))
+(defun cut (begin end wav)
+  (let ((begin-num-samples (floor (* begin (wav-file-sample-rate wav)) 1))
+        (end-num-samples (floor (* end (wav-file-sample-rate wav)) 1))
         (data (wav-file-data wav)))
-    (modify-data wav (nthcdr num-samples (butlast data num-samples)))))
+    (modify-data wav (nthcdr begin-num-samples (butlast data end-num-samples)))))
 
 ;--------------------- CHIPMUNK -----------------------
 (defun chipmunk (p wav)
