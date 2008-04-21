@@ -91,7 +91,7 @@ Once the files have been read into structures in memory, the lambda function app
 ----
 == Building filters in .flt files ==
 
-The .flt files bring flexibility to wAviCLe by allowing users to create their own filters when none of the built-in functions perform the function that the user wants. Each .flt file consists of a list of numbers, separated by commas. For each of these numbers, wAviCLe will take a sample of sound from the .wav file, multiply the filter value and the sample value together, then sum the products of each of those calculations together to create a new sample value for a new wav-structure.
+The .flt files bring flexibility to wAviCLe by allowing users to create their own filters when none of the built-in functions perform the function that the user wants. Each .flt file consists of a list of numbers between -1 and 1, separated by commas. For each of these numbers, wAviCLe will take a sample of sound from the .wav file, multiply the filter value and the sample value together, then sum the products of each of those calculations together to create a new sample value for a new wav-structure.
 
 A user may create as many filters as they like in an .flt file, for example:
 
