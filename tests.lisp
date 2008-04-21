@@ -3,6 +3,21 @@
 
 (include-book "wav")
 
+;; Theorems.
+(defthm bytes->integer-thm
+  (<= 0 (bytes->integer byte-list)))
+
+(defthm integer->bytes->integer-thm
+  (implies (n-bytep temp-int bytes)
+           (equal temp-int (bytes->integer (integer->bytes temp-int bytes)))))
+
+(defthm integer->bytes-thm
+  (true-listp (integer->bytes lst n)))
+
+(defthm shift-8-bits-lemma
+  (implies (true-listp lst) (nat-listp (shift-8-bits lst))))
+
+;; DoubleCheck
 (defproperty 2scomp-test 20
   ((bits (random-int-between 4 32)
          t)
@@ -81,4 +96,3 @@
   (equal wav (wav->list (boost 1 (list->wav wav)))))
 
 (check-properties)
-

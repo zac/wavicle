@@ -1,5 +1,5 @@
 (in-package "ACL2")
-;(include-book "world" :dir :teachpacks)
+(include-book "world" :dir :teachpacks)
 
 ;----- Define the mouse world data structure -------------------------
 (defstructure m-world 
@@ -101,7 +101,7 @@
 (defun display-wave (wav)
   (let* ((solution (calculate-wave wav))
          (startx (big-bang *width* *height* *seconds-per-tick*
-               (m-world (car solution)
-                        (cadr solution))))
+                           (m-world (car solution)
+                                    (cadr solution))))
          (showfunction (on-redraw draw-wave)))
-     t))
+    t))
