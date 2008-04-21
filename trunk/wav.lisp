@@ -3,7 +3,7 @@
 (include-book "audio" :dir :teachpacks)
 
 (include-book "list-utilities" :dir :teachpacks)
-
+;(include-book "operators")
 ;(include-book "ihs/ihs-definitions" :dir :system)
 ;(include-book "ihs/ihs-lemmas" :dir :system)
 
@@ -48,9 +48,6 @@
       (integer->bytes-h (2scomp->unsigned int (* 8 num)) num)
       (integer->bytes-h (+ int 128) num)))
 
-(defthm integer->bytes-thm
-  (true-listp (integer->bytes lst n)))
-
 ;(36 8 0 0) = 2084
 
 ; (34 21 12 11) = 185341218
@@ -61,17 +58,24 @@
       (and (natp (car lst)) (nat-listp (cdr lst)))))
 
 (defun shift-8-bits (l)
+  (declare (xargs :guard (integer-listp l)
+                  :verify-guards t))
   (if (consp l)
-      (cons (* (ifix (car l)) 256) (shift-8-bits (cdr l)))
+      (cons (ifix (abs (* (car l) 256))) (shift-8-bits (cdr l)))
       nil))
 
-(defthm shift-8-bits-lemma
-  (implies (true-listp lst) (nat-listp (shift-8-bits lst))))
+(defthm shift-8-bits-reduces
+  (implies (and (true-listp lst) (consp lst)) (< (length (shift-8-bits (cdr lst))) (length lst))))
+
+(defthm shift-8-bits-truelist
+  (implies (true-listp lst) (true-listp (multiply-list num lst))))
 
 (defun bytes->integer-h (bytes)
+  (declare (xargs :guard (integer-listp bytes)
+                  :verify-guards t))
   (if (endp bytes)
       0
-      (+ (bytes->integer-h (shift-8-bits (cdr bytes))) (car bytes))))
+      (+ (car bytes) (bytes->integer-h (shift-8-bits (cdr bytes))))))
 
 (defun bytes->integer (bytes)
   (let ((val (bytes->integer-h bytes)))
@@ -79,30 +83,29 @@
         (unsigned->2scomp val (* 8 (length bytes)))
         (- val 128))))
 
-(defthm bytes->integer-thm
-  (<= 0 (bytes->integer byte-list)))
-
 (defun n-bytep (number bytes)
   (and (integerp number)
        (>= number 0)
        (<= number (- (expt 256 bytes) 1))))
 
-(defthm integer->bytes->integer-thm
-  (implies (n-bytep temp-int bytes)
-           (equal temp-int (bytes->integer (integer->bytes temp-int bytes)))))
+;;; Converts a byte list into a list of normalized rationals. One for each sample and channel.
+;(defun bytes->samples (data sample-size)
+;  (if (endp data)
+;      nil
+;      (cons (/ (bytes->integer (take sample-size data)) (expt 2 (- (* 8 sample-size) 1))) (bytes->samples (nthcdr sample-size data) sample-size))))
 
 ;; Converts a byte list into a list of normalized rationals. One for each sample and channel.
-(defun bytes->samples (data sample-size)
+(defun bytes->samples (data sample-size acc)
   (if (endp data)
-      nil
-      (cons (/ (bytes->integer (take sample-size data)) (expt 2 (- (* 8 sample-size) 1))) (bytes->samples (nthcdr sample-size data) sample-size))))
+      acc
+      (bytes->samples (nthcdr sample-size data) sample-size (cons (/ (bytes->integer (take sample-size data)) (expt 2 (- (* 8 sample-size) 1))) acc))))
 
 (defun samples->bytes (samples block-align)
   (if (endp samples)
       nil
       (append (integer->bytes (floor (* (car samples) (expt 2 (- (* 8 block-align) 1))) 1) block-align) (samples->bytes (cdr samples) block-align))))
 
-;; TAKES 44.2 seconds to run on voice5.wav.
+;; TAKES 50.2 seconds to run on voice5.wav.
 (defun parse-wav-file (bytes)
   (wav-file (subseq bytes 0 4) ;chunk-id
             (bytes->integer (subseq bytes 4 8)) ;chunk-size
@@ -117,7 +120,7 @@
             (bytes->integer (subseq bytes 34 36)) ;bits-per-sample
             (subseq bytes 36 40) ;subchunk-2-id
             (bytes->integer (subseq bytes 40 44)) ;subchunk-2-size
-            (bytes->samples (nthcdr 44 bytes) (bytes->integer (subseq bytes 32 34)))))
+            (bytes->samples (nthcdr 44 bytes) (bytes->integer (subseq bytes 32 34)) nil)))
 
 ;; TAKES 20.4 seconds to run on voice5.wav.
 (defun wav->byte-list (wav)

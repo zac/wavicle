@@ -1,4 +1,5 @@
 (in-package "ACL2")
+;(include-book "structures")
 
 (defun modify-data (wav new-data)
   (wav-file (wav-file-chunk-id wav) ;chunk-id
@@ -109,6 +110,8 @@
 ;---------------------- ECHO -------------------------
 
 (defun multiply-list (val xs)
+  (declare (xargs :guard (and (true-listp xs) (rationalp val))
+                  :verify-guards t))
   (if (consp xs)
       (cons (* (car xs) val)
             (multiply-list val (cdr xs)))
