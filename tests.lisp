@@ -63,11 +63,6 @@
   (and (> (bytes->integer byte) -129)
           (< (bytes->integer byte) 128)))
 
-; (random-normalized-test power)
-; Generates a random normalized rational number between 0 and 2^(power-1)
-(defgenerator random-normalized-rat (power)
-  (1 (/ (random-int-between 0 (- (expt 2 power) 1)) (- (expt 2 power) 1))))
-
 (defun wav->list (wav)
   (list (wav-file-chunk-id wav) ;chunk-id
         (wav-file-chunk-size wav) ;chunk-size
@@ -101,25 +96,61 @@
             (nth 13 lst)))
 
 
-(defgenerator wav-gen (max-length)
-  (1 (random-list -1
-                  2684
-                  -1
-                  -1
-                  16
-                  1
+(defgenerator random-wav (min-length max-length)
+  (1 (random-list (random-int-between 0 0)
+                  (random-int-between 0 0)
+                  (random-int-between 0 0)
+                  (random-int-between 0 0)
+                  (random-int-between 0 0)
+                  (random-int-between 0 0)
                   (random-int-between 1 2)
-                  (random-int-between 8000 96000)
-                  -1
-                  -1
-                  (* (random-int-between 1 4) 8)
-                  -1
-                  -1
-                  (random-list-of (random-normalized-rat 16) (random-int-between 0 max-length)))))
+                  (random-int-between 8000 44000)
+                  (random-int-between 0 0)
+                  (random-int-between 0 0)
+                  (random-int-between 1 4)
+                  (random-int-between 0 0)
+                  (random-int-between 0 0)
+                  (random-list-of (random-int-between -128 127) (random-int-between min-length max-length)))))
 
-(defproperty wav-test 1
-  ((wav (wav-gen 1000) t))
-  (equal wav (wav->list (boost 1 (list->wav wav)))))
+(defun data-length (wav)
+  (length (nth 13 wav)))
+
+(defun data-equal (wav1 wav2)
+  (equal (nth 13 wav1) (nth 13 wav2)))
+
+(defproperty boost-1-equal 5
+  ((wav (random-wav 100 10000) t))
+  (data-equal wav (wav->list (boost 1 (list->wav wav)))))
+
+(defproperty fade-in-0-equal 5
+  ((wav (random-wav 100 10000) t))
+  (data-equal wav (wav->list (fade-in 0 (list->wav wav)))))
+
+(defproperty fade-out-0-equal 5
+  ((wav (random-wav 100 10000) t))
+  (data-equal wav (wav->list (fade-out 0 (list->wav wav)))))
+
+(defproperty delay-0-equal 5
+  ((wav (random-wav 100 10000) t))
+  (data-equal wav (wav->list (delay 0 (list->wav wav)))))
+
+(defproperty cut-0-0-equal 5
+  ((wav (random-wav 100 10000) t))
+  (data-equal wav (wav->list (cut 0 0 (list->wav wav)))))
+
+(defproperty echo-0-equal 5
+  ((wav (random-wav 100 10000) t)
+   (mult (random-int-between 1 2) t))
+  (data-equal wav (wav->list (echo 0 mult (list->wav wav)))))
+
+(defproperty delay-fade-in-equal 5
+  ((wav (random-wav 100 10000) t)
+   (val (random-int-between 1 2) t))
+  (data-equal wav (wav->list (fade-in val (delay val (list->wav wav))))))
+
+(defproperty boost-test 1
+  ((data (random-list-of (random-int-between 0 16) (random-int-between 0 1000)) t))
+  (equal data (boost-h 1 data)))
 
 ;filter tests
 
