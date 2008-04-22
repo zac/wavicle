@@ -1,5 +1,4 @@
 (in-package "ACL2")
-;(include-book "structures")
 
 (defun modify-data (wav new-data)
   (wav-file (wav-file-chunk-id wav) ;chunk-id
@@ -27,7 +26,8 @@
             (wav-file-audio-format wav) ;audio-format
             (wav-file-num-channels wav) ;num-channels
             new-rate
-            (* new-rate (* (wav-file-num-channels wav) (/ (wav-file-bits-per-sample wav) 8))) ;byte-rate
+            (* new-rate (* (wav-file-num-channels wav)
+                           (/ (wav-file-bits-per-sample wav) 8))) ;byte-rate
             (wav-file-block-align wav) ;block-align
             (wav-file-bits-per-sample wav) ;bits-per-sample
             (wav-file-subchunk-2-id wav) ;subchunk-2-id
@@ -298,7 +298,7 @@
          (data (wav-file-data wav)))
     (modify-data wav (append (butlast data num-packets)
                              (fade-out-h num-packets
-                                         (nthcdr (- (length data) num-packets) 
+                                         (nthcdr (- (length data) num-packets)
                                                  data))))))
 
 ;----------------------- CUT -------------------------
