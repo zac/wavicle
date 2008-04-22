@@ -2,16 +2,27 @@
 ;(include-book "io-utilities" :dir :teachpacks)
 
 #|------------------------Reading the ACF file--------------------------------|#
+;removes tab character from the acf string.
+;
+;line - list of characters.
 (defun parse-lines (line)
   (let* ((info (tokens (list #\tab) line))
          (cmds (chrs->str (car info))))
     cmds))
 
+;takes a list of characters and calls parse-lines
+;function to remove tab characters from it.
+;
+;l - acf file as a list of chars.
 (defun parse-list (l)
   (if (consp l)
       (cons (parse-lines (car l)) (parse-list (cdr l)))
       nil))
 
+;function that is called to read the file.
+;
+;file - acf file path.
+;state - acl2 state
 (defun readfile (file state)
   (mv-let (line error state)
           (file->string file state)
@@ -19,36 +30,47 @@
               (mv error state)
               (mv (parse-list (tokens (list #\( #\) #\Newline) 
                                       (str->chrs line))) state))))
-#|--------------------------------End of this code----------------------------|#
+#|----------------------------------------------------------------------------|#
 
 #|------------------------Required Structures and Keywords--------------------|#
 ;Function that checks for output types.
+;
+;word - output keyword to be checked.
 (defun keywords-output (word)
   (let ((keylist '("put-signal" "display-signal")))
         (if (member-equal word keylist)
             t
             nil)))
 ;Function that checks effects words.
+;
+;word - command keyword to be checked.
 (defun cmd-keys (word)
   (let ((keylist '("boost" "fuzz" "delay" "overdub" "echo" "fade-in" "fade-out" 
                            "cut" "chipmunk" "reverse" "filter")))
         (if (member-equal word keylist)
             t
             nil)))
-#|--------------------------------End of this code----------------------------|#
+#|----------------------------------------------------------------------------|#
 
 
 #|------------------------------------Get-Vars--------------------------------|#
 ;Function that gets the list of file variables from the
+;
 ;parameters of the lamda function.
+;vars - list of variables(first parameter in lamda function)
+;str - reverse acf list.
 (defun get-vars (vars str)
   (if (consp vars)
       (cons (cons (car vars) (car str)) (get-vars (cdr vars) (cdr str)))
       nil))
-#|--------------------------------End of this code----------------------------|#
+#|----------------------------------------------------------------------------|#
 
 #|---------------------Replaces file variables with actual file names---------|#
 ;Helper function for replace-vars-helper
+;
+;word - a value in the cmd list.
+;vars-list - list of variables, the first parameter of the lamda function
+;file-vars - list of variables corresponding witht the file paths.
 (defun replace-variable (word vars-list file-vars)
   (if (consp vars-list)
       (if (member-equal word file-vars)
@@ -58,7 +80,11 @@
           word)
       nil))
 
-;Helper function for replace-vars 
+;Helper function for replace-vars
+;
+;cmds - list of commands
+;vars-list - list of variables, the first parameter of the lamda function
+;file-vars - list of variables corresponding witht the file paths.
 (defun replace-vars-helper (cmd vars-list file-vars)
   (if (consp cmd)
       (cons (replace-variable (car cmd) vars-list file-vars) 
@@ -68,12 +94,16 @@
 ;Function that initially receives the list of commands,
 ;list of variables, and list of file names corresponding
 ;with file names
+;
+;cmds - list of commands
+;vars-list - list of variables, the first parameter of the lamda function
+;file-vars - list of variables corresponding witht the file paths.
 (defun replace-vars (cmds vars-list file-vars)
   (if (consp cmds)
       (cons (replace-vars-helper (car cmds) vars-list file-vars) 
             (replace-vars (cdr cmds) vars-list file-vars))
       nil))
-#|--------------------------------End of this code----------------------------|#
+#|----------------------------------------------------------------------------|#
 
 #|-------------------------Get last element in a list-------------------------|#
 ; (get-last)
@@ -84,11 +114,13 @@
   (if (endp xs)
       nil
       (car (nthcdr (- (length xs) 1) xs))))
-#|--------------------------------End of this code----------------------------|#
+#|----------------------------------------------------------------------------|#
 
 #|---------------------------------Verify Commands----------------------------|#
 ;Checks if the commands in the list of lamda functions have overdub.
 ;If it does contain overdub, makes sure the commands are properly arranged.
+;
+;str - reverse list of the second parameter of the lambda function
 (defun get-cmds (str)
   (if (consp str)
       (if (string-equal "overdub" (caar str))
@@ -98,11 +130,13 @@
               (cons (car str) (get-cmds (cdr str))))
           (cons (car str) (get-cmds (cdr str))))
       nil))
-#|--------------------------------End of this code----------------------------|#
+#|----------------------------------------------------------------------------|#
 
 #|--------------------------------Create ACF Structure------------------------|#
 ;Returns an acf structure that contains the output type
 ;and the list of commands
+;
+;str - acf file as a list of strings.
 (defun line-parser(str)
   (if (equal str nil)
       "No data available to parse"
@@ -121,11 +155,13 @@
                           nil)
                      (replace-vars commands vars-list file-vars))))
    (acf output newcmds))))
-#|--------------------------------End of this code----------------------------|#
+#|----------------------------------------------------------------------------|#
 
 #|--------------------------Driver to parse acf file--------------------------|#
 ;Function that takes out empty spaces in the original string
 ;that is received after reading the file.
+;
+;line - acf file as a list of strings.
 (defun line->words(line)
   (if (consp line)
       (remove nil (cons (words (car line)) (line->words (cdr line))))
@@ -133,11 +169,14 @@
 
 ;Main function that returns the acf structure containing
 ;the required information to run the program.
+;
+;file - acf file path.
+;state - acl2 state
 (defun parser (file state)
   (mv-let (str state)
           (readfile file state)
           (mv (line-parser (line->words str)) state)))
-#|--------------------------------End of this code----------------------------|#
+#|----------------------------------------------------------------------------|#
 
 #|-------------------------------Parser/Operator Integration------------------|#
 
@@ -238,4 +277,4 @@
                        (mv "Bad csv filename" state)
                    (let ((temp (display-wave wav)))
                          (write-csv file (wav-file-data wav) state)))))))))
-#|-----------------------------End of this Code-------------------------------|#
+#|----------------------------------------------------------------------------|#
