@@ -6,20 +6,26 @@
 (include-book "filter")
 
 ;; Theorems.
-(defthm bytes->integer-thm
-  (<= 0 (bytes->integer byte-list)))
 
-(defthm integer->bytes->integer-thm
-  (implies (n-bytep temp-int bytes)
-           (equal temp-int (bytes->integer (integer->bytes temp-int bytes)))))
+;(defthm integer->bytes->integer-thm
+;  (implies (n-bytep temp-int bytes)
+;           (equal temp-int (bytes->integer (integer->bytes temp-int bytes)))))
 
+; (integer->bytes-thm
+; Tests that integer->bytes returns a list for any lst and number input.
 (defthm integer->bytes-thm
   (true-listp (integer->bytes lst n)))
 
+; (shift-8-bits-lemma)
+; If lst is a list then shifting it 8 bits returns a natural number list.
 (defthm shift-8-bits-lemma
   (implies (true-listp lst) (nat-listp (shift-8-bits lst))))
 
 ;; DoubleCheck
+
+; (2scomp-test)
+; If we convert something to 2scomp number and convert it back, it should
+; be equal.
 (defproperty 2scomp-test 20
   ((bits (random-int-between 4 32)
          t)
@@ -27,6 +33,9 @@
         t))
   (equal num (2scomp->unsigned (unsigned->2scomp num bits) bits)))
 
+; (intbytes-test)
+; If we convert a number to a bytelist and then back to a number, it should
+; be equal.
 (defproperty intbytes-test 20
   ((bytes (random-int-between 2 16)
          t)
@@ -34,22 +43,31 @@
         t))
   (equal num (bytes->integer (integer->bytes num bytes))))
 
-;; For bugs #6 and #7
+; (add-lists-test)
+; Tests that add-lists returns a list with length max(len(one), len(two)).
+; Addresses bugs #6 and #7.
 (defproperty add-lists-test 20
-  ((list1 (random-list-of (random-int-between -500 500) (random-int-between 0 500))
+  ((list1 (random-list-of (random-int-between -500 500)
+                          (random-int-between 0 500))
           (listp list1))
-   (list2 (random-list-of (random-int-between -500 500) (random-int-between 0 500))
+   (list2 (random-list-of (random-int-between -500 500)
+                          (random-int-between 0 500))
           (listp list1)))
   (equal (max (length list1) (length list2)) (length (add-lists list1 list2))))
 
-;; For bug #14
+; (bytes->integer-8bit-scale)
+; Tests that bytes->integer on an 8 bit is within a certain range.
+; Addresses bugs #14.
 (defproperty bytes->integer-8bit-scale 20
   ((byte (random-list (random-int-between 0 255)) (integer-listp byte)))
   (and (> (bytes->integer byte) -129)
           (< (bytes->integer byte) 128)))
 
+; (random-normalized-test power)
+; Generates a random normalized rational number between 0 and 2^(power-1)
 (defgenerator random-normalized-rat (power)
   (1 (/ (random-int-between 0 (- (expt 2 power) 1)) (- (expt 2 power) 1))))
+
 
 (defun wav->list (wav)
   (list (wav-file-chunk-id wav) ;chunk-id
@@ -83,7 +101,8 @@
             (nth 12 lst)
             (nth 13 lst)))
 
-(defun generate-wav-list (num-channels sample-rate bits-per-sample num-samples random-lst)
+(defun generate-wav-list (num-channels sample-rate bits-per-sample
+                                       num-samples random-lst)
   (list '(82 73 70 70)
         2684
         '(87 65 86 69)
@@ -105,25 +124,31 @@
 ;                        (random-int-between 8000 96000)
 ;                        (* 8 (random-int-between 1 4))
 ;                        (random-int-between 10 max-length)
-;                        (random-list-of (random-normalized-rat (- bits-per-sample 1)) data-length))))
+;                        (random-list-of (random-normalized-rat (- bits-per-sample 1))
+;                                        data-length))))
 
 ;(defproperty wav-test 1
 ;  ((wav (wav-gen 1000) t))
 ;  (equal wav (wav->list (boost 1 (list->wav wav)))))
 
 ;filter tests
+
+; (padding-test)
+; Makes sure the length of (padding lst) is half of lst.
 (defproperty padding-test 20
   ((lst (random-list-of (random-int-between 0 1)
                         (random-int-between 1 50))
         t))
   (equal (len (padding lst)) (floor (len lst) 2)))
 
+; (validate-filter-length-test)
+; Verifies that validate-filter-length returns an odd filter length
 (defproperty validate-filter-length-test 20
   ((lst (random-list-of (random-int-between 0 1)
                         (random-int-between 1 200))
         t)
    (filter (validate-filter-length lst)
            t))
-  (equal (mod (len filter) 2) 1))
+  (oddp (len filter)))
 
 (check-properties)
