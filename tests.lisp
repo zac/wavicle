@@ -34,6 +34,20 @@
         t))
   (equal num (bytes->integer (integer->bytes num bytes))))
 
+;; For bugs #6 and #7
+(defproperty add-lists-test 20
+  ((list1 (random-list-of (random-int-between -500 500) (random-int-between 0 500))
+          (listp list1))
+   (list2 (random-list-of (random-int-between -500 500) (random-int-between 0 500))
+          (listp list1)))
+  (equal (max (length list1) (length list2)) (length (add-lists list1 list2))))
+
+;; For bug #14
+(defproperty bytes->integer-8bit-scale 20
+  ((byte (random-list (random-int-between 0 255)) (integer-listp byte)))
+  (and (> (bytes->integer byte) -129)
+          (< (bytes->integer byte) 128)))
+
 (defgenerator random-normalized-rat (power)
   (1 (/ (random-int-between 0 (- (expt 2 power) 1)) (- (expt 2 power) 1))))
 
