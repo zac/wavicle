@@ -1,5 +1,6 @@
 (in-package "ACL2")
-;(include-book "io-utilities" :dir :teachpacks)
+(include-book "io-utilities" :dir :teachpacks)
+(set-state-ok t)
 
 #|------------------------Reading the ACF file--------------------------------|#
 ;removes tab character from the acf string.
