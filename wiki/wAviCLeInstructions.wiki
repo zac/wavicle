@@ -89,7 +89,7 @@ An example of a sample .acf file would be:
 (put-signal output.wav
 	        ((lambda (f input1 input2)
 		       (overdub (filter f input1)
-			            (chipmunk 2 input2)))
+			        (chipmunk 2 input2)))
              (get-filter test.flt)
              (get-signal samples/voice1.wav)
              (get-signal samples/voice2.wav)))
