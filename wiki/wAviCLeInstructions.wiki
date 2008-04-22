@@ -9,6 +9,7 @@ wAviCLe's interface has been made as simple as possible to aid new users. We hop
 
 We will be covering the following topics in discussing how to use wAviCLe:
   * Requirements to use wAviCLe
+  * Installing wAviCLe
   * Loading and Running wAviCLe
   * Creating lists of commands in .acf files
   * Building filters in .flt files.
@@ -20,7 +21,15 @@ In order to use wAviCLe, you will require the following software on your compute
   # A recent version of the [http://www.cs.utexas.edu/users/moore/acl2/ ACL2] interpreter (currently at ver 3.3)
   # A copy of [http://www.plt-scheme.org/ PLT Scheme] to run the program
   # A copy of [http://www.ccs.neu.edu/home/cce/acl2/ drACuLa] to allow PLT Scheme to interpret ACL2 code.
+  
+----
+== Installing wAviCLe ==
+All of the files required to run wAviCLe are installed in the .zip file. Once the .zip file is downloaded, use gzip, or your preferred compression program to extract the files to a directory. wAviCLe's main file is designed to use its supporting files from the same directory as itself so as long as all of the files are extracted to the same directory, wAviCLe will run smoothly.
 
+wAviCLe can be downloaded at [http://wavicle.googlecode.com/files/wAviCLe.zip http://wavicle.googlecode.com/files/wAviCLe.zip].
+
+The latest versions of files from wAviCLe can be downloaded from the subversion repository at [http://wavicle.googlecode.com/svn/trunk/ http://wavicle.googlecode.com/svn/trunk/].
+  
 ----
 == Loading and Running wAviCLe ==
 
