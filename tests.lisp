@@ -63,6 +63,9 @@
   (and (> (bytes->integer byte) -129)
           (< (bytes->integer byte) 128)))
 
+; (wav->list wav)
+; Converts a wav structure to a list so that DoubleCheck can handle it.
+; wav = the input wav to be converted.
 (defun wav->list (wav)
   (list (wav-file-chunk-id wav) ;chunk-id
         (wav-file-chunk-size wav) ;chunk-size
@@ -79,6 +82,9 @@
         (wav-file-subchunk-2-size wav)
         (wav-file-data wav)))
 
+; (list->wav lst)
+; Converts a list representing a wav structure into a wav-file structure.
+; lst = the list to be converted.
 (defun list->wav (lst)
   (wav-file (nth 0 lst)
             (nth 1 lst)
@@ -95,7 +101,10 @@
             (nth 12 lst)
             (nth 13 lst)))
 
-
+; (random-wav min-length max-length)
+; A generator to randomly make a random list representing a wav-file structure.
+; min-length = minimum data length for the wav-file.
+; max-length = maximum data length for the wav-file.
 (defgenerator random-wav (min-length max-length)
   (1 (random-list (random-int-between 0 0)
                   (random-int-between 0 0)
@@ -112,45 +121,55 @@
                   (random-int-between 0 0)
                   (random-list-of (random-int-between -128 127) (random-int-between min-length max-length)))))
 
+; (data-length wav)
+; Convenience function for accessing data length.
+; wav = the wav list to access length of.
 (defun data-length (wav)
   (length (nth 13 wav)))
 
+; (data-equal (wav1 wav2)
+; Convenience function for checking data equal.
+; wav1 = first wav to compare.
+; wav2 = second wav to compare.
 (defun data-equal (wav1 wav2)
   (equal (nth 13 wav1) (nth 13 wav2)))
 
+; (boost-1-equal)
+; Boosts a wav once and checks to see if it is the same.
 (defproperty boost-1-equal 5
   ((wav (random-wav 100 10000) t))
   (data-equal wav (wav->list (boost 1 (list->wav wav)))))
 
+; (fade-in-0-equal)
+; Fades in a wav for 0 seconds and checks if it stays the same.
 (defproperty fade-in-0-equal 5
   ((wav (random-wav 100 10000) t))
   (data-equal wav (wav->list (fade-in 0 (list->wav wav)))))
 
+; (fade-out-0-equal)
+; Fades out a wav for 0 seconds and checks if it stays the same.
 (defproperty fade-out-0-equal 5
   ((wav (random-wav 100 10000) t))
   (data-equal wav (wav->list (fade-out 0 (list->wav wav)))))
 
+; (delay-0-equal)
+; Delays a wav for 0 seconds and checks if it stays the same.
 (defproperty delay-0-equal 5
   ((wav (random-wav 100 10000) t))
   (data-equal wav (wav->list (delay 0 (list->wav wav)))))
 
+; (cut-0-0-equal)
+; Cuts 0 from the back and front and checks if it stays the same.
 (defproperty cut-0-0-equal 5
   ((wav (random-wav 100 10000) t))
   (data-equal wav (wav->list (cut 0 0 (list->wav wav)))))
 
+; (echo-0-equal)
+; Echos for 0 seconds and checks if it stays the same.
 (defproperty echo-0-equal 5
   ((wav (random-wav 100 10000) t)
    (mult (random-int-between 1 2) t))
   (data-equal wav (wav->list (echo 0 mult (list->wav wav)))))
-
-(defproperty delay-fade-in-equal 5
-  ((wav (random-wav 100 10000) t)
-   (val (random-int-between 1 2) t))
-  (data-equal wav (wav->list (fade-in val (delay val (list->wav wav))))))
-
-(defproperty boost-test 1
-  ((data (random-list-of (random-int-between 0 16) (random-int-between 0 1000)) t))
-  (equal data (boost-h 1 data)))
 
 ;filter tests
 
@@ -172,4 +191,5 @@
            t))
   (oddp (len filter)))
 
+; Runs DoubleCheck.
 (check-properties)
