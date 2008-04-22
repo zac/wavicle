@@ -248,14 +248,16 @@
 ; val = The value to scale the echo samles by.
 ; xs = The data from the wav structure.
 (defun echo-handler (length val xs)
-  (let ((slice (get-slice val length xs))
-        (rest (nthcdr length xs))
-        (run-time (floor (len xs) length)))
-    (append slice
-            (echo-helper slice
-                         val
-                         rest
-                         run-time))))
+  (if (zp length)
+      xs
+      (let ((slice (get-slice val length xs))
+            (rest (nthcdr length xs))
+            (run-time (floor (len xs) length)))
+        (append slice
+                (echo-helper slice
+                             val
+                             rest
+                             run-time)))))
 
 ; (echo time val wav)
 ; Function creates an echo effect on a wav structure by overdubing a 
