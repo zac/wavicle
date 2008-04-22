@@ -2,7 +2,6 @@
 
 (include-book "list-utilities" :dir :teachpacks)
 (include-book "binary-io-utilities" :dir :teachpacks)
-(include-book "structures")
 
 ; (unsigned->2scomp num numbits)
 ; This function determines the 2's Compliment value of an unsigned series of
