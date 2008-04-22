@@ -1,6 +1,6 @@
 (in-package "ACL2")
 
-(include-book "world" :dir :teachpacks)
+;(include-book "world" :dir :teachpacks)
 
 (defstructure wav-file
   (chunk-id (:assert (stringp chunk-id)))
