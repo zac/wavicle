@@ -1,0 +1,633 @@
+Welcome to OpenMCL Version (Beta: Darwin) 0.14.3!
+
+ ACL2 Version 3.2 built August 21, 2007  18:38:06.
+ Copyright (C) 2007  University of Texas at Austin
+ ACL2 comes with ABSOLUTELY NO WARRANTY.  This is free software and you
+ are welcome to redistribute it under certain conditions.  For details,
+ see the GNU General Public License.
+
+ Initialized with (INITIALIZE-ACL2 'INCLUDE-BOOK *ACL2-PASS-2-FILES*).
+ See the documentation topic note-3-2 for recent changes.
+ Note: We have modified the prompt in some underlying Lisps to further
+ distinguish it from the ACL2 prompt.
+
+ NOTE!!  Proof trees are disabled in ACL2.  To enable them in emacs,
+ look under the ACL2 source directory in interface/emacs/README.doc; 
+ and, to turn on proof trees, execute :START-PROOF-TREE in the ACL2 
+ command loop.   Look in the ACL2 documentation under PROOF-TREE.
+
+ACL2 Version 3.2.  Level 1.  Cbd 
+"/Users/zac/Desktop/acl2-sources/books/arithmetic/".
+Type :help for help.
+Type (good-bye) to quit completely out of ACL2.
+
+ACL2 !>
+Exiting the ACL2 read-eval-print loop.  To re-enter, execute (LP).
+? [RAW LISP] #<Package "ACL2">
+? [RAW LISP] 
+ACL2 Version 3.2.  Level 1.  Cbd 
+"/Users/zac/Desktop/acl2-sources/books/arithmetic/".
+Type :help for help.
+Type (good-bye) to quit completely out of ACL2.
+
+ACL2 !> (PROVE PROOF-TREE
+        WARNING OBSERVATION EVENT EXPANSION)
+ACL2 !>
+Summary
+Form:  ( INCLUDE-BOOK "equalities" ...)
+Rules: NIL
+Warnings:  None
+Time:  0.78 seconds (prove: 0.00, print: 0.00, other: 0.78)
+"/Users/zac/Desktop/acl2-sources/books/arithmetic/equalities.lisp"
+
+Summary
+Form:  ( DEFTHM IFF-EQUAL ...)
+Rules: ((:COMPOUND-RECOGNIZER BOOLEANP-COMPOUND-RECOGNIZER)
+        (:DEFINITION IFF)
+        (:EXECUTABLE-COUNTERPART BOOLEANP)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:EXECUTABLE-COUNTERPART NOT))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+IFF-EQUAL
+
+Summary
+Form:  ( DEFTHM /-PRESERVES-POSITIVE ...)
+Rules: ((:DEFINITION IFF)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+/-PRESERVES-POSITIVE
+
+Summary
+Form:  ( DEFTHM /-PRESERVES-NEGATIVE ...)
+Rules: ((:DEFINITION IFF)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL))
+Warnings:  None
+Time:  0.01 seconds (prove: 0.00, print: 0.00, other: 0.00)
+/-PRESERVES-NEGATIVE
+
+Summary
+Form:  ( DEFTHM <-*-RIGHT-CANCEL ...)
+Rules: ((:DEFINITION ABS)
+        (:DEFINITION FIX)
+        (:DEFINITION IFF)
+        (:DEFINITION NOT)
+        (:EXECUTABLE-COUNTERPART <)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:EXECUTABLE-COUNTERPART NOT)
+        (:EXECUTABLE-COUNTERPART RATIONALP)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE COMMUTATIVITY-OF-*)
+        (:REWRITE COMMUTATIVITY-OF-+)
+        (:REWRITE DISTRIBUTIVITY)
+        (:REWRITE DISTRIBUTIVITY-OF-MINUS-OVER-+)
+        (:REWRITE FUNCTIONAL-COMMUTATIVITY-OF-MINUS-*-LEFT)
+        (:REWRITE FUNCTIONAL-COMMUTATIVITY-OF-MINUS-*-RIGHT)
+        (:REWRITE FUNCTIONAL-SELF-INVERSION-OF-MINUS))
+Warnings:  None
+Time:  0.06 seconds (prove: 0.06, print: 0.00, other: 0.00)
+<-*-RIGHT-CANCEL
+
+Summary
+Form:  ( DEFTHM <-*-LEFT-CANCEL ...)
+Rules: ((:DEFINITION IFF)
+        (:REWRITE <-*-RIGHT-CANCEL)
+        (:REWRITE COMMUTATIVITY-OF-*))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+<-*-LEFT-CANCEL
+
+Summary
+Form:  ( DEFTHM /-INVERTS-ORDER-1 ...)
+Rules: ((:DEFINITION FIX)
+        (:DEFINITION IFF)
+        (:DEFINITION NOT)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE /-CANCELLATION-ON-LEFT)
+        (:REWRITE /-CANCELLATION-ON-RIGHT)
+        (:REWRITE DISTRIBUTIVITY-OF-/-OVER-*))
+Warnings:  None
+Time:  0.01 seconds (prove: 0.01, print: 0.00, other: 0.00)
+/-INVERTS-ORDER-1
+
+Summary
+Form:  ( DEFTHM <-0-MINUS ...)
+Rules: ((:COMPOUND-RECOGNIZER BOOLEANP-COMPOUND-RECOGNIZER)
+        (:DEFINITION IFF)
+        (:DEFINITION NOT)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:FAKE-RUNE-FOR-LINEAR NIL))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+<-0-MINUS
+
+Summary
+Form:  ( DEFTHM <-*-0 ...)
+Rules: ((:DEFINITION IFF)
+        (:DEFINITION NOT)
+        (:EXECUTABLE-COUNTERPART <)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:EXECUTABLE-COUNTERPART NOT)
+        (:EXECUTABLE-COUNTERPART RATIONALP)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE TIMES-ZERO))
+Warnings:  None
+Time:  0.01 seconds (prove: 0.01, print: 0.00, other: 0.00)
+<-*-0
+
+Summary
+Form:  ( DEFTHM |0-<-*| ...)
+Rules: ((:DEFINITION IFF)
+        (:DEFINITION NOT)
+        (:EXECUTABLE-COUNTERPART <)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:EXECUTABLE-COUNTERPART NOT)
+        (:EXECUTABLE-COUNTERPART RATIONALP)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE TIMES-ZERO))
+Warnings:  None
+Time:  0.01 seconds (prove: 0.01, print: 0.00, other: 0.00)
+|0-<-*|
+
+Summary
+Form:  ( DEFTHM /-INVERTS-ORDER-2 ...)
+Rules: ((:DEFINITION FIX)
+        (:DEFINITION IFF)
+        (:DEFINITION NOT)
+        (:EXECUTABLE-COUNTERPART NOT)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE /-CANCELLATION-ON-LEFT)
+        (:REWRITE /-CANCELLATION-ON-RIGHT)
+        (:REWRITE /-PRESERVES-POSITIVE)
+        (:REWRITE |0-<-*|)
+        (:REWRITE DISTRIBUTIVITY-OF-/-OVER-*))
+Warnings:  None
+Time:  0.01 seconds (prove: 0.01, print: 0.00, other: 0.00)
+/-INVERTS-ORDER-2
+
+Summary
+Form:  ( DEFTHM /-INVERTS-WEAK-ORDER ...)
+Rules: ((:DEFINITION NOT)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL))
+Warnings:  None
+Time:  0.03 seconds (prove: 0.02, print: 0.00, other: 0.00)
+/-INVERTS-WEAK-ORDER
+
+Summary
+Form:  ( DEFTHM <-UNARY-/-NEGATIVE-LEFT ...)
+Rules: ((:DEFINITION IFF)
+        (:DEFINITION NOT)
+        (:EXECUTABLE-COUNTERPART <)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE INVERSE-OF-*)
+        (:REWRITE UNIQUENESS-OF-*-INVERSES))
+Warnings:  None
+Time:  0.02 seconds (prove: 0.02, print: 0.00, other: 0.00)
+<-UNARY-/-NEGATIVE-LEFT
+
+Summary
+Form:  ( DEFTHM <-UNARY-/-NEGATIVE-RIGHT ...)
+Rules: ((:DEFINITION IFF)
+        (:DEFINITION NOT)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE COMMUTATIVITY-OF-*)
+        (:REWRITE INVERSE-OF-*))
+Warnings:  None
+Time:  0.01 seconds (prove: 0.01, print: 0.00, other: 0.00)
+<-UNARY-/-NEGATIVE-RIGHT
+
+Summary
+Form:  ( DEFTHM <-UNARY-/-POSITIVE-LEFT ...)
+Rules: ((:DEFINITION IFF)
+        (:DEFINITION NOT)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE INVERSE-OF-*))
+Warnings:  None
+Time:  0.01 seconds (prove: 0.01, print: 0.00, other: 0.00)
+<-UNARY-/-POSITIVE-LEFT
+
+Summary
+Form:  ( DEFTHM <-UNARY-/-POSITIVE-RIGHT ...)
+Rules: ((:DEFINITION IFF)
+        (:DEFINITION NOT)
+        (:EXECUTABLE-COUNTERPART <)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE /-INVERTS-WEAK-ORDER)
+        (:REWRITE INVERSE-OF-*)
+        (:REWRITE UNIQUENESS-OF-*-INVERSES))
+Warnings:  None
+Time:  0.02 seconds (prove: 0.02, print: 0.00, other: 0.00)
+<-UNARY-/-POSITIVE-RIGHT
+
+Summary
+Form:  ( DEFTHM <-MINUS-ZERO ...)
+Rules: ((:COMPOUND-RECOGNIZER BOOLEANP-COMPOUND-RECOGNIZER)
+        (:DEFINITION IFF)
+        (:DEFINITION NOT)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:FAKE-RUNE-FOR-LINEAR NIL))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+<-MINUS-ZERO
+
+Summary
+Form:  ( DEFTHM <-*-/-RIGHT ...)
+Rules: ((:DEFINITION FIX)
+        (:DEFINITION IFF)
+        (:DEFINITION NOT)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE ASSOCIATIVITY-OF-*)
+        (:REWRITE COMMUTATIVITY-OF-*)
+        (:REWRITE INVERSE-OF-*)
+        (:REWRITE UNICITY-OF-1))
+Warnings:  None
+Time:  0.01 seconds (prove: 0.01, print: 0.00, other: 0.00)
+<-*-/-RIGHT
+
+Summary
+Form:  ( DEFTHM <-*-/-RIGHT-COMMUTED ...)
+Rules: ((:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE <-*-/-RIGHT)
+        (:REWRITE COMMUTATIVITY-OF-*))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+<-*-/-RIGHT-COMMUTED
+
+Summary
+Form:  ( DEFTHM <-*-/-LEFT ...)
+Rules: ((:DEFINITION FIX)
+        (:DEFINITION IFF)
+        (:DEFINITION NOT)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE ASSOCIATIVITY-OF-*)
+        (:REWRITE COMMUTATIVITY-OF-*)
+        (:REWRITE INVERSE-OF-*)
+        (:REWRITE UNICITY-OF-1))
+Warnings:  None
+Time:  0.01 seconds (prove: 0.01, print: 0.00, other: 0.00)
+<-*-/-LEFT
+
+Summary
+Form:  ( DEFTHM <-*-/-LEFT-COMMUTED ...)
+Rules: ((:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE <-*-/-LEFT)
+        (:REWRITE COMMUTATIVITY-OF-*))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+<-*-/-LEFT-COMMUTED
+
+Summary
+Form:  ( DEFTHM *-PRESERVES->=-1 ...)
+Rules: ((:DEFINITION NOT)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:REWRITE <-*-RIGHT-CANCEL))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+*-PRESERVES->=-1
+
+Summary
+Form:  ( DEFTHM *-PRESERVES->=-2 ...)
+Rules: ((:DEFINITION NOT)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:REWRITE <-*-LEFT-CANCEL))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+*-PRESERVES->=-2
+
+Summary
+Form:  ( DEFTHM *-PRESERVES->=-FOR-NONNEGATIVES ...)
+Rules: ((:DEFINITION NOT)
+        (:EXECUTABLE-COUNTERPART NOT)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL))
+Warnings:  None
+Time:  0.02 seconds (prove: 0.02, print: 0.00, other: 0.00)
+*-PRESERVES->=-FOR-NONNEGATIVES
+
+Summary
+Form:  ( ENCAPSULATE NIL (LOCAL ...) ...)
+Rules: NIL
+Warnings:  None
+Time:  0.03 seconds (prove: 0.02, print: 0.00, other: 0.00)
+T
+
+Summary
+Form:  ( DEFTHM *-PRESERVES->-1 ...)
+Rules: ((:DEFINITION NOT)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE *-PRESERVES->=-FOR-NONNEGATIVES))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+*-PRESERVES->-1
+
+Summary
+Form:  ( DEFTHM *-PRESERVES->-2 ...)
+Rules: ((:DEFINITION NOT)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:REWRITE *-PRESERVES->=-FOR-NONNEGATIVES))
+Warnings:  None
+Time:  0.02 seconds (prove: 0.02, print: 0.00, other: 0.00)
+*-PRESERVES->-2
+
+Summary
+Form:  ( DEFTHM *-PRESERVES->-FOR-NONNEGATIVES-1 ...)
+Rules: ((:DEFINITION FIX)
+        (:DEFINITION NOT)
+        (:EXECUTABLE-COUNTERPART NOT)
+        (:EXECUTABLE-COUNTERPART RATIONALP)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE RIGHT-CANCELLATION-FOR-*))
+Warnings:  None
+Time:  0.02 seconds (prove: 0.02, print: 0.00, other: 0.00)
+*-PRESERVES->-FOR-NONNEGATIVES-1
+
+Summary
+Form:  ( ENCAPSULATE NIL (LOCAL ...) ...)
+Rules: NIL
+Warnings:  None
+Time:  0.05 seconds (prove: 0.04, print: 0.00, other: 0.00)
+T
+
+Summary
+Form:  ( DEFTHM X*Y>1-POSITIVE-LEMMA ...)
+Rules: ((:DEFINITION FIX)
+        (:DEFINITION IFF)
+        (:DEFINITION NOT)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE *-PRESERVES->-FOR-NONNEGATIVES-1)
+        (:REWRITE COMMUTATIVITY-2-OF-+)
+        (:REWRITE COMMUTATIVITY-OF-*)
+        (:REWRITE COMMUTATIVITY-OF-+)
+        (:REWRITE DISTRIBUTIVITY)
+        (:REWRITE DISTRIBUTIVITY-OF-MINUS-OVER-+)
+        (:REWRITE FUNCTIONAL-COMMUTATIVITY-OF-MINUS-*-RIGHT)
+        (:REWRITE FUNCTIONAL-SELF-INVERSION-OF-MINUS)
+        (:REWRITE INVERSE-OF-+-AS=0))
+Warnings:  None
+Time:  0.04 seconds (prove: 0.04, print: 0.00, other: 0.00)
+X*Y>1-POSITIVE-LEMMA
+
+Summary
+Form:  ( DEFTHM X*Y>1-POSITIVE ...)
+Rules: NIL
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+X*Y>1-POSITIVE
+
+Summary
+Form:  ( ENCAPSULATE NIL (DEFTHM X*Y>1-POSITIVE-LEMMA ...) ...)
+Rules: NIL
+Warnings:  None
+Time:  0.04 seconds (prove: 0.04, print: 0.00, other: 0.00)
+T
+
+Summary
+Form:  ( DEFTHM <-*-X-Y-Y ...)
+Rules: ((:DEFINITION FIX)
+        (:DEFINITION IFF)
+        (:DEFINITION NOT)
+        (:EXECUTABLE-COUNTERPART <)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:EXECUTABLE-COUNTERPART NOT)
+        (:EXECUTABLE-COUNTERPART RATIONALP)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE UNICITY-OF-1))
+Warnings:  None
+Time:  0.01 seconds (prove: 0.00, print: 0.00, other: 0.00)
+<-*-X-Y-Y
+
+Summary
+Form:  ( DEFTHM <-*-Y-X-Y ...)
+Rules: ((:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE <-*-X-Y-Y)
+        (:REWRITE COMMUTATIVITY-OF-*))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+<-*-Y-X-Y
+
+Summary
+Form:  ( DEFTHM <-Y-*-X-Y ...)
+Rules: ((:DEFINITION FIX)
+        (:DEFINITION IFF)
+        (:DEFINITION NOT)
+        (:EXECUTABLE-COUNTERPART <)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:EXECUTABLE-COUNTERPART NOT)
+        (:EXECUTABLE-COUNTERPART RATIONALP)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE UNICITY-OF-1))
+Warnings:  None
+Time:  0.01 seconds (prove: 0.00, print: 0.00, other: 0.00)
+<-Y-*-X-Y
+
+Summary
+Form:  ( DEFTHM <-Y-*-Y-X ...)
+Rules: ((:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE <-Y-*-X-Y)
+        (:REWRITE COMMUTATIVITY-OF-*))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+<-Y-*-Y-X
+
+Summary
+Form:  ( DEFTHM <-0-+-NEGATIVE-1 ...)
+Rules: ((:COMPOUND-RECOGNIZER BOOLEANP-COMPOUND-RECOGNIZER)
+        (:DEFINITION IFF)
+        (:DEFINITION NOT)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE COMMUTATIVITY-OF-+))
+Warnings:  None
+Time:  0.01 seconds (prove: 0.01, print: 0.00, other: 0.00)
+<-0-+-NEGATIVE-1
+
+Summary
+Form:  ( DEFTHM <-0-+-NEGATIVE-2 ...)
+Rules: ((:COMPOUND-RECOGNIZER BOOLEANP-COMPOUND-RECOGNIZER)
+        (:DEFINITION IFF)
+        (:DEFINITION NOT)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL))
+Warnings:  None
+Time:  0.01 seconds (prove: 0.01, print: 0.00, other: 0.00)
+<-0-+-NEGATIVE-2
+
+Summary
+Form:  ( DEFTHM <-+-NEGATIVE-0-1 ...)
+Rules: ((:COMPOUND-RECOGNIZER BOOLEANP-COMPOUND-RECOGNIZER)
+        (:DEFINITION IFF)
+        (:DEFINITION NOT)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE COMMUTATIVITY-OF-+))
+Warnings:  None
+Time:  0.01 seconds (prove: 0.01, print: 0.00, other: 0.00)
+<-+-NEGATIVE-0-1
+
+Summary
+Form:  ( DEFTHM <-+-NEGATIVE-0-2 ...)
+Rules: ((:COMPOUND-RECOGNIZER BOOLEANP-COMPOUND-RECOGNIZER)
+        (:DEFINITION IFF)
+        (:DEFINITION NOT)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL))
+Warnings:  None
+Time:  0.01 seconds (prove: 0.00, print: 0.00, other: 0.00)
+<-+-NEGATIVE-0-2
+
+Summary
+Form:  ( DEFTHM EXPT->-1 ...)
+Rules: ((:COMPOUND-RECOGNIZER ZIP-COMPOUND-RECOGNIZER)
+        (:DEFINITION =)
+        (:DEFINITION EXPT)
+        (:DEFINITION FIX)
+        (:DEFINITION NOT)
+        (:EXECUTABLE-COUNTERPART <)
+        (:EXECUTABLE-COUNTERPART INTEGERP)
+        (:EXECUTABLE-COUNTERPART NOT)
+        (:EXECUTABLE-COUNTERPART ZIP)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:INDUCTION EXPT)
+        (:REWRITE <-0-+-NEGATIVE-2)
+        (:REWRITE RIGHT-UNICITY-OF-1-FOR-EXPT)
+        (:REWRITE X*Y>1-POSITIVE)
+        (:TYPE-PRESCRIPTION EXPT-TYPE-PRESCRIPTION-NONZERO)
+        (:TYPE-PRESCRIPTION EXPT-TYPE-PRESCRIPTION-POSITIVE)
+        (:TYPE-PRESCRIPTION EXPT-TYPE-PRESCRIPTION-RATIONALP))
+Warnings:  None
+Time:  0.04 seconds (prove: 0.04, print: 0.00, other: 0.00)
+EXPT->-1
+
+Summary
+Form:  ( DEFUN MATH-INDUCTION-START-AT-K ...)
+Rules: ((:DEFINITION NATP)
+        (:DEFINITION NOT)
+        (:DEFINITION O-FINP)
+        (:DEFINITION O-P)
+        (:DEFINITION O<)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE <-+-NEGATIVE-0-1)
+        (:REWRITE <-0-+-NEGATIVE-1)
+        (:REWRITE ASSOCIATIVITY-OF-+)
+        (:REWRITE COMMUTATIVITY-OF-+))
+Warnings:  None
+Time:  0.03 seconds (prove: 0.01, print: 0.00, other: 0.02)
+MATH-INDUCTION-START-AT-K
+
+Summary
+Form:  ( DEFTHM HACK ...)
+Rules: ((:DEFINITION FIX)
+        (:DEFINITION NOT)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE <-0-+-NEGATIVE-1)
+        (:REWRITE <-Y-*-X-Y)
+        (:REWRITE COMMUTATIVITY-OF-*)
+        (:REWRITE DISTRIBUTIVITY)
+        (:REWRITE FUNCTIONAL-COMMUTATIVITY-OF-MINUS-*-RIGHT)
+        (:REWRITE MINUS-CANCELLATION-ON-LEFT)
+        (:REWRITE UNICITY-OF-1))
+Warnings:  None
+Time:  0.01 seconds (prove: 0.01, print: 0.00, other: 0.00)
+HACK
+
+Summary
+Form:  ( DEFTHM EXPT-IS-INCREASING-FOR-BASE>1 ...)
+Rules: ((:DEFINITION FIX)
+        (:DEFINITION NOT)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:INDUCTION MATH-INDUCTION-START-AT-K)
+        (:REWRITE <-*-/-RIGHT-COMMUTED)
+        (:REWRITE <-Y-*-X-Y)
+        (:REWRITE COMMUTATIVITY-OF-*)
+        (:REWRITE EXPONENTS-ADD-UNRESTRICTED)
+        (:REWRITE EXPT-MINUS)
+        (:REWRITE HACK)
+        (:REWRITE RIGHT-UNICITY-OF-1-FOR-EXPT)
+        (:TYPE-PRESCRIPTION EXPT-TYPE-PRESCRIPTION-NONZERO)
+        (:TYPE-PRESCRIPTION EXPT-TYPE-PRESCRIPTION-POSITIVE)
+        (:TYPE-PRESCRIPTION EXPT-TYPE-PRESCRIPTION-RATIONALP))
+Warnings:  None
+Time:  0.06 seconds (prove: 0.06, print: 0.00, other: 0.00)
+EXPT-IS-INCREASING-FOR-BASE>1
+
+Summary
+Form:  ( ENCAPSULATE NIL (LOCAL ...) ...)
+Rules: NIL
+Warnings:  None
+Time:  0.10 seconds (prove: 0.07, print: 0.00, other: 0.02)
+T
+
+Summary
+Form:  ( DEFTHM EXPT-IS-DECREASING-FOR-POS-BASE<1 ...)
+Rules: ((:DEFINITION FIX)
+        (:DEFINITION NOT)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE <-*-/-LEFT-COMMUTED)
+        (:REWRITE <-UNARY-/-POSITIVE-RIGHT)
+        (:REWRITE COMMUTATIVITY-OF-*)
+        (:REWRITE FUNCTIONAL-COMMUTATIVITY-OF-EXPT-/-BASE)
+        (:REWRITE UNICITY-OF-1)
+        (:TYPE-PRESCRIPTION EXPT-TYPE-PRESCRIPTION-NONZERO)
+        (:TYPE-PRESCRIPTION EXPT-TYPE-PRESCRIPTION-POSITIVE)
+        (:TYPE-PRESCRIPTION EXPT-TYPE-PRESCRIPTION-RATIONALP))
+Warnings:  None
+Time:  0.01 seconds (prove: 0.01, print: 0.00, other: 0.00)
+EXPT-IS-DECREASING-FOR-POS-BASE<1
+
+Summary
+Form:  ( DEFTHM EXPT-IS-WEAKLY-INCREASING-FOR-BASE>1 ...)
+Rules: ((:DEFINITION NOT)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:TYPE-PRESCRIPTION EXPT-TYPE-PRESCRIPTION-NONZERO)
+        (:TYPE-PRESCRIPTION EXPT-TYPE-PRESCRIPTION-POSITIVE)
+        (:TYPE-PRESCRIPTION EXPT-TYPE-PRESCRIPTION-RATIONALP))
+Warnings:  None
+Time:  0.04 seconds (prove: 0.04, print: 0.00, other: 0.00)
+EXPT-IS-WEAKLY-INCREASING-FOR-BASE>1
+
+Summary
+Form:  ( DEFTHM EXPT-IS-WEAKLY-DECREASING-FOR-POS-BASE<1 ...)
+Rules: ((:DEFINITION NOT)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:TYPE-PRESCRIPTION EXPT-TYPE-PRESCRIPTION-NONZERO)
+        (:TYPE-PRESCRIPTION EXPT-TYPE-PRESCRIPTION-POSITIVE)
+        (:TYPE-PRESCRIPTION EXPT-TYPE-PRESCRIPTION-RATIONALP))
+Warnings:  None
+Time:  0.03 seconds (prove: 0.03, print: 0.00, other: 0.00)
+EXPT-IS-WEAKLY-DECREASING-FOR-POS-BASE<1
+
+Summary
+Form:  ( INCLUDE-BOOK "inequalities" ...)
+Rules: NIL
+Warnings:  None
+Time:  0.74 seconds (prove: 0.00, print: 0.00, other: 0.74)
+
+Summary
+Form:  (CERTIFY-BOOK "inequalities" ...)
+Rules: NIL
+Warnings:  None
+Time:  2.17 seconds (prove: 0.56, print: 0.00, other: 1.61)
+ "/Users/zac/Desktop/acl2-sources/books/arithmetic/inequalities.lisp"
+ACL2 !>
+Exiting the ACL2 read-eval-print loop.  To re-enter, execute (LP).
+? 

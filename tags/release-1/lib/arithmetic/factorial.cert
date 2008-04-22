@@ -1,0 +1,8 @@
+
+(IN-PACKAGE "ACL2")
+"ACL2 Version 3.2"
+:BEGIN-PORTCULLIS-CMDS
+:END-PORTCULLIS-CMDS
+NIL
+(("/Users/zac/Desktop/acl2-sources/books/arithmetic/factorial.lisp" "factorial" "factorial" ((:SKIPPED-PROOFSP) (:AXIOMSP) (:TTAGS)) . 133351602))
+206791513

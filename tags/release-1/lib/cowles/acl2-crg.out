@@ -1,0 +1,354 @@
+Welcome to OpenMCL Version (Beta: Darwin) 0.14.3!
+
+ ACL2 Version 3.2 built August 21, 2007  18:38:06.
+ Copyright (C) 2007  University of Texas at Austin
+ ACL2 comes with ABSOLUTELY NO WARRANTY.  This is free software and you
+ are welcome to redistribute it under certain conditions.  For details,
+ see the GNU General Public License.
+
+ Initialized with (INITIALIZE-ACL2 'INCLUDE-BOOK *ACL2-PASS-2-FILES*).
+ See the documentation topic note-3-2 for recent changes.
+ Note: We have modified the prompt in some underlying Lisps to further
+ distinguish it from the ACL2 prompt.
+
+ NOTE!!  Proof trees are disabled in ACL2.  To enable them in emacs,
+ look under the ACL2 source directory in interface/emacs/README.doc; 
+ and, to turn on proof trees, execute :START-PROOF-TREE in the ACL2 
+ command loop.   Look in the ACL2 documentation under PROOF-TREE.
+
+ACL2 Version 3.2.  Level 1.  Cbd 
+"/Users/zac/Desktop/acl2-sources/books/cowles/".
+Type :help for help.
+Type (good-bye) to quit completely out of ACL2.
+
+ACL2 !>
+Exiting the ACL2 read-eval-print loop.  To re-enter, execute (LP).
+? [RAW LISP] #<Package "ACL2">
+? [RAW LISP] 
+ACL2 Version 3.2.  Level 1.  Cbd 
+"/Users/zac/Desktop/acl2-sources/books/cowles/".
+Type :help for help.
+Type (good-bye) to quit completely out of ACL2.
+
+ACL2 !> (PROVE PROOF-TREE
+        WARNING OBSERVATION EVENT EXPANSION)
+ACL2 !>
+Summary
+Form:  ( DEFPKG "ACL2-CRG" ...)
+Rules: NIL
+Warnings:  None
+Time:  0.07 seconds (prove: 0.00, print: 0.00, other: 0.07)
+ "ACL2-CRG"
+ACL2 !>
+Summary
+Form:  ( DEFPKG "ACL2-AGP" ...)
+Rules: NIL
+Warnings:  None
+Time:  0.08 seconds (prove: 0.00, print: 0.00, other: 0.08)
+ "ACL2-AGP"
+ACL2 !>
+Summary
+Form:  ( INCLUDE-BOOK "acl2-agp" ...)
+Rules: NIL
+Warnings:  None
+Time:  0.31 seconds (prove: 0.00, print: 0.00, other: 0.31)
+"/Users/zac/Desktop/acl2-sources/books/cowles/acl2-agp.lisp"
+
+Summary
+Form:  ( DEFUN EQUIV ...)
+Rules: ((:FAKE-RUNE-FOR-TYPE-SET NIL))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+EQUIV
+
+Summary
+Form:  ( DEFUN PRED ...)
+Rules: ((:FAKE-RUNE-FOR-TYPE-SET NIL))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+PRED
+
+Summary
+Form:  ( DEFUN PLUS ...)
+Rules: NIL
+Warnings:  None
+Time:  0.01 seconds (prove: 0.00, print: 0.00, other: 0.01)
+PLUS
+
+Summary
+Form:  ( DEFUN TIMES ...)
+Rules: NIL
+Warnings:  None
+Time:  0.01 seconds (prove: 0.00, print: 0.00, other: 0.01)
+TIMES
+
+Summary
+Form:  ( DEFUN ZERO ...)
+Rules: NIL
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+ZERO
+
+Summary
+Form:  ( DEFUN MINUS ...)
+Rules: NIL
+Warnings:  None
+Time:  0.01 seconds (prove: 0.00, print: 0.00, other: 0.01)
+MINUS
+
+Summary
+Form:  ( DEFTHM EQUIV-IS-AN-EQUIVALENCE ...)
+Rules: ((:COMPOUND-RECOGNIZER BOOLEANP-COMPOUND-RECOGNIZER)
+        (:DEFINITION EQUIV)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:TYPE-PRESCRIPTION EQUIV))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+EQUIV-IS-AN-EQUIVALENCE
+
+Summary
+Form:  ( DEFTHM EQUIV-1-IMPLIES-EQUIV-PLUS ...)
+Rules: ((:DEFINITION EQUIV))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+EQUIV-1-IMPLIES-EQUIV-PLUS
+
+Summary
+Form:  ( DEFTHM EQUIV-2-IMPLIES-EQUIV-PLUS ...)
+Rules: ((:DEFINITION EQUIV))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+EQUIV-2-IMPLIES-EQUIV-PLUS
+
+Summary
+Form:  ( DEFTHM EQUIV-2-IMPLIES-EQUIV-TIMES ...)
+Rules: ((:DEFINITION EQUIV))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+EQUIV-2-IMPLIES-EQUIV-TIMES
+
+Summary
+Form:  ( DEFTHM EQUIV-1-IMPLIES-EQUIV-MINUS ...)
+Rules: ((:DEFINITION EQUIV)
+        (:DEFINITION MINUS))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+EQUIV-1-IMPLIES-EQUIV-MINUS
+
+Summary
+Form:  ( DEFTHM CLOSURE-OF-PLUS-FOR-PRED ...)
+Rules: ((:DEFINITION PRED)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:TYPE-PRESCRIPTION PLUS)
+        (:TYPE-PRESCRIPTION PRED))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+CLOSURE-OF-PLUS-FOR-PRED
+
+Summary
+Form:  ( DEFTHM CLOSURE-OF-TIMES-FOR-PRED ...)
+Rules: ((:DEFINITION PRED)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:EXECUTABLE-COUNTERPART TIMES)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:TYPE-PRESCRIPTION PRED))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+CLOSURE-OF-TIMES-FOR-PRED
+
+Summary
+Form:  ( DEFTHM CLOSURE-OF-ZERO-FOR-PRED ...)
+Rules: ((:EXECUTABLE-COUNTERPART PRED)
+        (:EXECUTABLE-COUNTERPART ZERO)
+        (:TYPE-PRESCRIPTION PRED))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+CLOSURE-OF-ZERO-FOR-PRED
+
+Summary
+Form:  ( DEFTHM CLOSURE-OF-MINUS-FOR-PRED ...)
+Rules: ((:DEFINITION MINUS)
+        (:DEFINITION PRED)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:TYPE-PRESCRIPTION PRED))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+CLOSURE-OF-MINUS-FOR-PRED
+
+Summary
+Form:  ( DEFTHM COMMUTATIVITY-OF-PLUS ...)
+Rules: ((:DEFINITION EQUIV)
+        (:DEFINITION PRED)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:EXECUTABLE-COUNTERPART PLUS)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+COMMUTATIVITY-OF-PLUS
+
+Summary
+Form:  ( DEFTHM COMMUTATIVITY-OF-TIMES ...)
+Rules: ((:DEFINITION EQUIV)
+        (:DEFINITION PRED)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:EXECUTABLE-COUNTERPART TIMES)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+COMMUTATIVITY-OF-TIMES
+
+Summary
+Form:  ( DEFTHM ASSOCIATIVITY-OF-PLUS ...)
+Rules: ((:DEFINITION EQUIV)
+        (:DEFINITION PRED)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:EXECUTABLE-COUNTERPART PLUS)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL))
+Warnings:  None
+Time:  0.02 seconds (prove: 0.02, print: 0.00, other: 0.00)
+ASSOCIATIVITY-OF-PLUS
+
+Summary
+Form:  ( DEFTHM ASSOCIATIVITY-OF-TIMES ...)
+Rules: ((:DEFINITION EQUIV)
+        (:DEFINITION PRED)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:EXECUTABLE-COUNTERPART TIMES)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+ASSOCIATIVITY-OF-TIMES
+
+Summary
+Form:  ( DEFTHM LEFT-DISTRIBUTIVITY-OF-TIMES-OVER-PLUS ...)
+Rules: ((:DEFINITION EQUIV)
+        (:DEFINITION PRED)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:EXECUTABLE-COUNTERPART PLUS)
+        (:EXECUTABLE-COUNTERPART TIMES)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+LEFT-DISTRIBUTIVITY-OF-TIMES-OVER-PLUS
+
+Summary
+Form:  ( DEFTHM LEFT-UNICITY-OF-ZERO-FOR-PLUS ...)
+Rules: ((:DEFINITION EQUIV)
+        (:DEFINITION PRED)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:EXECUTABLE-COUNTERPART PLUS)
+        (:EXECUTABLE-COUNTERPART ZERO)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+LEFT-UNICITY-OF-ZERO-FOR-PLUS
+
+Summary
+Form:  ( DEFTHM RIGHT-INVERSE-FOR-PLUS ...)
+Rules: ((:DEFINITION EQUIV)
+        (:DEFINITION MINUS)
+        (:DEFINITION PRED)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:EXECUTABLE-COUNTERPART PLUS)
+        (:EXECUTABLE-COUNTERPART ZERO)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+RIGHT-INVERSE-FOR-PLUS
+
+Summary
+Form:  ( ENCAPSULATE ((EQUIV ...) ...) ...)
+Rules: NIL
+Warnings:  None
+Time:  0.09 seconds (prove: 0.04, print: 0.00, other: 0.05)
+T
+
+Summary
+Form:  ( DEFTHM RIGHT-DISTRIBUTIVITY-OF-TIMES-OVER-PLUS ...)
+Rules: ((:CONGRUENCE EQUIV-1-IMPLIES-EQUIV-PLUS)
+        (:CONGRUENCE EQUIV-2-IMPLIES-EQUIV-PLUS)
+        (:EQUIVALENCE EQUIV-IS-AN-EQUIVALENCE)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE CLOSURE-OF-PLUS-FOR-PRED)
+        (:REWRITE COMMUTATIVITY-OF-TIMES)
+        (:REWRITE LEFT-DISTRIBUTIVITY-OF-TIMES-OVER-PLUS))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+RIGHT-DISTRIBUTIVITY-OF-TIMES-OVER-PLUS
+
+Summary
+Form:  ( DEFTHM LEFT-NULLITY-OF-ZERO-FOR-TIMES ...)
+Rules: ((:COMPOUND-RECOGNIZER BOOLEANP-COMPOUND-RECOGNIZER)
+        (:CONGRUENCE EQUIV-1-IMPLIES-EQUIV-PLUS)
+        (:CONGRUENCE EQUIV-2-IMPLIES-EQUIV-PLUS)
+        (:CONGRUENCE EQUIV-2-IMPLIES-EQUIV-TIMES)
+        (:CONGRUENCE IFF-IMPLIES-EQUAL-IMPLIES-2)
+        (:DEFINITION NOT)
+        (:EQUIVALENCE EQUIV-IS-AN-EQUIVALENCE)
+        (:EXECUTABLE-COUNTERPART IF)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE ASSOCIATIVITY-OF-PLUS)
+        (:REWRITE CLOSURE-OF-MINUS-FOR-PRED)
+        (:REWRITE CLOSURE-OF-PLUS-FOR-PRED)
+        (:REWRITE CLOSURE-OF-TIMES-FOR-PRED)
+        (:REWRITE CLOSURE-OF-ZERO-FOR-PRED)
+        (:REWRITE COMMUTATIVITY-OF-PLUS)
+        (:REWRITE COMMUTATIVITY-OF-TIMES)
+        (:REWRITE LEFT-UNICITY-OF-ZERO-FOR-PLUS)
+        (:REWRITE RIGHT-INVERSE-FOR-PLUS)
+        (:TYPE-PRESCRIPTION EQUIV-IS-AN-EQUIVALENCE))
+Warnings:  None
+Time:  0.01 seconds (prove: 0.01, print: 0.00, other: 0.00)
+LEFT-NULLITY-OF-ZERO-FOR-TIMES
+
+Summary
+Form:  ( DEFTHM RIGHT-NULLITY-OF-ZERO-FOR-TIMES ...)
+Rules: ((:EQUIVALENCE EQUIV-IS-AN-EQUIVALENCE)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE CLOSURE-OF-ZERO-FOR-PRED)
+        (:REWRITE COMMUTATIVITY-OF-TIMES)
+        (:REWRITE LEFT-NULLITY-OF-ZERO-FOR-TIMES))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+RIGHT-NULLITY-OF-ZERO-FOR-TIMES
+
+Summary
+Form:  ( DEFTHM FUNCTIONAL-COMMUTATIVITY-OF-MINUS-TIMES-RIGHT ...)
+Rules: ((:CONGRUENCE EQUIV-2-IMPLIES-EQUIV-TIMES)
+        (:DEFINITION NOT)
+        (:EQUIVALENCE EQUIV-IS-AN-EQUIVALENCE)
+        (:REWRITE CLOSURE-OF-MINUS-FOR-PRED)
+        (:REWRITE CLOSURE-OF-TIMES-FOR-PRED)
+        (:REWRITE RIGHT-INVERSE-FOR-PLUS)
+        (:REWRITE RIGHT-NULLITY-OF-ZERO-FOR-TIMES))
+Warnings:  None
+Time:  0.01 seconds (prove: 0.00, print: 0.00, other: 0.00)
+FUNCTIONAL-COMMUTATIVITY-OF-MINUS-TIMES-RIGHT
+
+Summary
+Form:  ( DEFTHM FUNCTIONAL-COMMUTATIVITY-OF-MINUS-TIMES-LEFT ...)
+Rules: ((:CONGRUENCE EQUIV-1-IMPLIES-EQUIV-MINUS)
+        (:EQUIVALENCE EQUIV-IS-AN-EQUIVALENCE)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE CLOSURE-OF-MINUS-FOR-PRED)
+        (:REWRITE COMMUTATIVITY-OF-TIMES)
+        (:REWRITE FUNCTIONAL-COMMUTATIVITY-OF-MINUS-TIMES-RIGHT))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+FUNCTIONAL-COMMUTATIVITY-OF-MINUS-TIMES-LEFT
+
+Summary
+Form:  ( INCLUDE-BOOK "acl2-crg" ...)
+Rules: NIL
+Warnings:  None
+Time:  0.29 seconds (prove: 0.00, print: 0.00, other: 0.29)
+
+Summary
+Form:  (CERTIFY-BOOK "acl2-crg" ...)
+Rules: NIL
+Warnings:  None
+Time:  0.79 seconds (prove: 0.05, print: 0.00, other: 0.74)
+ "/Users/zac/Desktop/acl2-sources/books/cowles/acl2-crg.lisp"
+ACL2 !>
+Exiting the ACL2 read-eval-print loop.  To re-enter, execute (LP).
+? 

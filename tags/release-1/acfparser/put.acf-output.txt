@@ -1,0 +1,4 @@
+(acf
+ ("put-signal" "new-tracks/operator-on-the-street.wav")
+ (("wav2" "get-signal" "tracks/street-noise.wav") ("wav1" "get-signal" "tracks/operator.wav") ("w" "get-filter" "filters/blur.flt"))
+ (("filter" "w" "wav2") ("overdub" "wav1") ("fade-out" "5") ("fade-in" "5")))

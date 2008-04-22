@@ -1,0 +1,170 @@
+Welcome to OpenMCL Version (Beta: Darwin) 0.14.3!
+
+ ACL2 Version 3.2 built August 21, 2007  18:38:06.
+ Copyright (C) 2007  University of Texas at Austin
+ ACL2 comes with ABSOLUTELY NO WARRANTY.  This is free software and you
+ are welcome to redistribute it under certain conditions.  For details,
+ see the GNU General Public License.
+
+ Initialized with (INITIALIZE-ACL2 'INCLUDE-BOOK *ACL2-PASS-2-FILES*).
+ See the documentation topic note-3-2 for recent changes.
+ Note: We have modified the prompt in some underlying Lisps to further
+ distinguish it from the ACL2 prompt.
+
+ NOTE!!  Proof trees are disabled in ACL2.  To enable them in emacs,
+ look under the ACL2 source directory in interface/emacs/README.doc; 
+ and, to turn on proof trees, execute :START-PROOF-TREE in the ACL2 
+ command loop.   Look in the ACL2 documentation under PROOF-TREE.
+
+ACL2 Version 3.2.  Level 1.  Cbd 
+"/Users/zac/Desktop/acl2-sources/books/arithmetic/".
+Type :help for help.
+Type (good-bye) to quit completely out of ACL2.
+
+ACL2 !>
+Exiting the ACL2 read-eval-print loop.  To re-enter, execute (LP).
+? [RAW LISP] #<Package "ACL2">
+? [RAW LISP] 
+ACL2 Version 3.2.  Level 1.  Cbd 
+"/Users/zac/Desktop/acl2-sources/books/arithmetic/".
+Type :help for help.
+Type (good-bye) to quit completely out of ACL2.
+
+ACL2 !> (PROVE PROOF-TREE
+        WARNING OBSERVATION EVENT EXPANSION)
+ACL2 !>
+Summary
+Form:  ( INCLUDE-BOOK "inequalities" ...)
+Rules: NIL
+Warnings:  None
+Time:  0.82 seconds (prove: 0.00, print: 0.00, other: 0.82)
+"/Users/zac/Desktop/acl2-sources/books/arithmetic/inequalities.lisp"
+
+Summary
+Form:  ( INCLUDE-BOOK "mod-gcd" ...)
+Rules: NIL
+Warnings:  None
+Time:  0.20 seconds (prove: 0.00, print: 0.00, other: 0.20)
+"/Users/zac/Desktop/acl2-sources/books/arithmetic/mod-gcd.lisp"
+
+Summary
+Form:  ( DEFTHM DENOMINATOR-UNARY-MINUS ...)
+Rules: ((:DEFINITION ABS)
+        (:DEFINITION FIX)
+        (:DEFINITION NOT)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE <-MINUS-ZERO)
+        (:REWRITE COMMUTATIVITY-OF-NONNEG-INT-GCD)
+        (:REWRITE FUNCTIONAL-COMMUTATIVITY-OF-MINUS-*-RIGHT)
+        (:REWRITE FUNCTIONAL-SELF-INVERSION-OF-MINUS)
+        (:REWRITE NONNEG-INT-GCD-NUMERATOR-DENOMINATOR
+                  . 2)
+        (:REWRITE NONNEG-INT-GCD-NUMERATOR-DENOMINATOR
+                  . 1)
+        (:REWRITE RATIONAL-IMPLIES2))
+Warnings:  None
+Time:  0.02 seconds (prove: 0.01, print: 0.00, other: 0.00)
+DENOMINATOR-UNARY-MINUS
+
+Summary
+Form:  ( DEFTHM NUMERATOR-GOES-DOWN-BY-INTEGER-DIVISION ...)
+Rules: ((:DEFINITION ABS)
+        (:DEFINITION IFF)
+        (:DEFINITION NOT)
+        (:EXECUTABLE-COUNTERPART <)
+        (:EXECUTABLE-COUNTERPART NOT)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE |0-<-*|)
+        (:REWRITE <-0-MINUS)
+        (:REWRITE <-MINUS-ZERO)
+        (:REWRITE ASSOCIATIVITY-OF-*)
+        (:REWRITE COMMUTATIVITY-OF-*)
+        (:REWRITE DISTRIBUTIVITY-OF-/-OVER-*)
+        (:REWRITE RATIONAL-IMPLIES2))
+Warnings:  None
+Time:  0.05 seconds (prove: 0.04, print: 0.00, other: 0.00)
+NUMERATOR-GOES-DOWN-BY-INTEGER-DIVISION
+
+Summary
+Form:  ( DEFTHM DENOMINATOR-PLUS ...)
+Rules: ((:DEFINITION ABS)
+        (:DEFINITION FIX)
+        (:DEFINITION NOT)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE COMMUTATIVITY-2-OF-*)
+        (:REWRITE COMMUTATIVITY-OF-*)
+        (:REWRITE COMMUTATIVITY-OF-+)
+        (:REWRITE COMMUTATIVITY-OF-NONNEG-INT-GCD)
+        (:REWRITE DISTRIBUTIVITY)
+        (:REWRITE DISTRIBUTIVITY-OF-MINUS-OVER-+)
+        (:REWRITE INVERSE-OF-*)
+        (:REWRITE NONNEG-INT-GCD-NUMERATOR-DENOMINATOR
+                  . 2)
+        (:REWRITE NONNEG-INT-GCD-NUMERATOR-DENOMINATOR
+                  . 1)
+        (:REWRITE RATIONAL-IMPLIES2)
+        (:REWRITE UNICITY-OF-1))
+Warnings:  None
+Time:  0.13 seconds (prove: 0.13, print: 0.00, other: 0.00)
+DENOMINATOR-PLUS
+
+Summary
+Form:  ( DEFTHM NUMERATOR-MINUS ...)
+Rules: ((:DEFINITION ABS)
+        (:DEFINITION FIX)
+        (:DEFINITION NOT)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE <-MINUS-ZERO)
+        (:REWRITE COMMUTATIVITY-OF-NONNEG-INT-GCD)
+        (:REWRITE DENOMINATOR-UNARY-MINUS)
+        (:REWRITE FUNCTIONAL-COMMUTATIVITY-OF-MINUS-*-RIGHT)
+        (:REWRITE FUNCTIONAL-SELF-INVERSION-OF-MINUS)
+        (:REWRITE NONNEG-INT-GCD-NUMERATOR-DENOMINATOR
+                  . 1)
+        (:REWRITE NONNEG-INT-GCD-NUMERATOR-DENOMINATOR
+                  . 2)
+        (:REWRITE RATIONAL-IMPLIES2))
+Warnings:  None
+Time:  0.01 seconds (prove: 0.01, print: 0.00, other: 0.00)
+NUMERATOR-MINUS
+
+Summary
+Form:  ( DEFTHM NUMERATOR-/X ...)
+Rules: ((:DEFINITION ABS)
+        (:DEFINITION FIX)
+        (:DEFINITION NOT)
+        (:DEFINITION SIGNUM)
+        (:EXECUTABLE-COUNTERPART ABS)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE COMMUTATIVITY-OF-*)
+        (:REWRITE FUNCTIONAL-COMMUTATIVITY-OF-MINUS-*-LEFT)
+        (:REWRITE FUNCTIONAL-COMMUTATIVITY-OF-MINUS-*-RIGHT)
+        (:REWRITE FUNCTIONAL-SELF-INVERSION-OF-MINUS)
+        (:REWRITE NONNEG-INT-GCD-1-LEFT)
+        (:REWRITE RECIPROCAL-MINUS)
+        (:REWRITE UNICITY-OF-1))
+Warnings:  None
+Time:  0.02 seconds (prove: 0.02, print: 0.00, other: 0.00)
+NUMERATOR-/X
+
+Summary
+Form:  ( INCLUDE-BOOK "rationals" ...)
+Rules: NIL
+Warnings:  None
+Time:  0.74 seconds (prove: 0.00, print: 0.00, other: 0.74)
+
+Summary
+Form:  (CERTIFY-BOOK "rationals" ...)
+Rules: NIL
+Warnings:  None
+Time:  2.01 seconds (prove: 0.22, print: 0.00, other: 1.79)
+ "/Users/zac/Desktop/acl2-sources/books/arithmetic/rationals.lisp"
+ACL2 !>
+Exiting the ACL2 read-eval-print loop.  To re-enter, execute (LP).
+? 

@@ -1,0 +1,178 @@
+Welcome to OpenMCL Version (Beta: Darwin) 0.14.3!
+
+ ACL2 Version 3.2 built August 21, 2007  18:38:06.
+ Copyright (C) 2007  University of Texas at Austin
+ ACL2 comes with ABSOLUTELY NO WARRANTY.  This is free software and you
+ are welcome to redistribute it under certain conditions.  For details,
+ see the GNU General Public License.
+
+ Initialized with (INITIALIZE-ACL2 'INCLUDE-BOOK *ACL2-PASS-2-FILES*).
+ See the documentation topic note-3-2 for recent changes.
+ Note: We have modified the prompt in some underlying Lisps to further
+ distinguish it from the ACL2 prompt.
+
+ NOTE!!  Proof trees are disabled in ACL2.  To enable them in emacs,
+ look under the ACL2 source directory in interface/emacs/README.doc; 
+ and, to turn on proof trees, execute :START-PROOF-TREE in the ACL2 
+ command loop.   Look in the ACL2 documentation under PROOF-TREE.
+
+ACL2 Version 3.2.  Level 1.  Cbd 
+"/Users/zac/Desktop/acl2-sources/books/arithmetic/".
+Type :help for help.
+Type (good-bye) to quit completely out of ACL2.
+
+ACL2 !>
+Exiting the ACL2 read-eval-print loop.  To re-enter, execute (LP).
+? [RAW LISP] #<Package "ACL2">
+? [RAW LISP] 
+ACL2 Version 3.2.  Level 1.  Cbd 
+"/Users/zac/Desktop/acl2-sources/books/arithmetic/".
+Type :help for help.
+Type (good-bye) to quit completely out of ACL2.
+
+ACL2 !> (PROVE PROOF-TREE
+        WARNING OBSERVATION EVENT EXPANSION)
+ACL2 !>
+Summary
+Form:  ( INCLUDE-BOOK "top" ...)
+Rules: NIL
+Warnings:  None
+Time:  0.87 seconds (prove: 0.00, print: 0.00, other: 0.87)
+"/Users/zac/Desktop/acl2-sources/books/arithmetic/top.lisp"
+
+Summary
+Form:  ( DEFTHM ABS-* ...)
+Rules: ((:DEFINITION ABS)
+        (:DEFINITION FIX)
+        (:DEFINITION IFF)
+        (:DEFINITION NOT)
+        (:EXECUTABLE-COUNTERPART <)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:EXECUTABLE-COUNTERPART NOT)
+        (:EXECUTABLE-COUNTERPART RATIONALP)
+        (:EXECUTABLE-COUNTERPART UNARY--)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE <-*-0)
+        (:REWRITE FUNCTIONAL-COMMUTATIVITY-OF-MINUS-*-LEFT)
+        (:REWRITE FUNCTIONAL-COMMUTATIVITY-OF-MINUS-*-RIGHT)
+        (:REWRITE FUNCTIONAL-SELF-INVERSION-OF-MINUS)
+        (:REWRITE TIMES-ZERO))
+Warnings:  None
+Time:  0.01 seconds (prove: 0.01, print: 0.00, other: 0.00)
+ABS-*
+
+Summary
+Form:  ( DEFTHM ABS-UMINUS ...)
+Rules: ((:DEFINITION ABS)
+        (:DEFINITION FIX)
+        (:DEFINITION NOT)
+        (:EXECUTABLE-COUNTERPART <)
+        (:EXECUTABLE-COUNTERPART ABS)
+        (:EXECUTABLE-COUNTERPART EQUAL)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE <-MINUS-ZERO)
+        (:REWRITE DEFAULT-<-2)
+        (:REWRITE EQUAL-MINUS-0)
+        (:REWRITE FUNCTIONAL-SELF-INVERSION-OF-MINUS))
+Warnings:  None
+Time:  0.01 seconds (prove: 0.01, print: 0.00, other: 0.00)
+ABS-UMINUS
+
+Summary
+Form:  ( DEFTHM REALP-ABS ...)
+Rules: ((:DEFINITION ABS)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+REALP-ABS
+
+Summary
+Form:  ( DEFTHM NUMBERP-ABS ...)
+Rules: ((:DEFINITION ABS)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+NUMBERP-ABS
+
+Summary
+Form:  ( DEFTHM ABS-X->-0 ...)
+Rules: ((:DEFINITION ABS)
+        (:DEFINITION NOT)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+ABS-X->-0
+
+Summary
+Form:  ( DEFTHM ABS-X-=-0-IFF-X=0 ...)
+Rules: ((:DEFINITION =)
+        (:DEFINITION ABS)
+        (:DEFINITION NOT)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE <-0-MINUS))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+ABS-X-=-0-IFF-X=0
+
+Summary
+Form:  ( DEFTHM NOT-ABS-X-<-0 ...)
+Rules: ((:DEFINITION ABS)
+        (:DEFINITION NOT)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE <-MINUS-ZERO))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+NOT-ABS-X-<-0
+
+Summary
+Form:  ( DEFTHM ABS-X-GENERALIZE-WEAK ...)
+Rules: ((:DEFINITION ABS)
+        (:EXECUTABLE-COUNTERPART NOT)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE NOT-ABS-X-<-0))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+ABS-X-GENERALIZE-WEAK
+
+Summary
+Form:  ( DEFTHM ABS-X-GENERALIZE-STRONG ...)
+Rules: ((:DEFINITION ABS)
+        (:DEFINITION NOT)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE <-0-MINUS))
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+ABS-X-GENERALIZE-STRONG
+
+Summary
+Form:  ( DEFTHM ABS-TRIANGLE ...)
+Rules: ((:DEFINITION ABS)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:REWRITE DISTRIBUTIVITY-OF-MINUS-OVER-+))
+Warnings:  None
+Time:  0.01 seconds (prove: 0.01, print: 0.00, other: 0.00)
+ABS-TRIANGLE
+
+Summary
+Form:  ( IN-THEORY (DISABLE ...))
+Rules: NIL
+Warnings:  None
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+2073
+
+Summary
+Form:  ( INCLUDE-BOOK "abs" ...)
+Rules: NIL
+Warnings:  None
+Time:  0.79 seconds (prove: 0.00, print: 0.00, other: 0.79)
+
+Summary
+Form:  (CERTIFY-BOOK "abs" ...)
+Rules: NIL
+Warnings:  None
+Time:  1.72 seconds (prove: 0.04, print: 0.00, other: 1.68)
+ "/Users/zac/Desktop/acl2-sources/books/arithmetic/abs.lisp"
+ACL2 !>
+Exiting the ACL2 read-eval-print loop.  To re-enter, execute (LP).
+? 

@@ -1,0 +1,6 @@
+(put-signal samples/newoutput.wav
+((lambda (f input1 input2)
+(reverse (chipmunk 2 input1)))
+(get-filter test.flt)
+(get-signal samples/rick.wav)
+(get-signal samples/voice5.wav)))
