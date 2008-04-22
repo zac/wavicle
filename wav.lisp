@@ -57,19 +57,19 @@
 ; (bytes->integer-h bytes)
 ; Helper function that does all the heavy lifting for bytes->integer.
 ; bytes = the bytes to be converted.
-(defun bytes->integer-h (bytes)
+(defun bytes->integer-h (bytes counter)
   (declare (xargs :guard (integer-listp bytes)
-                  :verify-guards t))
-  (if (endp bytes)
+                  :verify-guards nil))
+  (if (zp counter)
       0
-      (+ (car bytes) (bytes->integer-h (shift-8-bits (cdr bytes))))))
+      (+ (car bytes) (bytes->integer-h (shift-8-bits (cdr bytes)) (- counter 1)))))
 
 ; (bytes->integer bytes)
 ; Takes a byte list and turns it into a number accounting for
 ; two's complement.
 ; bytes = the bytes to be converted.
 (defun bytes->integer (bytes)
-  (let ((val (bytes->integer-h bytes)))
+  (let ((val (bytes->integer-h bytes (length bytes))))
     (if (> (length bytes) 1)
         (unsigned->2scomp val (* 8 (length bytes)))
         (- val 128))))
@@ -80,12 +80,13 @@
 ; data = the bytes to be turned into a samples list.
 ; sample-size = the number of bytes for each sample.
 ; acc = holds the tail-recursive list accumulator.
-(defun bytes->samples (data sample-size acc)
-  (if (endp data)
-      (reverse acc)
+(defun bytes->samples (data sample-size acc counter)
+  (if (zp counter)
       (bytes->samples (nthcdr sample-size data) sample-size
                       (cons (/ (bytes->integer (take sample-size data))
-                               (expt 2 (- (* 8 sample-size) 1))) acc))))
+                               (expt 2 (- (* 8 sample-size) 1))) acc)
+                      (- counter sample-size))
+      (reverse acc)))
 
 ; (samples->bytes samples block-align)
 ; Takes a list of samples from -1 to 1 and converts it to a list of bytes.
@@ -120,7 +121,8 @@
             (bytes->integer (subseq bytes 40 44)) ;subchunk-2-size
             (bytes->samples (nthcdr 44 bytes)
                             (bytes->integer (subseq bytes 32 34))
-                            nil)))
+                            nil
+                            (length bytes))))
 
 ;; TAKES 20.4 seconds to run on voice5.wav.
 
