@@ -2,6 +2,7 @@
 
 (include-book "list-utilities" :dir :teachpacks)
 (include-book "binary-io-utilities" :dir :teachpacks)
+(include-book "structures")
 
 ; (unsigned->2scomp num numbits)
 ; This function determines the 2's Compliment value of an unsigned series of
@@ -78,12 +79,18 @@
 ; data = the bytes to be turned into a samples list.
 ; sample-size = the number of bytes for each sample.
 ; acc = holds the tail-recursive list accumulator.
-(defun bytes->samples (data sample-size acc)
-  (if (endp data)
-      (reverse acc)
-      (bytes->samples (nthcdr sample-size data) sample-size
-                      (cons (/ (bytes->integer (take sample-size data))
-                               (expt 2 (- (* 8 sample-size) 1))) acc))))
+(defun bytes->samples (data sample-size counter)
+  (if (zp counter)
+      nil
+      (let* ((length (if (> (len data) sample-size)
+                         sample-size
+                         (len data)))
+             (rest (nthcdr length data))
+             (first (take sample-size data))
+             )
+        (cons (/ (bytes->integer first)
+                 (expt 2 (- (* 8 sample-size) 1)))
+              (bytes->samples rest sample-size (- counter 1))))))
 
 ; (samples->bytes samples block-align)
 ; Takes a list of samples from -1 to 1 and converts it to a list of bytes.
@@ -118,7 +125,7 @@
             (bytes->integer (subseq bytes 40 44)) ;subchunk-2-size
             (bytes->samples (nthcdr 44 bytes)
                             (bytes->integer (subseq bytes 32 34))
-                            nil)))
+                            (floor (len (nthcdr 44 bytes)) (bytes->integer (subseq bytes 32 34))))))
 
 ;; TAKES 20.4 seconds to run on voice5.wav.
 
@@ -142,14 +149,6 @@
           (integer->bytes (wav-file-subchunk-2-size wav) 4)
           (samples->bytes (wav-file-data wav) (wav-file-block-align wav))))
 
-; (write-wav-file wav path state)
-; Wrapper to call byte-list->binary-file with the parameters.
-; wav = the wav structure to be written to a file.
-; path = the path to be written to.
-; state = ACL2 state.
-(defun write-wav-file (wav path state)
-  (byte-list->binary-file path (wav->byte-list wav) state))
-
 ; (write-wav data path state)
 ; Wrapper to call write-wav-file with the parameters.
 ; data = the wav structure to be written to a file.
@@ -157,7 +156,7 @@
 ; state = ACL2 state.
 (defun write-wav (data path state)
   (mv-let (error state)
-          (write-wav-file data path state)
+          (byte-list->binary-file path (wav->byte-list data) state)
           (mv "SUCCESS" state)))
 
 ; (read-wav-file file state)
