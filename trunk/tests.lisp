@@ -3,6 +3,7 @@
 (include-book "structures")
 (include-book "operators")
 (include-book "wav")
+(include-book "filter")
 
 ;; Theorems.
 (defthm bytes->integer-thm
@@ -95,5 +96,20 @@
 ;(defproperty wav-test 1
 ;  ((wav (wav-gen 1000) t))
 ;  (equal wav (wav->list (boost 1 (list->wav wav)))))
+
+;filter tests
+(defproperty padding-test 20
+  ((lst (random-list-of (random-int-between 0 1)
+                        (random-int-between 1 50))
+        t))
+  (equal (len (padding lst)) (floor (len lst) 2)))
+
+(defproperty validate-filter-length-test 20
+  ((lst (random-list-of (random-int-between 0 1)
+                        (random-int-between 1 200))
+        t)
+   (filter (validate-filter-length lst)
+           t))
+  (equal (mod (len filter) 2) 1))
 
 (check-properties)
