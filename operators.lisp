@@ -14,7 +14,8 @@
             (wav-file-block-align wav) ;block-align
             (wav-file-bits-per-sample wav) ;bits-per-sample
             (wav-file-subchunk-2-id wav) ;subchunk-2-id
-            (* (length new-data) (* (wav-file-num-channels wav) (/ (wav-file-bits-per-sample wav) 8)))
+            (* (length new-data) (* (wav-file-num-channels wav) 
+                                    (/ (wav-file-bits-per-sample wav) 8)))
             new-data))
 
 (defun modify-sample-rate (wav new-rate)
@@ -137,7 +138,8 @@
       second
       (if (endp second)
           first
-          (cons (+ (car first) (car second)) (add-lists (cdr first) (cdr second))))))
+          (cons (+ (car first) (car second)) 
+                (add-lists (cdr first) (cdr second))))))
 
 ; (overdub wav1 wav2)
 ; Modifies the data in wav2 to be an overdub of wav1 and wav2.
@@ -157,7 +159,8 @@
 (defun fade-in-h (total samples)
   (if (endp samples)
       nil
-      (cons (* (/ (- total (length samples)) total) (car samples)) (fade-in-h total (cdr samples)))))
+      (cons (* (/ (- total (length samples)) total) (car samples))
+            (fade-in-h total (cdr samples)))))
 
 ; (fade-in time wav)
 ; Modifies the audio in a wav file to simulate a fade-in effect
@@ -169,12 +172,19 @@
   (let* ((sample-rate (wav-file-sample-rate wav))
          (num-packets (* (* sample-rate (wav-file-num-channels wav)) time))
          (data (wav-file-data wav)))
-    (modify-data wav (append (fade-in-h num-packets
-                                        (butlast data (- (length data) num-packets)))
-                             (nthcdr num-packets data)))))
+    (modify-data wav 
+                 (append (fade-in-h num-packets
+                                    (butlast data 
+                                             (- (length data) num-packets)))
+                         (nthcdr num-packets data)))))
 
 ;---------------------- ECHO -------------------------
 
+; (multiply-list val xs)
+; Function takes a rational value (val) and a list (xs) and returns a list
+; where each element in xs is multiplied by val.
+; val = a rational value to multiply with each element in a list.
+; xs = a list of rational numbers
 (defun multiply-list (val xs)
   (declare (xargs :guard (and (true-listp xs) (rationalp val))
                   :verify-guards t))
@@ -183,10 +193,23 @@
             (multiply-list val (cdr xs)))
       nil))
 
+; (get-slice x length xs)
+; Function takes a value (x), the length of the slice (length), and a list of 
+; rational numbers (xs).  Then it gets the first length samples from xs and 
+; applies (multiply-list x xs) to the slice.
+; x = the scaling factor.
+; length = the length of the slice to return.
+; xs = a list of rational numbers.
 (defun get-slice (x length xs) 
   (multiply-list x (take length xs)))
 
-;ys is the data
+; (add-lists-echo xs ys)
+; Function takes two lists, one the previous scaled time data (xs) and the 
+; current time slice (ys) and addes, or overdubs, the two two.  If the lists
+; are not the same size, the rest of the original time data is consed onto
+; the return list.
+; xs = the scaled previous data
+; ys = the data
 (defun add-lists-echo (xs ys)
   (if (and (consp xs)
            (consp ys))
@@ -194,6 +217,14 @@
             (add-lists-echo (cdr xs) (cdr ys)))
       ys))
 
+; (echo-helper slice val xs n)
+; Function does the main work to apply echo.  It gets new time slices,
+; applies the scaling factor to those, and overdubs the echo effect onto
+; future data.
+; slice = The current time slice to have echoed in xs.
+; val = The value to scale the slice by.
+; xs = The data samples that can have the slice overdubed onto them.
+; n = This is a counter applied to the function to help prove it terminates.
 (defun echo-helper (slice val xs n)
   (if (zp n)
       nil
@@ -210,7 +241,12 @@
                       rest
                       (- n 1))))))
                 
-
+; (echo-handler length val xs)
+; Function handles the basic operations of applying echoing a wav structure.
+; length = The number of samples to echo, basically the time to echo
+; the wav data by.
+; val = The value to scale the echo samles by.
+; xs = The data from the wav structure.
 (defun echo-handler (length val xs)
   (let ((slice (get-slice val length xs))
         (rest (nthcdr length xs))
@@ -221,8 +257,21 @@
                          rest
                          run-time))))
 
+; (echo time val wav)
+; Function creates an echo effect on a wav structure by overdubing a 
+; current time of samples onto a later time of samples.
+; time = Number of seconds to echo.
+; val = The rational value to scale the current time by, thus making the
+; sound appear to be fading out later.
+; wav = The wav structure to apply echo to.
 (defun echo (time val wav)
-  (modify-data wav (echo-handler (floor (* (* (wav-file-sample-rate wav) (wav-file-num-channels wav)) time) 1) val (wav-file-data wav))))
+  (modify-data wav 
+               (echo-handler 
+                ;calculate the number of samples in the time frame, flooring
+                ;because it must be an integer
+                    (floor (* (* (wav-file-sample-rate wav) 
+                                 (wav-file-num-channels wav)) time) 1) 
+                    val (wav-file-data wav))))
 
 ;--------------------- FADE-OUT ----------------------
 ; (fade-out-h total samples)
@@ -234,7 +283,8 @@
 (defun fade-out-h (total samples)
   (if (endp samples)
       nil
-      (cons (* (/ (length samples) total) (car samples)) (fade-out-h total (cdr samples)))))
+      (cons (* (/ (length samples) total) (car samples))
+            (fade-out-h total (cdr samples)))))
 
 ; (fade-out time wav)
 ; Modifies the audio in a wav file to simulate a fade-out effect
@@ -248,7 +298,8 @@
          (data (wav-file-data wav)))
     (modify-data wav (append (butlast data num-packets)
                              (fade-out-h num-packets
-                                         (nthcdr (- (length data) num-packets) data))))))
+                                         (nthcdr (- (length data) num-packets) 
+                                                 data))))))
 
 ;----------------------- CUT -------------------------
 ; (cut begin end wav)
@@ -261,7 +312,8 @@
   (let ((begin-num-samples (floor (* begin (wav-file-sample-rate wav)) 1))
         (end-num-samples (floor (* end (wav-file-sample-rate wav)) 1))
         (data (wav-file-data wav)))
-    (modify-data wav (nthcdr begin-num-samples (butlast data end-num-samples)))))
+    (modify-data wav (nthcdr begin-num-samples 
+                             (butlast data end-num-samples)))))
 
 ;--------------------- CHIPMUNK -----------------------
 ; (chipmunk p wav)
