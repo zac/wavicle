@@ -57,19 +57,17 @@
 ; (bytes->integer-h bytes)
 ; Helper function that does all the heavy lifting for bytes->integer.
 ; bytes = the bytes to be converted.
-(defun bytes->integer-h (bytes counter)
-  (declare (xargs :guard (integer-listp bytes)
-                  :verify-guards nil))
-  (if (zp counter)
-      0
-      (+ (car bytes) (bytes->integer-h (shift-8-bits (cdr bytes)) (- counter 1)))))
+(defun bytes->integer-h (bytes count)
+  (if (consp bytes)
+      (+ (* (car bytes) (expt 256 count)) (bytes->integer-h (cdr bytes) (+ count 1)))
+      0))
 
 ; (bytes->integer bytes)
 ; Takes a byte list and turns it into a number accounting for
 ; two's complement.
 ; bytes = the bytes to be converted.
 (defun bytes->integer (bytes)
-  (let ((val (bytes->integer-h bytes (length bytes))))
+  (let ((val (bytes->integer-h bytes 0)))
     (if (> (length bytes) 1)
         (unsigned->2scomp val (* 8 (length bytes)))
         (- val 128))))
