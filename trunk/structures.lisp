@@ -1,6 +1,6 @@
 (in-package "ACL2")
 
-;(include-book "world" :dir :teachpacks)
+(include-book "data-structures/structures" :dir :system)
 
 ; wav-file structure
 ;    chunk-id - This is a string containing the ASCII letters "RIFF" to identify
