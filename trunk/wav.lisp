@@ -78,13 +78,12 @@
 ; data = the bytes to be turned into a samples list.
 ; sample-size = the number of bytes for each sample.
 ; acc = holds the tail-recursive list accumulator.
-(defun bytes->samples (data sample-size acc counter)
-  (if (zp counter)
+(defun bytes->samples (data sample-size acc)
+  (if (endp data)
+      (reverse acc)
       (bytes->samples (nthcdr sample-size data) sample-size
                       (cons (/ (bytes->integer (take sample-size data))
-                               (expt 2 (- (* 8 sample-size) 1))) acc)
-                      (- counter sample-size))
-      (reverse acc)))
+                               (expt 2 (- (* 8 sample-size) 1))) acc))))
 
 ; (samples->bytes samples block-align)
 ; Takes a list of samples from -1 to 1 and converts it to a list of bytes.
@@ -119,8 +118,7 @@
             (bytes->integer (subseq bytes 40 44)) ;subchunk-2-size
             (bytes->samples (nthcdr 44 bytes)
                             (bytes->integer (subseq bytes 32 34))
-                            nil
-                            (length bytes))))
+                            nil)))
 
 ;; TAKES 20.4 seconds to run on voice5.wav.
 
