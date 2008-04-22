@@ -109,6 +109,7 @@
 
 ;====================end filter io code====================
 
+; (filter ys wav)
 ; Fucntion is the top level function for filtering a wav structure.
 ; ys = a filter list
 ; wav = a wav structure
