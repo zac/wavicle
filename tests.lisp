@@ -210,20 +210,20 @@
 ; min-length = minimum data length for the wav-file.
 ; max-length = maximum data length for the wav-file.
 (defgenerator random-wav (min-length max-length)
-  (1 (random-list (random-int-between 0 0)
-                  (random-int-between 0 0)
-                  (random-int-between 0 0)
-                  (random-int-between 0 0)
-                  (random-int-between 0 0)
-                  (random-int-between 0 0)
-                  (random-int-between 1 2)
-                  (random-int-between 8000 44000)
-                  (random-int-between 0 0)
-                  (random-int-between 0 0)
-                  (random-int-between 1 4)
-                  (random-int-between 0 0)
-                  (random-int-between 0 0)
-                  (random-list-of (random-int-between -128 127) (random-int-between min-length max-length)))))
+  (1 (random-apply wav-file (random-int-between 0 0)
+                   (random-int-between 0 0)
+                   (random-int-between 0 0)
+                   (random-int-between 0 0)
+                   (random-int-between 0 0)
+                   (random-int-between 0 0)
+                   (random-int-between 1 2)
+                   (random-int-between 8000 44000)
+                   (random-int-between 0 0)
+                   (random-int-between 0 0)
+                   (random-int-between 1 4)
+                   (random-int-between 0 0)
+                   (random-int-between 0 0)
+                   (random-list-of (random-int-between -128 127) (random-int-between min-length max-length)))))
 
 ; (data-length wav)
 ; Convenience function for accessing data length.
@@ -236,44 +236,44 @@
 ; wav1 = first wav to compare.
 ; wav2 = second wav to compare.
 (defun data-equal (wav1 wav2)
-  (equal (nth 13 wav1) (nth 13 wav2)))
+  (equal (wav-file-data wav1) (wav-file-data wav2)))
 
 ; (boost-1-equal)
 ; Boosts a wav once and checks to see if it is the same.
 (defproperty boost-1-equal 5
   ((wav (random-wav 100 10000) t))
-  (data-equal wav (wav->list (boost 1 (list->wav wav)))))
+  (data-equal wav (boost 1 wav)))
 
 ; (fade-in-0-equal)
 ; Fades in a wav for 0 seconds and checks if it stays the same.
 (defproperty fade-in-0-equal 5
   ((wav (random-wav 100 10000) t))
-  (data-equal wav (wav->list (fade-in 0 (list->wav wav)))))
+  (data-equal wav (fade-in 0 wav)))
 
 ; (fade-out-0-equal)
 ; Fades out a wav for 0 seconds and checks if it stays the same.
 (defproperty fade-out-0-equal 5
   ((wav (random-wav 100 10000) t))
-  (data-equal wav (wav->list (fade-out 0 (list->wav wav)))))
+  (data-equal wav (fade-out 0 wav)))
 
 ; (delay-0-equal)
 ; Delays a wav for 0 seconds and checks if it stays the same.
 (defproperty delay-0-equal 5
   ((wav (random-wav 100 10000) t))
-  (data-equal wav (wav->list (delay 0 (list->wav wav)))))
+  (data-equal wav (delay 0 wav)))
 
 ; (cut-0-0-equal)
 ; Cuts 0 from the back and front and checks if it stays the same.
 (defproperty cut-0-0-equal 5
   ((wav (random-wav 100 10000) t))
-  (data-equal wav (wav->list (cut 0 0 (list->wav wav)))))
+  (data-equal wav (cut 0 0 wav)))
 
 ; (echo-0-equal)
 ; Echos for 0 seconds and checks if it stays the same.
 (defproperty echo-0-equal 5
   ((wav (random-wav 100 10000) t)
    (mult (random-int-between 1 2) t))
-  (data-equal wav (wav->list (echo 0 mult (list->wav wav)))))
+  (data-equal wav (echo 0 mult wav)))
 
 ;filter tests
 
